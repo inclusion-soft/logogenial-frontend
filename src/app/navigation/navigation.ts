@@ -75,6 +75,23 @@ export const navigation: FuseNavigation[] = [
                 ]
             },
             {
+                id       : 'admin',
+                title    : 'Administración',
+                translate: 'Administracion',
+                type     : 'collapsable',
+                icon     : 'videogame_asset',
+                children : [
+                    {
+                        id        : 'personas',
+                        title     : 'Personas',
+                        type      : 'item',
+                        url       : '/apps/admin/personas',
+                        exactMatch: true
+                    }
+                ]
+            },
+
+            {
                 id       : 'academy',
                 title    : 'Academy',
                 translate: 'NAV.ACADEMY',
