@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
+import { PersonaModule } from './persona/persona.module';
 
 const routes = [
     {
@@ -57,7 +58,8 @@ const routes = [
 @NgModule({
     imports     : [
         RouterModule.forChild(routes),
-        FuseSharedModule
+        FuseSharedModule,
+        PersonaModule
     ]
 })
 export class AppsModule
