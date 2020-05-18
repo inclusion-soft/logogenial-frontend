@@ -1,4 +1,4 @@
-<div id="products" class="page-layout carded fullwidth inner-scroll">
+<div id="personas" class="page-layout carded fullwidth inner-scroll">
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -31,8 +31,8 @@
                     <input #filter placeholder="Buscar por nombre">
                 </div>
                 <button mat-raised-button
-                    [routerLink]="'/apps/e-commerce/products/new'"
-                    class="add-product-button fuse-white mt-24 mt-md-0">
+                    [routerLink]="'/apps/e-commerce/personas/new'"
+                    class="add-persona-button fuse-white mt-24 mt-md-0">
                     <span>Buscar</span>
                 </button>
             </div>
@@ -40,8 +40,8 @@
 
             <!-- ADD BUTTON -->
             <button mat-raised-button
-                    [routerLink]="'/apps/e-commerce/products/new'"
-                    class="add-product-button fuse-white mt-24 mt-md-0">
+                    [routerLink]="'/apps/e-commerce/personas/new'"
+                    class="add-persona-button fuse-white mt-24 mt-md-0">
                 <span>Crear persona</span>
             </button>
             <!-- / ADD BUTTON -->
@@ -52,7 +52,7 @@
         <!-- CONTENT CARD -->
         <div class="content-card">
 
-            <mat-table class="products-table"
+            <mat-table class="personas-table"
                        #table [dataSource]="dataSource"
                        matSort
                        [@animateStagger]="{value:'50'}"
@@ -61,81 +61,67 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-                    <mat-cell *matCellDef="let product">
-                        <p class="text-truncate">{{product.id}}</p>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- Image Column -->
-                <ng-container matColumnDef="image">
-                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell *matCellDef="let product">
-                        <img class="product-image"
-                             *ngIf="product.featuredImageId" [alt]="product.name"
-                             [src]="product.images[product.featuredImageId].url"/>
-                        <img *ngIf="!product.featuredImageId"
-                             [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                    <mat-cell *matCellDef="let persona">
+                        <p class="text-truncate">{{persona.id}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                    <mat-cell *matCellDef="let product">
-                        <p class="text-truncate">{{product.name}}</p>
+                <ng-container matColumnDef="nombres">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</mat-header-cell>
+                    <mat-cell *matCellDef="let persona">
+                        <p class="text-truncate">{{persona.nombres}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="apellidos">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</mat-header-cell>
+                    <mat-cell *matCellDef="let persona">
+                        <p class="text-truncate">{{persona.apellidos}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Category Column -->
-                <ng-container matColumnDef="category">
-                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Category</mat-header-cell>
-                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-md>
-                        <p class="category text-truncate">
-                            {{product.categories[0]}}
-                        </p>
+                <ng-container matColumnDef="telefono">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Teléfono</mat-header-cell>
+                    <mat-cell *matCellDef="let persona">
+                        <p class="text-truncate">{{persona.telefono}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Price Column -->
-                <ng-container matColumnDef="price">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Price</mat-header-cell>
-                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
-                        <p class="price text-truncate">
-                            {{product.priceTaxIncl | currency:'USD':'symbol'}}
-                        </p>
+                <ng-container matColumnDef="correo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Correo electrónico</mat-header-cell>
+                    <mat-cell *matCellDef="let persona" fxHide fxShow.gt-xs>
+                        <p class="text-truncate">{{persona.correo}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Quantity Column -->
-                <ng-container matColumnDef="quantity">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Quantity</mat-header-cell>
-                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-sm>
-
-                        <span class="quantity-indicator text-truncate"
-                              [ngClass]="{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}">
-                        </span>
-                        <span>
-                            {{product.quantity}}
-                        </span>
-
+                <ng-container matColumnDef="direccion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Dirección</mat-header-cell>
+                    <mat-cell *matCellDef="let persona" fxHide fxShow.gt-xs>
+                        <p class="text-truncate">{{persona.direccion}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Active Column -->
                 <ng-container matColumnDef="active">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Active</mat-header-cell>
-                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
-                        <mat-icon *ngIf="product.active" class="active-icon green-600 s-16">check</mat-icon>
-                        <mat-icon *ngIf="!product.active" class="active-icon red-500 s-16">close</mat-icon>
+                    <mat-cell *matCellDef="let persona" fxHide fxShow.gt-xs>
+                        <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                        <!-- <mat-icon *ngIf="persona.active" class="active-icon green-600 s-16">check</mat-icon>
+                        <mat-icon *ngIf="!persona.active" class="active-icon red-500 s-16">close</mat-icon> -->
                     </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
 
-                <mat-row *matRowDef="let product; columns: displayedColumns;"
-                         class="product"
+                <mat-row *matRowDef="let persona; columns: displayedColumns;"
+                         class="persona"
                          matRipple
-                         [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle">
+                         [routerLink]="'/apps/e-commerce/personas/'+persona.id+'/'+persona.handle">
                 </mat-row>
 
             </mat-table>
@@ -144,7 +130,7 @@
                            [length]="dataSource.filteredData.length"
                            [pageIndex]="0"
                            [pageSize]="10"
-                           [pageSizeOptions]="[5, 10, 25, 100]">
+                           [pageSizeOptions]="[10, 25, 100]">
             </mat-paginator>
 
         </div>
