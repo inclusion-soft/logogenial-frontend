@@ -7,7 +7,6 @@ export class CollectionResponse<T>{
     public size: number;
     public number: number;
     public first: boolean;
-    public numberOfElements: number;
     public empty: boolean;
     public pageable: Pageable;
 }
