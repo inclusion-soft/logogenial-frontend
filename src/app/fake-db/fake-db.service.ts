@@ -77,7 +77,7 @@ export class FakeDbService implements InMemoryDbService
             'profile-about'        : ProfileFakeDb.about,
 
             // Search
-            'search': SearchFakeDb.search,
+            // 'search': SearchFakeDb.search,
 
             // FAQ
             'faq': FaqFakeDb.data,
