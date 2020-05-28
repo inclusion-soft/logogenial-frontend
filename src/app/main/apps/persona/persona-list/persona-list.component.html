@@ -53,7 +53,7 @@
         <div class="content-card">
 
             <mat-table class="personas-table"
-                       #table [dataSource]="dataSource"
+                       #table [dataSource]="personaDatasource"
                        matSort
                        [@animateStagger]="{value:'50'}"
                        fusePerfectScrollbar>
@@ -127,7 +127,6 @@
             </mat-table>
 
             <mat-paginator #paginator
-                           [length]="dataSource.filteredData.length"
                            [pageIndex]="0"
                            [pageSize]="10"
                            [pageSizeOptions]="[10, 25, 100]">

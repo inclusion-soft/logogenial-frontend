@@ -3,41 +3,27 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Persona } from '../model/persona';
+import { environment } from 'environments/environment';
+import { CollectionResponse } from '../../shared/CollectionResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
+    urlService = '/persona-api';
+    constructor(private http: HttpClient) { }
+   
+    // listTodos (request) {
+    //   const endpoint = environment.apiUrl + this.urlService + '/search?pageIndex='
+    //     + request.pageIndex +'&pageSize='+request.pageSize;
+    //   const params = request;
+    //   return this.http.get(endpoint);
+    //   //return this.http.get(endpoint, { params });
+    // }
 
-    constructor(private http:HttpClient) {
-
-    }
-
-    findCourseById(courseId: number): Observable<Persona> {
-        return this.http.get<Persona>(`/api/courses/${courseId}`);
-    }
-
-    findAllCourses(): Observable<Persona[]> {
-        return this.http.get('/api/courses')
-            .pipe(
-                map(res => res['payload'])
-            );
-    }
-
-    findLessons(
-        courseId:number, filter = '', sortOrder = 'asc',
-        pageNumber = 0, pageSize = 3):  Observable<Lesson[]> {
-
-        return this.http.get('/api/lessons', {
-            params: new HttpParams()
-                // .set('courseId', courseId.toString())
-                .set('filter', filter)
-                .set('sortOrder', sortOrder)
-                .set('pageNumber', pageNumber.toString())
-                .set('pageSize', pageSize.toString())
-        }).pipe(
-            map(res =>  res["payload"])
-        );
-    }
-
-}
+    listTodos(request: any): Observable<CollectionResponse<Persona>> {
+        const endpoint = environment.apiUrl + this.urlService + '/search?pageIndex='
+         + request.pageIndex +'&pageSize='+request.pageSize
+        return this.http.get<CollectionResponse<Persona>>(endpoint);
+      }
+  }

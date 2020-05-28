@@ -23,6 +23,8 @@ import { EcommerceProductsService } from '../e-commerce/products/products.servic
 import { EcommerceProductService } from '../e-commerce/product/product.service';
 import { EcommerceOrdersService } from '../e-commerce/orders/orders.service';
 import { EcommerceOrderService } from '../e-commerce/order/order.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PersonaService } from './services/persona.service';
 
 const routes: Routes = [
     {
@@ -38,6 +40,7 @@ const routes: Routes = [
     declarations: [PersonaListComponent],
     imports: [
         RouterModule.forChild(routes),
+        // BrowserAnimationsModule,
         CommonModule,
         MatButtonModule,
         MatChipsModule,
@@ -64,7 +67,8 @@ const routes: Routes = [
         EcommerceProductsService,
         EcommerceProductService,
         EcommerceOrdersService,
-        EcommerceOrderService
+        EcommerceOrderService,
+        PersonaService
     ]
 })
 export class PersonaModule {}
