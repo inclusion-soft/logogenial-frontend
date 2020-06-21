@@ -8,6 +8,7 @@ import { AuthService } from 'app/main/apps/seguridad/services/auth.service';
 import { TokenStorageService } from 'app/main/apps/seguridad/services/token-storage.service';
 import { TokenResultData } from 'app/main/apps/seguridad/model/token-result-data';
 import { Router } from '@angular/router';
+import { Console } from 'console';
 
 @Component({
     selector     : 'login-2',
@@ -20,6 +21,7 @@ export class Login2Component implements OnInit
 {
     userLogin: UserLogin = new UserLogin();
     loginForm: FormGroup;
+    
 
     /**
      * Constructor
@@ -52,6 +54,9 @@ export class Login2Component implements OnInit
                 }
             }
         };
+        this.userLogin.username = 'andres';
+        this.userLogin.password = '12345';
+        this.userLogin.grant_type = 'password';
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -82,7 +87,8 @@ export class Login2Component implements OnInit
                     // this.messageService.add({ key: 'cc', severity: 'error', summary: 'Acción inicio de sesión',
                     // detail: 'Usuario o password incorrecto'});
                 } else {
-                    alert('Se ha presentado un error, por favor inténtelo nuevamente o consulte al administrador');
+                    console.log('Se ha presentado un error, por favor inténtelo nuevamente o consulte al administrador');
+                    // alert('Se ha presentado un error, por favor inténtelo nuevamente o consulte al administrador');
                 }
             });
         }
