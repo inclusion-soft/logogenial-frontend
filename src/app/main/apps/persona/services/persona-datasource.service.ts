@@ -31,7 +31,6 @@ export class PersonaDatasource<Persona>{
             //     finalize(() => this.loadingSubject.next(false))
             // )
             .subscribe((result: any) => {
-                debugger;
                 this.personaSubject.next(result.content);
                 this.countSubject.next(result.totalElements);
             }
