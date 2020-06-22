@@ -11,7 +11,6 @@ export class AuthGuardService {
     constructor(private tokenService: TokenStorageService, private router: Router, private authService: AuthService) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      debugger;
     if (this.tokenService.getTokenUser() != null) {
       return true;
     } else {

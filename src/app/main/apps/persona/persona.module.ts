@@ -26,6 +26,8 @@ import { EcommerceOrderService } from '../e-commerce/order/order.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PersonaService } from './services/persona.service';
 import { AuthGuardService } from '../seguridad/services/auth-guard.service';
+import { CategoriaComponent } from '../admin/categoria/categoria.component';
+import { MatSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [
     {
@@ -35,14 +37,19 @@ const routes: Routes = [
         //     data: AnalyticsDashboardService
         // }
     },
+    {
+        path: 'admin/categoria', canActivate: [AuthGuardService],
+        component: CategoriaComponent,
+    },
 ];
 
 @NgModule({
-    declarations: [PersonaListComponent],
+    declarations: [PersonaListComponent, CategoriaComponent],
     imports: [
         RouterModule.forChild(routes),
         // BrowserAnimationsModule,
         CommonModule,
+        MatProgressSpinnerModule,
         MatButtonModule,
         MatChipsModule,
         MatExpansionModule,
@@ -63,6 +70,9 @@ const routes: Routes = [
 
         FuseSharedModule,
         FuseWidgetModule
+    ],
+    exports: [
+        CategoriaComponent  
     ],
     providers   : [
         EcommerceProductsService,

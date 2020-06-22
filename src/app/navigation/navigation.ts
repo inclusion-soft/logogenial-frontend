@@ -87,6 +87,13 @@ export const navigation: FuseNavigation[] = [
                         type      : 'item',
                         url       : '/apps/admin/personas',
                         exactMatch: true
+                    },
+                    {
+                        id        : 'categoria',
+                        title     : 'Categorías',
+                        type      : 'item',
+                        url       : '/apps/admin/categoria',
+                        exactMatch: true
                     }
                 ]
             },

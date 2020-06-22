@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Persona } from '../model/persona';
 import { environment } from 'environments/environment';
 import { CollectionResponse } from '../../shared/CollectionResponse';
+import { PersonaCriteria } from '../model/persona-criteria';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +13,9 @@ import { CollectionResponse } from '../../shared/CollectionResponse';
 export class PersonaService {
     urlService = '/persona-api';
     constructor(private http: HttpClient) { }
-   
-    // listTodos (request) {
-    //   const endpoint = environment.apiUrl + this.urlService + '/search?pageIndex='
-    //     + request.pageIndex +'&pageSize='+request.pageSize;
-    //   const params = request;
-    //   return this.http.get(endpoint);
-    //   //return this.http.get(endpoint, { params });
-    // }
 
-    listTodos(request: any): Observable<CollectionResponse<Persona>> {
-        const endpoint = environment.apiUrl + this.urlService + '/search?pageIndex='
-         + request.pageIndex +'&pageSize='+request.pageSize
+      search(criteria: PersonaCriteria): Observable<CollectionResponse<Persona>> {
+        const endpoint = environment.apiUrl + this.urlService +  '/search?' + criteria.getUrlParameters();
         return this.http.get<CollectionResponse<Persona>>(endpoint);
       }
   }

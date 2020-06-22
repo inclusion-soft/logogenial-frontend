@@ -4,11 +4,15 @@
     <div class="top-bg accent"></div>
     <!-- / TOP BACKGROUND -->
 
+    
+
     <!-- CENTER -->
     <div class="center">
-
+        <div [hidden]="!loading" class="header accent" >
+            <mat-spinner></mat-spinner>
+        </div>
         <!-- HEADER -->
-        <div class="header accent"
+        <div class="header accent"  [hidden]="loading"
              fxLayout="column" fxLayoutAlign="center center"
              fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
 
@@ -50,11 +54,12 @@
         <!-- / HEADER -->
 
         <!-- CONTENT CARD -->
-        <div class="content-card">
-
+        <div class="content-card"  [hidden]="loading">
             <mat-table class="personas-table"
                        #table [dataSource]="personaDatasource"
-                       matSort
+                       matSort 
+                       matSortActive="nombres"
+                       matSortDirection="asc"
                        [@animateStagger]="{value:'50'}"
                        fusePerfectScrollbar>
 
@@ -108,11 +113,9 @@
 
                 <!-- Active Column -->
                 <ng-container matColumnDef="active">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Active</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Active</mat-header-cell>
                     <mat-cell *matCellDef="let persona" fxHide fxShow.gt-xs>
                         <mat-icon class="active-icon green-600 s-16">check</mat-icon>
-                        <!-- <mat-icon *ngIf="persona.active" class="active-icon green-600 s-16">check</mat-icon>
-                        <mat-icon *ngIf="!persona.active" class="active-icon red-500 s-16">close</mat-icon> -->
                     </mat-cell>
                 </ng-container>
 

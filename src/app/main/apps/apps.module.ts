@@ -3,8 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { PersonaModule } from './persona/persona.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './seguridad/interceptors/auth-interceptor';
 import { AuthGuardService } from './seguridad/services/auth-guard.service';
 
 const routes = [
@@ -63,7 +61,8 @@ const routes = [
         RouterModule.forChild(routes),
         FuseSharedModule,
         PersonaModule
-    ],
+    ]
+    // declarations: [CategoriaComponent],
 })
 export class AppsModule
 {
