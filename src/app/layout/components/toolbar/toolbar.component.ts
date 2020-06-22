@@ -8,6 +8,8 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { TokenStorageService } from 'app/main/apps/seguridad/services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector     : 'toolbar',
@@ -39,7 +41,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
-        private _translateService: TranslateService
+        private _translateService: TranslateService,
+        private _tokenStorage: TokenStorageService,
+        private _router: Router
     )
     {
         // Set the defaults
@@ -159,5 +163,14 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
         // Use the selected language for translations
         this._translateService.use(lang.id);
+    }
+
+    /**
+     * Logout
+     */
+    logout(): void
+    {
+        this._tokenStorage.signOut();
+        this._router.navigate(['/pages/auth/login-2']);
     }
 }

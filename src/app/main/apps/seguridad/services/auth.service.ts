@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserLogin } from '../model/user-login';
 import { TokenResultData } from '../model/token-result-data';
@@ -19,13 +19,34 @@ export class AuthService {
     this.urlService = environment.apiUrl + this.urlService;
   }
   attemptAuth(credentials: UserLogin): Observable<any> {
-    const params = new FormData();
+ 
     const headers = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('angularapp' + ':' + '12345') });
-    //httpOptions.headers = httpOptions.headers.set('Authorization', 'Basic ' + btoa('Username: angularapp' + ' Password=12345'));
-    // params.append('username', credentials.username);
-    // params.append('password', credentials.password);    
-    // params.append('grant_type', 'password');
+    
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", 'Basic ' + btoa('angularapp' + ':' + '12345') );
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("username", "andres");
+    urlencoded.append("password", "12345");
+    urlencoded.append("grant_type", "password");
+
+    const params = new HttpParams({
+        fromObject: {
+          grant_type: 'password',
+          username: credentials.username,
+          password: credentials.password,
+        }
+      });
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Basic ' + btoa('angularapp' + ':' + '12345')
+        })
+      };
+
     const endPoint = this.urlService;
-    return this.http.post<any>(endPoint, credentials, {headers});
+    return this.http.post<any>(endPoint, params, httpOptions);
   }
 }

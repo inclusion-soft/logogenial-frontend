@@ -3,54 +3,57 @@ import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { PersonaModule } from './persona/persona.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './seguridad/interceptors/auth-interceptor';
+import { AuthGuardService } from './seguridad/services/auth-guard.service';
 
 const routes = [
     {
-        path        : 'dashboards/analytics',
+        path        : 'dashboards/analytics', canActivate: [AuthGuardService],
         loadChildren: './dashboards/analytics/analytics.module#AnalyticsDashboardModule'
     },
     {
-        path        : 'dashboards/project',
+        path        : 'dashboards/project', canActivate: [AuthGuardService],
         loadChildren: './dashboards/project/project.module#ProjectDashboardModule'
     },
     {
-        path        : 'mail',
+        path        : 'mail', canActivate: [AuthGuardService],
         loadChildren: './mail/mail.module#MailModule'
     },
     {
-        path        : 'mail-ngrx',
+        path        : 'mail-ngrx', canActivate: [AuthGuardService],
         loadChildren: './mail-ngrx/mail.module#MailNgrxModule'
     },
     {
-        path        : 'chat',
+        path        : 'chat', canActivate: [AuthGuardService],
         loadChildren: './chat/chat.module#ChatModule'
     },
     {
-        path        : 'calendar',
+        path        : 'calendar', canActivate: [AuthGuardService],
         loadChildren: './calendar/calendar.module#CalendarModule'
     },
     {
-        path        : 'e-commerce',
+        path        : 'e-commerce', canActivate: [AuthGuardService],
         loadChildren: './e-commerce/e-commerce.module#EcommerceModule'
     },
     {
-        path        : 'academy',
+        path        : 'academy', canActivate: [AuthGuardService],
         loadChildren: './academy/academy.module#AcademyModule'
     },
     {
-        path        : 'todo',
+        path        : 'todo',  canActivate: [AuthGuardService],
         loadChildren: './todo/todo.module#TodoModule'
     },
     {
-        path        : 'file-manager',
+        path        : 'file-manager', canActivate: [AuthGuardService],
         loadChildren: './file-manager/file-manager.module#FileManagerModule'
     },
     {
-        path        : 'contacts',
+        path        : 'contacts', canActivate: [AuthGuardService],
         loadChildren: './contacts/contacts.module#ContactsModule'
     },
     {
-        path        : 'scrumboard',
+        path        : 'scrumboard', canActivate: [AuthGuardService],
         loadChildren: './scrumboard/scrumboard.module#ScrumboardModule'
     }
 ];
@@ -60,7 +63,7 @@ const routes = [
         RouterModule.forChild(routes),
         FuseSharedModule,
         PersonaModule
-    ]
+    ],
 })
 export class AppsModule
 {

@@ -11,10 +11,11 @@ export class AuthGuardService {
     constructor(private tokenService: TokenStorageService, private router: Router, private authService: AuthService) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.tokenService.getTokenUser != null) {
+      debugger;
+    if (this.tokenService.getTokenUser() != null) {
       return true;
     } else {
-      this.router.navigate(['/login'], {
+      this.router.navigate(['/pages/auth/login-2'], {
         queryParams: {
           return: state.url
         }

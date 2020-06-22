@@ -1,5 +1,5 @@
 export class TokenResultData {
-    token: string;
+    access_token: string;
     apellido: string;
     nombre: string;
     email: string;

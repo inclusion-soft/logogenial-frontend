@@ -25,10 +25,11 @@ import { EcommerceOrdersService } from '../e-commerce/orders/orders.service';
 import { EcommerceOrderService } from '../e-commerce/order/order.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PersonaService } from './services/persona.service';
+import { AuthGuardService } from '../seguridad/services/auth-guard.service';
 
 const routes: Routes = [
     {
-        path: 'admin/personas',
+        path: 'admin/personas', canActivate: [AuthGuardService],
         component: PersonaListComponent,
         // resolve  : {
         //     data: AnalyticsDashboardService

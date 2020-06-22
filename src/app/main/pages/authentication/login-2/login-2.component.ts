@@ -77,7 +77,7 @@ export class Login2Component implements OnInit
     submit(): void {
         if (this.isValid()) {
             this._authService.attemptAuth(this.userLogin).subscribe( (r: TokenResultData) => {
-                this._tokenStorageService.setTokenUser(r.token);
+                this._tokenStorageService.setTokenUser(r.access_token);
                 this._tokenStorageService.setNameUser(r.nombre + ' ' + r.apellido);
                 this._tokenStorageService.setEmail(r.email);
                 this._router.navigate(['/']);

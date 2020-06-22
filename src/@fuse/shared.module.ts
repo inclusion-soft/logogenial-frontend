@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { FusePipesModule } from '@fuse/pipes/pipes.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'app/main/apps/seguridad/interceptors/auth-interceptor';
 
 @NgModule({
     imports  : [
@@ -27,7 +29,10 @@ import { FusePipesModule } from '@fuse/pipes/pipes.module';
 
         FuseDirectivesModule,
         FusePipesModule
-    ]
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ],
 })
 export class FuseSharedModule
 {
