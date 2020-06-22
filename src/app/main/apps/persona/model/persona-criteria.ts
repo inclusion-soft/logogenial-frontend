@@ -4,7 +4,10 @@ import { MatSort } from '@angular/material/sort';
 
 export class PersonaCriteria extends Persona {
   setTableElements(paginator: MatPaginator, sort: MatSort) {
-      throw new Error("Method not implemented.");
+    this.page = paginator.pageIndex;
+    this.size = paginator.pageSize;
+    this.sortOrder = sort.direction;
+    this.sortBy = sort.active;
   }
     
 

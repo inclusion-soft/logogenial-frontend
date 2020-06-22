@@ -56,7 +56,7 @@ export class PersonaListComponent implements OnInit {
             .subscribe();
         this.personaDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
             this.loading = _loading;
-        })
+        });
 
         this.paginator.page.pipe(tap(() => this.searchData())).subscribe();
         this.sort.sortChange.subscribe((dir) => {
@@ -69,10 +69,6 @@ export class PersonaListComponent implements OnInit {
         this.personaCriteria.setTableElements(this.paginator, this.sort);
         this.personaDatasource.sort = this.sort;
         this.personaDatasource.paginator = this.paginator;
-        this.personaCriteria.page = this.paginator.pageIndex;
-        this.personaCriteria.size = this.paginator.pageSize;
-        this.personaCriteria.sortOrder = this.sort.direction;
-        this.personaCriteria.sortBy = this.sort.active;
         this.personaDatasource.search(this.personaCriteria);
     }
 }
