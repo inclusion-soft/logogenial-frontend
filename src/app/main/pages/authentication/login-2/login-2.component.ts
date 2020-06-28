@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
-import { UserLogin } from 'app/main/apps/seguridad/model/user-login';
-import { AuthService } from 'app/main/apps/seguridad/services/auth.service';
-import { TokenStorageService } from 'app/main/apps/seguridad/services/token-storage.service';
-import { TokenResultData } from 'app/main/apps/seguridad/model/token-result-data';
+import { UserLogin } from 'app/main/demo/seguridad/model/user-login';
+import { AuthService } from 'app/main/demo/seguridad/services/auth.service';
+import { TokenStorageService } from 'app/main/demo/seguridad/services/token-storage.service';
+import { TokenResultData } from 'app/main/demo/seguridad/model/token-result-data';
 import { Router } from '@angular/router';
 import { Console } from 'console';
 

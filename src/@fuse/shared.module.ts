@@ -7,7 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { FusePipesModule } from '@fuse/pipes/pipes.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from 'app/main/apps/seguridad/interceptors/auth-interceptor';
+import { AuthInterceptor } from 'app/main/demo/seguridad/interceptors/auth-interceptor';
 
 @NgModule({
     imports  : [

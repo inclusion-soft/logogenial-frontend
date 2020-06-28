@@ -82,25 +82,25 @@ export class FuseShortcutsComponent implements OnInit, AfterViewInit, OnDestroy
                     title: 'Calendar',
                     type : 'item',
                     icon : 'today',
-                    url  : '/apps/calendar'
+                    url  : '/demo/calendar'
                 },
                 {
                     title: 'Mail',
                     type : 'item',
                     icon : 'email',
-                    url  : '/apps/mail'
+                    url  : '/demo/mail'
                 },
                 {
                     title: 'Contacts',
                     type : 'item',
                     icon : 'account_box',
-                    url  : '/apps/contacts'
+                    url  : '/demo/contacts'
                 },
                 {
                     title: 'To-Do',
                     type : 'item',
                     icon : 'check_box',
-                    url  : '/apps/todo'
+                    url  : '/demo/todo'
                 }
             ];
         }

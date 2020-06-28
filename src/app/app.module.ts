@@ -20,12 +20,12 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
-import { AuthGuardService } from './main/apps/seguridad/services/auth-guard.service';
+import { AuthGuardService } from './main/demo/seguridad/services/auth-guard.service';
 
 const appRoutes: Routes = [
     {
-        path        : 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
+        path        : 'demo',
+        loadChildren: './main/demo/demo.module#DemoModule'
     },
     {
         path        : 'pages',
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'apps/dashboards/analytics'
+        redirectTo: 'demo/dashboards/analytics'
     }
 ];
 

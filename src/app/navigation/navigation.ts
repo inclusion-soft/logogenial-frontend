@@ -19,13 +19,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'analytics',
                         title: 'Analytics',
                         type : 'item',
-                        url  : '/apps/dashboards/analytics'
+                        url  : '/demo/dashboards/analytics'
                     },
                     {
                         id   : 'project',
                         title: 'Project',
                         type : 'item',
-                        url  : '/apps/dashboards/project'
+                        url  : '/demo/dashboards/project'
                     }
                 ]
             },
@@ -35,7 +35,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.CALENDAR',
                 type     : 'item',
                 icon     : 'today',
-                url      : '/apps/calendar'
+                url      : '/demo/calendar'
             },
             {
                 id       : 'e-commerce',
@@ -48,28 +48,28 @@ export const navigation: FuseNavigation[] = [
                         id        : 'products',
                         title     : 'Products',
                         type      : 'item',
-                        url       : '/apps/e-commerce/products',
+                        url       : '/demo/e-commerce/products',
                         exactMatch: true
                     },
                     {
                         id        : 'productDetail',
                         title     : 'Product Detail',
                         type      : 'item',
-                        url       : '/apps/e-commerce/products/1/printed-dress',
+                        url       : '/demo/e-commerce/products/1/printed-dress',
                         exactMatch: true
                     },
                     {
                         id        : 'orders',
                         title     : 'Orders',
                         type      : 'item',
-                        url       : '/apps/e-commerce/orders',
+                        url       : '/demo/e-commerce/orders',
                         exactMatch: true
                     },
                     {
                         id        : 'orderDetail',
                         title     : 'Order Detail',
                         type      : 'item',
-                        url       : '/apps/e-commerce/orders/1',
+                        url       : '/demo/e-commerce/orders/1',
                         exactMatch: true
                     }
                 ]
@@ -85,14 +85,14 @@ export const navigation: FuseNavigation[] = [
                         id        : 'personas',
                         title     : 'Personas',
                         type      : 'item',
-                        url       : '/apps/admin/personas',
+                        url       : '/demo/admin/personas',
                         exactMatch: true
                     },
                     {
                         id        : 'categoria',
                         title     : 'Categorías',
                         type      : 'item',
-                        url       : '/apps/admin/categoria',
+                        url       : '/demo/admin/categoria',
                         exactMatch: true
                     }
                 ]
@@ -104,7 +104,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.ACADEMY',
                 type     : 'item',
                 icon     : 'school',
-                url      : '/apps/academy'
+                url      : '/demo/academy'
             },
             {
                 id       : 'mail',
@@ -112,7 +112,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.MAIL.TITLE',
                 type     : 'item',
                 icon     : 'email',
-                url      : '/apps/mail',
+                url      : '/demo/mail',
                 badge    : {
                     title    : '25',
                     translate: 'NAV.MAIL.BADGE',
@@ -126,7 +126,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.MAIL_NGRX.TITLE',
                 type     : 'item',
                 icon     : 'email',
-                url      : '/apps/mail-ngrx',
+                url      : '/demo/mail-ngrx',
                 badge    : {
                     title    : '13',
                     translate: 'NAV.MAIL_NGRX.BADGE',
@@ -140,7 +140,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.CHAT',
                 type     : 'item',
                 icon     : 'chat',
-                url      : '/apps/chat',
+                url      : '/demo/chat',
                 badge    : {
                     title: '13',
                     bg   : '#09d261',
@@ -153,7 +153,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.FILE_MANAGER',
                 type     : 'item',
                 icon     : 'folder',
-                url      : '/apps/file-manager'
+                url      : '/demo/file-manager'
             },
             {
                 id       : 'contacts',
@@ -161,7 +161,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.CONTACTS',
                 type     : 'item',
                 icon     : 'account_box',
-                url      : '/apps/contacts'
+                url      : '/demo/contacts'
             },
             {
                 id       : 'to-do',
@@ -169,7 +169,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.TODO',
                 type     : 'item',
                 icon     : 'check_box',
-                url      : '/apps/todo',
+                url      : '/demo/todo',
                 badge    : {
                     title: '3',
                     bg   : '#FF6F00',
@@ -182,7 +182,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.SCRUMBOARD',
                 type     : 'item',
                 icon     : 'assessment',
-                url      : '/apps/scrumboard'
+                url      : '/demo/scrumboard'
             }
         ]
     },

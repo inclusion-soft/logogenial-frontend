@@ -8,7 +8,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
-import { TokenStorageService } from 'app/main/apps/seguridad/services/token-storage.service';
+import { TokenStorageService } from 'app/main/demo/seguridad/services/token-storage.service';
 import { Router } from '@angular/router';
 
 @Component({
