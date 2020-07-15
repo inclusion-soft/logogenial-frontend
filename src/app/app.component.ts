@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy
         this._fuseNavigationService.setCurrentNavigation('main');
 
         // Add languages
-        this._translateService.addLangs(['en', 'tr']);
+        this._translateService.addLangs(['en']);
 
         // Set the default language
         this._translateService.setDefaultLang('en');

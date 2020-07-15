@@ -97,7 +97,14 @@ export const navigation: FuseNavigation[] = [
                     }
                 ]
             },
-
+            {
+                id       : 'datagenia',
+                title    : 'Datagenia',
+                // translate: 'NAV.CONTACTS',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/contenidos/datagenia/datagenia'
+            },
             {
                 id       : 'academy',
                 title    : 'Academy',
