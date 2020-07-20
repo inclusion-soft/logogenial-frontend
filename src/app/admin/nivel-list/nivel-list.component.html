@@ -1,1 +1,53 @@
-<p>nivel-list works!</p>
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Niveles</mat-card-title>
+    <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
+
+    <!-- <mat-grid-list cols="2" rowHeight="2:1">
+
+    </mat-grid-list>   -->
+
+    <div class="center">
+      <div [hidden]="loading">
+          <mat-table #table [dataSource]="nivelDatasource"
+                     matSort
+                     matSortActive="nombre"
+                     matSortDirection="asc">
+
+              <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                  <mat-cell *matCellDef="let nivel">
+                      <p class="text-truncate">{{nivel.nombre}}</p>
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="nombres">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</mat-header-cell>
+                  <mat-cell *matCellDef="let nivel">
+                      <p class="text-truncate">{{nivel.dificultad}}</p>
+                  </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+          </mat-table>
+
+          <mat-paginator #paginator
+                         [pageIndex]="0"
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15]">
+          </mat-paginator>
+
+      </div>
+  </div>
+
+  </mat-card-content>
+</mat-card>
+
+<!-- <div id="niveles" class="page-layout carded fullwidth inner-scroll">
+
+  <div class="top-bg accent"></div>
+
+
+
+</div> -->
