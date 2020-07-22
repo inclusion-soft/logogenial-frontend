@@ -115,3 +115,14 @@ body {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
+
+
+.blue-snackbar {
+  background: #2196F3;
+}
+.green-snackbar {
+  background: #1DE9B6;
+}
+.red-snackbar {
+  background: #B00020;
+}

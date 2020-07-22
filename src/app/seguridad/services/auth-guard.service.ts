@@ -14,7 +14,7 @@ export class AuthGuardService {
     if (this.tokenService.getTokenUser() != null) {
       return true;
     } else {
-      this.router.navigate(['/pages/auth/login-2'], {
+      this.router.navigate(['/login'], {
         queryParams: {
           return: state.url
         }

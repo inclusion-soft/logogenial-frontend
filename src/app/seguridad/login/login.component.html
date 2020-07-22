@@ -13,17 +13,36 @@
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
+    <form class="example-form" [formGroup]="loginForm">
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nombre de usuario">
+          <input matInput formControlName="email" [(ngModel)]="userLogin.username" placeholder="Nombre de usuario">
+          <mat-error *ngIf="hasError('email', 'required')">
+            usuario es un campo obligatorio
+          </mat-error>
+          <!-- <mat-error
+              *ngIf="!loginForm.get('email').hasError('required') &&
+                      loginForm.get('email').hasError('email')">
+              Por favor inserte un nombre de usuario
+          </mat-error> -->
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Contraseña">
+          <input matInput placeholder="Contraseña" formControlName="password" [(ngModel)]="userLogin.password"
+          [type]="hide ? 'password' : 'text'">
+          <mat-error  *ngIf="hasError('password', 'required')">
+            Contraseña es un campo obligatorio
+          </mat-error>
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">Iniciar sesión</button>
+      <!-- <button mat-stroked-button color="accent" class="btn-block">Iniciar sesión</button> -->
+      <div mat-dialog-actions align="center">
+        <button mat-stroked-button color="accent"  class="submit-button" aria-label="LOGIN"
+        (click)="submit()" [disabled]="loginForm.invalid">
+          Iniciar sesión
+        </button>
+      </div>
+
     </form>
   </mat-card>
 

@@ -11,7 +11,7 @@ import { environment } from 'environments/environment';
 })
 export class NivelService {
 
-  urlService = '/persona-api';
+  urlService = '/nivel-api';
   constructor(private http: HttpClient) { }
 
     search(criteria: NivelCriteria): Observable<CollectionResponse<NivelModel>> {

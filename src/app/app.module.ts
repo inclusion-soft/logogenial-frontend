@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import {SeguridadModule} from './seguridad/seguridad.module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
+import { AuthInterceptor } from './seguridad/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,9 @@ import { SpinnerComponent } from './shared/spinner.component';
   ],
   providers: [
     {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    }
+      provide: LocationStrategy,   useClass: PathLocationStrategy
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
