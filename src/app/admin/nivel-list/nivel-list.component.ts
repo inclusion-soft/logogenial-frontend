@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { tap } from 'rxjs/operators';
 import {NivelModel} from '../nivel/models/nivel-model';
 import { NivelDatasource} from '../nivel/models/nivel-datasource';
 import { NivelService } from './service/nivel.service';
 import { NivelCriteria } from '../nivel/models/nivel-criteria';
+import {CONSTANTS_SHARED} from '../shared/constants-shared';
 
 @Component({
   selector: 'app-nivel-list',
   templateUrl: './nivel-list.component.html',
   styleUrls: ['./nivel-list.component.css']
 })
-export class NivelListComponent implements OnInit {
+export class NivelListComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
   NivelCriteria: NivelCriteria = new NivelCriteria();
   Nivel: NivelModel = new NivelModel();
@@ -26,21 +27,15 @@ export class NivelListComponent implements OnInit {
 
   nivelDatasource!: NivelDatasource<NivelModel>;
   loading = true;
-
-  constructor(private NivelService: NivelService) {}
+  constants = CONSTANTS_SHARED;
+  constructor(private nivelService: NivelService) {}
 
   ngOnInit() {
-      this.nivelDatasource = new NivelDatasource(this.NivelService);
+      this.nivelDatasource = new NivelDatasource(this.nivelService);
   }
 
   ngAfterViewInit(): void {
-      this.nivelDatasource.counter$
-          .pipe(
-              tap((count) => {
-                  this.paginator.length = count;
-              })
-          )
-          .subscribe();
+    this.paginator._intl.itemsPerPageLabel = this.constants.itemPorPagina;
       this.nivelDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
           this.loading = _loading;
       });
@@ -57,8 +52,5 @@ export class NivelListComponent implements OnInit {
       this.nivelDatasource.sort = this.sort;
       this.nivelDatasource.paginator = this.paginator;
       this.nivelDatasource.search(this.NivelCriteria);
-  }
-  test(): void {
-    debugger;
   }
 }
