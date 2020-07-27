@@ -64,11 +64,20 @@ export class LoginComponent implements OnInit {
               // this.snackBar.open("", null, {
               //   config
               // });
-              this.snackBar.open('Nombre de usuario o password incorrecto', '', config);
+              //this.snackBar.open('Nombre de usuario o password incorrecto', '', config);
+
+              this.openSnackBar('Nombre de usuario o password incorrecto', 'Cerrar', 'red-snackbar');
                 // alert('Se ha presentado un error, por favor inténtelo nuevamente o consulte al administrador');
             }
         });
     }
+}
+
+openSnackBar(message: string, action: string, className: string) {
+  this.snackBar.open(message, action, {
+    duration: 2000,
+    panelClass: [className]
+  });
 }
 
 asignarForm(): void {

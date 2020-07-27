@@ -58,4 +58,7 @@ export class NivelListComponent implements OnInit {
       this.nivelDatasource.paginator = this.paginator;
       this.nivelDatasource.search(this.NivelCriteria);
   }
+  test(): void {
+    debugger;
+  }
 }

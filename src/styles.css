@@ -123,6 +123,27 @@ body {
 .green-snackbar {
   background: #1DE9B6;
 }
-.red-snackbar {
+/* .red-snackbar {
   background: #B00020;
+} */
+
+
+.blue-snackbar {
+  background: #2196F3;
 }
+
+.red-snackbar {
+  background: #F44336;
+}
+
+
+/* .mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+  font-weight: bold;
+} */
+
+/* .mat-cell {
+  text-align: center;
+  justify-content:center;
+} */

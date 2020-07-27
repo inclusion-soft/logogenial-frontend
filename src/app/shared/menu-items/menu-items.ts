@@ -8,7 +8,7 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'nivel', name: 'Nivel', type: 'link', icon: 'calendar_view_day' },
+  { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day' },
   { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer' },
   { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' },
   { state: 'grid', type: 'link', name: 'Grid List', icon: 'view_comfy' },

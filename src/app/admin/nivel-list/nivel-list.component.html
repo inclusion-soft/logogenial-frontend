@@ -6,7 +6,9 @@
     <!-- <mat-grid-list cols="2" rowHeight="2:1">
 
     </mat-grid-list>   -->
-
+    <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+    </div>
     <div class="center">
       <div [hidden]="loading">
           <mat-table #table [dataSource]="nivelDatasource"
@@ -15,24 +17,24 @@
                      matSortDirection="asc">
 
               <ng-container matColumnDef="nombre">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>Nombre</b> </mat-header-cell>
                   <mat-cell *matCellDef="let nivel">
-                      <p class="text-truncate">{{nivel.nombre}}</p>
+                     {{nivel.nombre}}
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="dificultad">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Dificultad</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>Dificultad</b></mat-header-cell>
                   <mat-cell *matCellDef="let nivel">
-                      <p class="text-truncate">{{nivel.dificultad}}</p>
+                      {{nivel.dificultad}}
                   </mat-cell>
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
 
-          <mat-paginator #paginator
+          <mat-paginator #paginator [length]="nivelDatasource.counter$ | async"
                          [pageIndex]="0"
                          [pageSize]="5"
                          [pageSizeOptions]="[5, 10, 15]">
@@ -40,7 +42,6 @@
 
       </div>
   </div>
-
   </mat-card-content>
 </mat-card>
 
