@@ -37,7 +37,7 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ constants.activo }}</mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
                     <span class="dev-color-red" [hidden]="menu.activo">{{ constants.no }}</span>
-                    <span class="dev-color-green" [hidden]="!menu.activo">{{ constants.si }}</span>
+                    <span class="alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
                 </mat-cell>
               </ng-container>
 

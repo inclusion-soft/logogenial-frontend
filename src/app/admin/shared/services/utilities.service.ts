@@ -13,44 +13,51 @@ export class UtilitiesService {
   formSuccessCreateMessage(snackBar: MatSnackBar) {
     snackBar.open(this.constants.successSave, 'X', {
       duration: 5000,
-      panelClass: ['success-snackbar']
+      panelClass: ['bg-primary']
     });
   }
 
   formSuccessUpdateMessage(snackBar: MatSnackBar) {
     snackBar.open(this.constants.successEdit, 'X', {
       duration: 5000,
-      panelClass: ['success-snackbar']
+      panelClass: ['bg-primary']
     });
   }
 
   actionSuccessDeleteMessage(snackBar: MatSnackBar) {
     snackBar.open(this.constants.registroEliminado, 'X', {
       duration: 5000,
-      panelClass: ['success-snackbar']
+      panelClass: ['bg-primary']
     });
   }
 
   formWarningMessage(snackBar: MatSnackBar) {
     snackBar.open(this.constants.errorForm, 'X', {
       duration: 5000,
-      panelClass: ['warning-snackbar']
+      panelClass: ['bg-warning']
     });
   }
+
+  // actionNotFoundWarningMessage(snackBar: MatSnackBar) {
+  //   snackBar.open(this.constants.errorForm, 'X', {
+  //     duration: 5000,
+  //     panelClass: ['bg-warning']
+  //   });
+  // }
 
   actionErrorMessages(error:any, snackBar: MatSnackBar) {
     if (error.status === 400 || error.status === 409) {
       snackBar.open(
         this.constants.errorFormatData, 'X', {
         duration: 6000,
-        panelClass: ['error-snackbar']
+        panelClass: ['bg-danger']
       }
       );
     } else if (error.status === 401 || error.status === 403) {
       snackBar.open(
         this.constants.unauthorized, 'X', {
         duration: 6000,
-        panelClass: ['error-snackbar']
+        panelClass: ['bg-danger']
       }
       );
     } else if (error.status === 404) {
@@ -82,7 +89,7 @@ export class UtilitiesService {
       snackBar.open(
         this.constants.error500, 'X', {
         duration: 6000,
-        panelClass: ['error-snackbar']
+        panelClass: ['bg-danger']
       }
       );
     }

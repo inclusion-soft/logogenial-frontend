@@ -140,6 +140,12 @@ body {
   background: crimson;
 }
 
+.alert-danger {
+  background-color: #f44336; /* Red */
+}
+.alert-success {
+  background-color: #36f456;
+}
 
 /* .mat-header-cell {
   flex-direction: column;

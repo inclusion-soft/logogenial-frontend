@@ -56,6 +56,11 @@ export class NivelListComponent implements OnInit, AfterViewInit {
       this.sort.sortChange.subscribe((dir: any) => {
           this.searchData();
       });
+      this.nivelDatasource.errorSubject$.subscribe(resultError => {
+        if ( resultError.ok !== undefined && resultError.ok === false) {
+          this.utilitiesService.actionErrorMessages(resultError, this.snackBar);
+        }
+      });
       this.searchData();
   }
 
@@ -73,7 +78,6 @@ export class NivelListComponent implements OnInit, AfterViewInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const newNivel = new NivelModel();
-    debugger;
     dialogConfig.data = newNivel;
 
     const dialogRef = this.dialog.open(NivelEditComponent, dialogConfig);

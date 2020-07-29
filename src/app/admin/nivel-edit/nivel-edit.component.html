@@ -13,10 +13,6 @@
             <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
             <div *ngIf="f.nombre.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
           </div>
-        <!-- <mat-error *ngIf="form.get('nombre').hasError('required')"> {{ constants.campoRequerido }}
-        </mat-error>
-        <mat-error *ngIf="form.get('nombre').hasError('maxlength')"> {{ constants.longitud_maxima }} 20
-          caracteres. </mat-error> -->
       </mat-form-field>
     </div>
 
@@ -24,10 +20,10 @@
       <mat-form-field class="w-100">
         <input matInput placeholder="{{ constants.dificultad }}" formControlName="dificultad"
           [(ngModel)]="nivel.dificultad" autocomplete="off" type="number" required>
-        <!-- <mat-error *ngIf="form.get('placaInventario').hasError('required')"> {{ constants.campoRequerido }}
-        </mat-error>
-        <mat-error *ngIf="form.get('placaInventario').hasError('maxlength')"> {{ constants.longitud_maxima }} 20
-          caracteres. </mat-error> -->
+          <div *ngIf="submitted && f.dificultad.errors" class="invalid-feedback">
+            <div *ngIf="f.dificultad.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.dificultad.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
       </mat-form-field>
     </div>
 
