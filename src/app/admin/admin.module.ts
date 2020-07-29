@@ -10,15 +10,24 @@ import {AuthInterceptor} from '../seguridad/auth-interceptor';
 import { NivelEditComponent } from './nivel-edit/nivel-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeneralConfirmComponent } from './shared/components/general-confirm/general-confirm.component';
+import { TemaListComponent } from './tema/tema-list/tema-list.component';
+import { TemaEditComponent } from './tema/tema-edit/tema-edit.component';
 
-export const AdminRoutes: Routes = [{
+export const AdminRoutes: Routes = [
+  {
   path: 'nivel',
   component: NivelListComponent,
   canActivate: [AuthGuardService]
-}];
+  },
+  {
+  path: 'tema',
+  component: TemaListComponent,
+  canActivate: [AuthGuardService]
+  }
+];
 
 @NgModule({
-  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent],
+  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent],
   imports: [
     CommonModule,
     DemoMaterialModule,

@@ -26,17 +26,14 @@ export class NivelService {
     }
 
     create (nivel: NivelModel): Observable<NivelModel> {
-      const endpoint = this.urlService;
-      return this.http.post<NivelModel>(endpoint, nivel, httpOptions);
+      return this.http.post<NivelModel>(this.urlService, nivel, httpOptions);
     }
 
     update (nivel: NivelModel): Observable<NivelModel> {
-      const endpoint = this.urlService;
-      return this.http.put<NivelModel>(endpoint, nivel, httpOptions);
+      return this.http.put<NivelModel>(this.urlService, nivel, httpOptions);
     }
 
     delete (nivelId: number): Observable<NivelModel> {
-      const endpoint = this.urlService;
-      return this.http.delete<NivelModel>(endpoint + '/' + nivelId);
+      return this.http.delete<NivelModel>(this.urlService + '/' + nivelId);
     }
 }

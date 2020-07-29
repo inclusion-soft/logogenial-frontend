@@ -1,4 +1,4 @@
-import { CONSTANTS_SHARED } from "app/admin/shared/constants-shared";
+import { CONSTANTS_SHARED } from 'app/admin/shared/constants-shared';
 
 export const NIVELCONSTANTS = {
   dificultad: 'Dificultad',
