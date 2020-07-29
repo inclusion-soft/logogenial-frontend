@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { tap } from 'rxjs/operators';
 import {NivelModel} from '../nivel/models/nivel-model';
 import { NivelDatasource} from '../nivel/models/nivel-datasource';
 import { NivelService } from './service/nivel.service';
 import { NivelCriteria } from '../nivel/models/nivel-criteria';
 import {CONSTANTS_SHARED} from '../shared/constants-shared';
+import { NivelEditComponent } from '../nivel-edit/nivel-edit.component';
+import { GeneralConfirmComponent } from '../shared/components/general-confirm/general-confirm.component';
+import { UtilitiesService } from '../shared/services/utilities.service';
 
 @Component({
   selector: 'app-nivel-list',
@@ -19,6 +22,8 @@ export class NivelListComponent implements OnInit, AfterViewInit {
   displayedColumns = [
       'nombre',
       'dificultad',
+      'activo',
+      'actions'
   ];
   @ViewChild(MatPaginator, { static: false })
   paginator!: MatPaginator;
@@ -28,7 +33,14 @@ export class NivelListComponent implements OnInit, AfterViewInit {
   nivelDatasource!: NivelDatasource<NivelModel>;
   loading = true;
   constants = CONSTANTS_SHARED;
-  constructor(private nivelService: NivelService) {}
+  disabledButton = false;
+
+  constructor(
+    private nivelService: NivelService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private utilitiesService: UtilitiesService
+    ) {}
 
   ngOnInit() {
       this.nivelDatasource = new NivelDatasource(this.nivelService);
@@ -53,4 +65,54 @@ export class NivelListComponent implements OnInit, AfterViewInit {
       this.nivelDatasource.paginator = this.paginator;
       this.nivelDatasource.search(this.NivelCriteria);
   }
+
+  edit(menu: NivelModel): void {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = menu;
+
+    const dialogRef = this.dialog.open(NivelEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
+          this.searchData();
+        }
+      }
+    );
+  }
+
+  delete(menu: NivelModel): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = menu;
+
+    const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
+    // const _this = this;
+    dialogRef.beforeClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.disabledButton = true;
+          this.nivelService.delete(dialogConfig.data.id).subscribe(
+            () => {
+              this.disabledButton = false;
+              this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
+              this.searchData();
+            },
+            error => {
+              this.disabledButton = false;
+              this.utilitiesService.actionErrorMessages(error, this.snackBar);
+            }
+          );
+        }
+      }
+    );
+  }
+
 }

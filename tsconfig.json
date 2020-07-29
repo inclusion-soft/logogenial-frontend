@@ -16,6 +16,10 @@
   ],
   "compilerOptions": {
     "experimentalDecorators": true,
-    "allowJs": true
+    "allowJs": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
   }
 }

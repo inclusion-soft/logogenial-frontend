@@ -60,13 +60,13 @@ export class LoginComponent implements OnInit {
             } else {
               let config = new MatSnackBarConfig();
                 config.duration = 5000;
-                config.panelClass = ['red-snackbar'];
+                config.panelClass = ['error-snackbar'];
               // this.snackBar.open("", null, {
               //   config
               // });
               //this.snackBar.open('Nombre de usuario o password incorrecto', '', config);
 
-              this.openSnackBar('Nombre de usuario o password incorrecto', 'Cerrar', 'red-snackbar');
+              this.openSnackBar('Nombre de usuario o password incorrecto', 'Cerrar', 'error-snackbar');
                 // alert('Se ha presentado un error, por favor inténtelo nuevamente o consulte al administrador');
             }
         });

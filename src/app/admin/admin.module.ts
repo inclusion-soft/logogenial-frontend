@@ -7,6 +7,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthGuardService } from '../seguridad/services/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {AuthInterceptor} from '../seguridad/auth-interceptor';
+import { NivelEditComponent } from './nivel-edit/nivel-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GeneralConfirmComponent } from './shared/components/general-confirm/general-confirm.component';
 
 export const AdminRoutes: Routes = [{
   path: 'nivel',
@@ -15,11 +18,13 @@ export const AdminRoutes: Routes = [{
 }];
 
 @NgModule({
-  declarations: [NivelListComponent],
+  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent],
   imports: [
     CommonModule,
     DemoMaterialModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(AdminRoutes)
   ]
 })

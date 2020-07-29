@@ -2,10 +2,6 @@
   <mat-card-content>
     <mat-card-title>Niveles</mat-card-title>
     <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
-
-    <!-- <mat-grid-list cols="2" rowHeight="2:1">
-
-    </mat-grid-list>   -->
     <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner [diameter]="50" color="primary"></mat-spinner>
     </div>
@@ -30,6 +26,29 @@
                   </mat-cell>
               </ng-container>
 
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ constants.activo }}</mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
+                    <span class="dev-color-red" [hidden]="menu.activo">{{ constants.no }}</span>
+                    <span class="dev-color-green" [hidden]="!menu.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>{{ constants.acciones }}</mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
+                  <!-- <button mat-raised-button  (click)="detail(menu)" color="primary" class="m-1">
+                    <mat-icon matTooltip="Detalles" matTooltipPosition="above">open_in_new</mat-icon>
+                  </button> -->
+                  <button mat-raised-button  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                    <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                  </button>
+                  <button mat-raised-button  (click)="delete(menu)" [disabled]="disabledButton" color="warn" class="m-1">
+                    <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
@@ -44,11 +63,3 @@
   </div>
   </mat-card-content>
 </mat-card>
-
-<!-- <div id="niveles" class="page-layout carded fullwidth inner-scroll">
-
-  <div class="top-bg accent"></div>
-
-
-
-</div> -->

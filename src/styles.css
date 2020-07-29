@@ -128,12 +128,16 @@ body {
 } */
 
 
-.blue-snackbar {
+.success-snackbar {
   background: #2196F3;
 }
 
-.red-snackbar {
-  background: #F44336;
+.warning-snackbar{
+  background-color: coral;
+}
+
+.error-snackbar {
+  background: crimson;
 }
 
 
