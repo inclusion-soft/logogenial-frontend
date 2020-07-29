@@ -42,7 +42,7 @@ export class NivelEditComponent implements OnInit {
 
   initForm() {
    this.form = this.formBuilder.group({
-    'id': [this.nivel.id, Validators.compose([Validators.required])],
+    'id': [this.nivel.id, null],
     'activo': [this.nivel.activo, Validators.compose([Validators.required])],
     'nombre': [this.nivel.nombre, Validators.compose([Validators.required, Validators.maxLength(30)])],
     'dificultad': [this.nivel.dificultad, Validators.compose([Validators.max(9), Validators.pattern('[0-9]*')])],
@@ -65,13 +65,21 @@ export class NivelEditComponent implements OnInit {
   }
 
   save() {
-    this.nivel.dificultad = Number(this.nivel.dificultad);
+    //this.nivel.dificultad = Number(this.nivel.dificultad);
+    if (this.nivel.id === 0) {
+      this.servicio.create(this.form.value).subscribe(
+        data => {
+          this.dialogRef.close(this.form.value);
+        },
+        error => {
+          this.disableSubmit = false;
+          this.utilitiesService.formErrorMessages(error, this.form, this.snackBar);
+        }
+      );
+    }
     this.servicio.update(this.form.value).subscribe(
       data => {
         this.dialogRef.close(this.form.value);
-        // this.procesando$.subscribe(result => {
-        //   this.dialogRef.close(this.form.value);
-        // });
       },
       error => {
         this.disableSubmit = false;

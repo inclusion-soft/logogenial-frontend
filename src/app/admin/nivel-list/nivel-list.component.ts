@@ -66,6 +66,28 @@ export class NivelListComponent implements OnInit, AfterViewInit {
       this.nivelDatasource.search(this.NivelCriteria);
   }
 
+  create(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const newNivel = new NivelModel();
+    debugger;
+    dialogConfig.data = newNivel;
+
+    const dialogRef = this.dialog.open(NivelEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessCreateMessage(this.snackBar);
+          this.searchData();
+        }
+      }
+    );
+  }
+
   edit(menu: NivelModel): void {
 
     const dialogConfig = new MatDialogConfig();

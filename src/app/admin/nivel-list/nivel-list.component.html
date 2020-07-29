@@ -1,6 +1,13 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title>Niveles</mat-card-title>
+    <mat-card-title>Niveles
+      <div fxLayoutAlign="end">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
+          <mat-icon class="m-1">note_add</mat-icon>
+        </button>
+    </div>
+
+    </mat-card-title>
     <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
     <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner [diameter]="50" color="primary"></mat-spinner>
