@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class TemaService {
 
-  urlService = '/tema-api';
+  urlService = 'basic-admin/v1/tema-api';
   constructor(private http: HttpClient) {
     this.urlService = environment.apiUrl + this.urlService;
   }

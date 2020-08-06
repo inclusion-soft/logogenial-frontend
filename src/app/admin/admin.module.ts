@@ -17,12 +17,12 @@ export const AdminRoutes: Routes = [
   {
   path: 'nivel',
   component: NivelListComponent,
-  canActivate: [AuthGuardService]
+  //canActivate: [AuthGuardService]
   },
   {
   path: 'tema',
   component: TemaListComponent,
-  canActivate: [AuthGuardService]
+  //canActivate: [AuthGuardService]
   }
 ];
 
