@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeneralConfirmComponent } from './shared/components/general-confirm/general-confirm.component';
 import { TemaListComponent } from './tema/tema-list/tema-list.component';
 import { TemaEditComponent } from './tema/tema-edit/tema-edit.component';
+import { DatageniaListComponent } from './datagenia/datagenia-list/datagenia-list.component';
+import { DatageniaEditComponent } from './datagenia/datagenia-edit/datagenia-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -23,11 +25,16 @@ export const AdminRoutes: Routes = [
   path: 'tema',
   component: TemaListComponent,
   //canActivate: [AuthGuardService]
+  },
+  {
+    path: 'datagenia',
+    component: DatageniaListComponent,
+    //canActivate: [AuthGuardService]
   }
 ];
 
 @NgModule({
-  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent],
+  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent, DatageniaListComponent, DatageniaEditComponent],
   imports: [
     CommonModule,
     DemoMaterialModule,
