@@ -7,7 +7,8 @@
     <div class="item" fxFlex>
       <mat-form-field class="w-100">
         <input matInput placeholder="{{ constants.nombre }}" formControlName="nombre"
-          [(ngModel)]="datagenia.nombre" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
+          [(ngModel)]="datagenia.nombre" autocomplete
+          ="off" type="text" required pattern="^(?!\s*$).+"
           [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" >
           <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
             <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
