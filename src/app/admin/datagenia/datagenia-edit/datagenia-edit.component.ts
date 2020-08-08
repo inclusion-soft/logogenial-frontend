@@ -52,8 +52,9 @@ export class DatageniaEditComponent implements OnInit{
   }
 
   onChangeArchivo(archivoId: number) {
-    if (archivoId !== null && this.form !== null && this.form !== undefined) {
-      this.form.get('archivoId').setValue(archivoId);
+    if (archivoId > 0 ) {
+      let form = this.form.get('archivoId') as any;
+      form.setValue(archivoId);
     }
   }
 

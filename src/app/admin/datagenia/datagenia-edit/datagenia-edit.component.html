@@ -57,8 +57,7 @@
 
     <div class="item" fxFlex>
       <div class="item" fxFlex="100">
-        <input matInput placeholder="{{ constants.archivoId }}" formControlName="archivoId"
-          [(ngModel)]="datagenia.archivoId" autocomplete="off" type="hidden" required>
+        <input  formControlName="archivoId"     [(ngModel)]="datagenia.archivoId"  type="hidden" required>
           <div *ngIf="submitted && f.archivoId.errors" class="invalid-feedback">
             <div *ngIf="f.archivoId.errors.required">{{ constants.campoRequerido }}</div>
           </div>
