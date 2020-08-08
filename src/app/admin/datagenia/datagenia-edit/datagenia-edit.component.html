@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ constants.editar }} Nivel</h2>
+<h2 mat-dialog-title>{{ constants.editar }} Datagenia</h2>
 
 <mat-dialog-content [formGroup]="form">
   <input type="hidden" formControlName="id" [(ngModel)]="datagenia.id">
@@ -47,8 +47,22 @@
 
     <div class="item" fxFlex>
       <div class="item" fxFlex="50">
-        <mat-checkbox formControlName="compartido" name="compartido" [(value)]="datagenia.compartido" id="compartido">{{ constants.activo }}
+        <mat-checkbox formControlName="compartido" name="compartido" [(value)]="datagenia.compartido" id="compartido">{{ constants.compartido }}
         </mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+
+    <div class="item" fxFlex>
+      <div class="item" fxFlex="100">
+        <input matInput placeholder="{{ constants.archivoId }}" formControlName="archivoId"
+          [(ngModel)]="datagenia.archivoId" autocomplete="off" type="hidden" required>
+          <div *ngIf="submitted && f.archivoId.errors" class="invalid-feedback">
+            <div *ngIf="f.archivoId.errors.required">{{ constants.campoRequerido }}</div>
+          </div>
+        <app-archivo-edit (archivoBaseDatosChange)="onChangeArchivo($event)"></app-archivo-edit>
       </div>
     </div>
   </div>

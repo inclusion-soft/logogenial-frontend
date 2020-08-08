@@ -2,10 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CONSTANT_DATAGENIA } from '../models/CONSTANT_DATAGENIA';
 import { MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
-import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
-import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 import { DatageniaModel } from '../models/datagenia-model';
 import { DatageniaService } from '../services/datagenia.service';
+import { UtilitiesService } from '../../shared/services/utilities.service';
+import { GeneralConfirmComponent } from '../../shared/components/general-confirm/general-confirm.component';
 
 @Component({
   selector: 'app-datagenia-edit',
@@ -42,12 +42,19 @@ export class DatageniaEditComponent implements OnInit{
   initForm() {
    this.form = this.formBuilder.group({
     'id': [this.datagenia.id, null],
+    'archivoId': [this.datagenia.archivoId, Validators.compose([Validators.required])],
     'activo': [this.datagenia.activo, Validators.compose([Validators.required])],
     'nombre': [this.datagenia.nombre, Validators.compose([Validators.required, Validators.maxLength(50)])],
     'frase': [this.datagenia.frase, Validators.compose([Validators.required, Validators.maxLength(500)])],
     'compartido': [this.datagenia.compartido, Validators.compose([Validators.required])],
     'dificultad': [this.datagenia.dificultad, Validators.compose([Validators.max(9), Validators.pattern('[0-9]*')])],
    });
+  }
+
+  onChangeArchivo(archivoId: number) {
+    if (archivoId !== null && this.form !== null && this.form !== undefined) {
+      this.form.get('archivoId').setValue(archivoId);
+    }
   }
 
   onSubmit() {

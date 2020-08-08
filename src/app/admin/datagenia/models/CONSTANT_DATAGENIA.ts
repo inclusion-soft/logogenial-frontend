@@ -5,5 +5,6 @@ export const CONSTANT_DATAGENIA = {
   usuarioCreadorId: 'Propietario',
   compartido: 'Compartir con la comunidad',
   dificultad: 'Dificultad',
+  archivoId: 'Imagen',
   ...CONSTANTS_SHARED
 }

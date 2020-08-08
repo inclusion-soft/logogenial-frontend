@@ -14,6 +14,7 @@ import { TemaListComponent } from './tema/tema-list/tema-list.component';
 import { TemaEditComponent } from './tema/tema-edit/tema-edit.component';
 import { DatageniaListComponent } from './datagenia/datagenia-list/datagenia-list.component';
 import { DatageniaEditComponent } from './datagenia/datagenia-edit/datagenia-edit.component';
+import { ArchivoEditComponent } from './archivo/archivo-edit/archivo-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -34,7 +35,7 @@ export const AdminRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent, DatageniaListComponent, DatageniaEditComponent],
+  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent, DatageniaListComponent, DatageniaEditComponent, ArchivoEditComponent],
   imports: [
     CommonModule,
     DemoMaterialModule,
