@@ -54,6 +54,14 @@
                 </mat-cell>
               </ng-container>
 
+              <ng-container matColumnDef="archivoId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.archivoId}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                  <img  *ngIf="datagenia?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{datagenia.archivoId}}" class="img-thumbnail rounded" alt="{{ datagenia.nombre }}"
+                  style="height: 120px; cursor: pointer;">
+                </mat-cell>
+              </ng-container>
+
               <ng-container matColumnDef="activo">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">

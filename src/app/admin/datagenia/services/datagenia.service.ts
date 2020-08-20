@@ -15,9 +15,13 @@ const httpOptions = {
 })
 export class DatageniaService {
 
-  urlService = 'basic-admin/v1/datagenia-api';
+  private urlService = 'v1/datagenia-api';
   constructor(private http: HttpClient) {
     this.urlService = environment.apiUrl + this.urlService;
+  }
+
+  getEndPoint() {
+    return this.urlService;
   }
 
     search(criteria: DatageniaCriteria): Observable<CollectionResponse<DatageniaModel>> {

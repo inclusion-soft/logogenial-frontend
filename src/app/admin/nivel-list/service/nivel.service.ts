@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class NivelService {
 
-  urlService = 'basic-admin/v1/nivel-api';
+  urlService = 'v1/nivel-api';
   constructor(private http: HttpClient) {
     this.urlService = environment.apiUrl + this.urlService;
   }

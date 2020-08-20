@@ -9,6 +9,7 @@ import { DatageniaEditComponent } from '../datagenia-edit/datagenia-edit.compone
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CONSTANT_DATAGENIA } from '../models/CONSTANT_DATAGENIA';
+import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 
 @Component({
   selector: 'app-datagenia-list',
@@ -25,6 +26,7 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
       'compartido',
       'usuarioCreadorId',
       'dificultad',
+      'archivoId',
       'activo',
       'actions'
   ];
@@ -40,10 +42,11 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
   disabledButton = false;
 
   constructor(
-    private datageniaService: DatageniaService,
+    public datageniaService: DatageniaService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private archivoService: ArchivoService
     ) {}
 
   ngOnInit() {
