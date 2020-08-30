@@ -38,6 +38,6 @@ export class DatageniaService {
     }
 
     delete (temaId: number): Observable<DatageniaModel> {
-      return this.http.delete<DatageniaModel>(this.urlService + '/' + temaId);
+      return this.http.delete<DatageniaModel>(this.urlService + '/deleteById?id=' + temaId);
     }
 }
