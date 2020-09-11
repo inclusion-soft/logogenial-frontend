@@ -19,18 +19,18 @@ import { ArchivoEditComponent } from './archivo/archivo-edit/archivo-edit.compon
 export const AdminRoutes: Routes = [
   {
   path: 'nivel',
-  component: NivelListComponent,
-  //canActivate: [AuthGuardService]
+    component: NivelListComponent,
+    canActivate: [AuthGuardService]
   },
   {
   path: 'tema',
-  component: TemaListComponent,
-  //canActivate: [AuthGuardService]
+    component: TemaListComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'datagenia',
     component: DatageniaListComponent,
-    //canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService]
   }
 ];
 
