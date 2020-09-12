@@ -12,32 +12,68 @@
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
+    <form class="example-form" [formGroup]="registerForm">
 
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
+          <input matInput placeholder="Nombres" formControlName="nombre" [(ngModel)]="userLogin.nombre" [type]="'text'">
+          <mat-error  *ngIf="submitted && registerForm.controls['nombre'].invalid">
+            El campo Nombres es requerido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email">
+          <input matInput placeholder="Apellidos" formControlName="apellido" [(ngModel)]="userLogin.apellido" [type]="'text'">
+          <mat-error  *ngIf="submitted && registerForm.controls['apellido'].invalid">
+            El campo Apellidos es requerido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
+          <input matInput placeholder="Correo electrónico" formControlName="email" [(ngModel)]="userLogin.email" [type]="'text'">
+          <mat-error  *ngIf="submitted && registerForm.controls['email'].invalid">
+            El campo Correo electrónico es requerido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <mat-label>Choose a role...</mat-label>
-          <mat-select [(value)]="selected">
+          <input matInput placeholder="Nick (Nombre corto)" formControlName="username" [(ngModel)]="userLogin.username" [type]="'text'">
+          <mat-error  *ngIf="submitted && registerForm.controls['username'].invalid">
+            El campo Nick es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Contraseña" formControlName="password" [(ngModel)]="userLogin.password" [type]="'password'">
+          <mat-error  *ngIf="submitted && registerForm.controls['password'].invalid">
+            El campo nombre es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Repetir Contraseña" formControlName="repetirPassword" [(ngModel)]="userLogin.repetirPassword" [type]="'password'">
+          <mat-error  *ngIf="submitted && registerForm.controls['repetirPassword'].invalid">
+            El campo nombre es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Quiero ser...</mat-label>
+          <mat-select [(value)]="selected" formControlName="rol" [(ngModel)]="userLogin.rol">
             <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
             </mat-option>
           </mat-select>
+          <mat-error  *ngIf="submitted && registerForm.controls['roles'].invalid">
+            El campo nombre es requerido
+          </mat-error>
         </mat-form-field>
 
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">Register</button>
+      <button mat-stroked-button color="accent" class="btn-block"
+      (click)="submit()" [disabled]="registerForm.invalid || submitted">
+        Registrarse
+      </button>
 
     </form>
   </mat-card>

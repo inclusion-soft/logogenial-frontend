@@ -25,6 +25,10 @@ export class AppSidebarComponent implements OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  getUserName(): string {
+    return this.tokenStorageService.getNameUser();
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }

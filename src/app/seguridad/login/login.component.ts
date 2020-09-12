@@ -28,9 +28,8 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private snackBar: MatSnackBar
   ) {
-    this.userLogin.username = 'andres';
-    this.userLogin.password = '12345';
-    this.userLogin.grant_type = 'password';
+    // this.userLogin.username = 'carlos.romero';
+    // this.userLogin.password = 'carlos.romero';
   }
 
   ngOnInit(): void {
@@ -48,13 +47,12 @@ export class LoginComponent implements OnInit {
     if (this.isValid()) {
       this.asignarForm();
         this._authService.attemptAuth(this.userLogin).subscribe( (r: TokenResultData) => {
-            this._tokenStorageService.setTokenUser(r.access_token);
-            this._tokenStorageService.setNameUser(r.nombre + ' ' + r.apellido);
-            this._tokenStorageService.setEmail(r.email);
+            this._tokenStorageService.setDatosUsuario(r.token);
             this._router.navigate(['/']);
         }, err => {
             if ( err.status === 404 ) {
-                alert('Usuario no encontrado');
+
+                this.openSnackBar('Usuario no encontrado', 'Cerrar', 'error-snackbar');
                 // this.messageService.add({ key: 'cc', severity: 'error', summary: 'Acción inicio de sesión',
                 // detail: 'Usuario o password incorrecto'});
             } else {
