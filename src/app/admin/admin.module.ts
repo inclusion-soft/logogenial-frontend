@@ -15,6 +15,8 @@ import { TemaEditComponent } from './tema/tema-edit/tema-edit.component';
 import { DatageniaListComponent } from './datagenia/datagenia-list/datagenia-list.component';
 import { DatageniaEditComponent } from './datagenia/datagenia-edit/datagenia-edit.component';
 import { ArchivoEditComponent } from './archivo/archivo-edit/archivo-edit.component';
+import { GrupoAdminComponent } from './grupo/grupo-admin/grupo-admin.component';
+import { GrupoEditComponent } from './grupo/grupo-edit/grupo-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -31,11 +33,22 @@ export const AdminRoutes: Routes = [
     path: 'datagenia',
     component: DatageniaListComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'grupo',
+    component: GrupoAdminComponent,
+    canActivate: [AuthGuardService]
   }
 ];
 
 @NgModule({
-  declarations: [NivelListComponent, NivelEditComponent, GeneralConfirmComponent, TemaListComponent, TemaEditComponent, DatageniaListComponent, DatageniaEditComponent, ArchivoEditComponent],
+  declarations: [
+    NivelListComponent, NivelEditComponent, GeneralConfirmComponent,
+    TemaListComponent, TemaEditComponent,
+    DatageniaListComponent, DatageniaEditComponent,
+    ArchivoEditComponent,
+    GrupoAdminComponent, GrupoEditComponent
+  ],
   imports: [
     CommonModule,
     DemoMaterialModule,

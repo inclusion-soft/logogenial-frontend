@@ -1,4 +1,5 @@
 export const CONSTANTS_SHARED = {
+  id: 'Id',
   acciones: 'Acciones',
   actualizacionExitosa: '¡Se actualizaron los datos con exito!',
   actualizar: 'Actualizar',

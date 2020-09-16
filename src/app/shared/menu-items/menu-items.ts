@@ -8,6 +8,7 @@ export interface Menu {
 }
 
 const MENUITEMS = [
+  { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group' },
   { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day' },
   { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction' },
   { state: 'datagenia', name: 'Datagenias', type: 'link', icon: 'image_search' },
