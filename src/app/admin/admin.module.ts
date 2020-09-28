@@ -17,6 +17,10 @@ import { DatageniaEditComponent } from './datagenia/datagenia-edit/datagenia-edi
 import { ArchivoEditComponent } from './archivo/archivo-edit/archivo-edit.component';
 import { GrupoAdminComponent } from './grupo/grupo-admin/grupo-admin.component';
 import { GrupoEditComponent } from './grupo/grupo-edit/grupo-edit.component';
+import { NivelesDataSource } from './niveles/service/niveles-data-source';
+import { NivelesEditComponent } from './niveles/niveles-edit/niveles-edit.component';
+import { NivelesAdminComponent } from './niveles/niveles-admin/niveles-admin.component';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 export const AdminRoutes: Routes = [
   {
@@ -38,7 +42,12 @@ export const AdminRoutes: Routes = [
     path: 'grupo',
     component: GrupoAdminComponent,
     canActivate: [AuthGuardService]
-  }
+  },
+  {
+    path: 'niveles',
+      component: NivelesAdminComponent,
+      canActivate: [AuthGuardService]
+    },
 ];
 
 @NgModule({
@@ -47,7 +56,7 @@ export const AdminRoutes: Routes = [
     TemaListComponent, TemaEditComponent,
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
-    GrupoAdminComponent, GrupoEditComponent
+    GrupoAdminComponent, GrupoEditComponent, NivelesEditComponent, NivelesAdminComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +64,7 @@ export const AdminRoutes: Routes = [
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSelectFilterModule,
     RouterModule.forChild(AdminRoutes)
   ]
 })

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>{{ constants.editar }} Nivel</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="niveles.id">
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="{{ constants.nombre }}" formControlName="nombre"
+          [(ngModel)]="niveles.nombre" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
+          [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" >
+          <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+            <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.nombre.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field>
+        <mat-select placeholder="Nivel" [disableOptionCentering]="true" #select1>
+          <mat-select-filter [placeholder]="'Seleccione...'" *ngIf="select1.focused" [displayMember]="'nombre'" [array]="nivelesList"
+          (filteredReturn)="nivelesListFiltered =$event"> </mat-select-filter>
+          <mat-option *ngFor="let item of nivelesListFiltered" [value]="niveles.nivel">
+            {{item.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="niveles.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+      <!-- <mat-error *ngIf="enviada && form.get('activo').hasError('required')"> {{ constantes.campoRequerido }}
+      </mat-error> -->
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>

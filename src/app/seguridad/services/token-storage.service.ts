@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as jwt_decode from 'jwt-decode';
 
 const USER_TOKEN_KEY = 'tokenUsuario';
 const USER_NAME_KEY = 'nameUsuario';

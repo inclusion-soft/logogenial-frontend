@@ -6,4 +6,7 @@ export class GrupoModel {
     anio!: number;
     activo!: boolean;
     usuario!: UsuarioModel;
+    public constructor() {
+      this.activo = true;
+    }
   }

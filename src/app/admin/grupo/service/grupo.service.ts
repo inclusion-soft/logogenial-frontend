@@ -20,6 +20,10 @@ export class GrupoService  {
     this.urlService = environment.apiUrl + this.urlService;
   }
 
+  getUrlService(): string {
+    return this.urlService;
+  }
+
     search(criteria: GrupoCriteria): Observable<CollectionResponse<GrupoModel>> {
       const endpoint = this.urlService +  '/search?' + criteria.getUrlParameters();
       return this.http.get<CollectionResponse<GrupoModel>>(endpoint);

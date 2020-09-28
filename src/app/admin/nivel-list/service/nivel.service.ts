@@ -25,6 +25,11 @@ export class NivelService {
       return this.http.get<CollectionResponse<NivelModel>>(endpoint);
     }
 
+    findAll(): Observable<NivelModel[]> {
+      const endpoint = this.urlService +  '/findAll';
+      return this.http.get<NivelModel[]>(endpoint);
+    }
+
     create (nivel: NivelModel): Observable<NivelModel> {
       return this.http.post<NivelModel>(this.urlService, nivel, httpOptions);
     }

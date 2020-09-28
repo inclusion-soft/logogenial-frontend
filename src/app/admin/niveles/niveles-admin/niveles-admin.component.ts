@@ -1,30 +1,33 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { tap } from 'rxjs/operators';
-import {GRUPO_CONSTANTS} from '../model/grupo-constants';
-import { GrupoCriteria} from '../model/grupo-criteria';
-import { GrupoModel } from '../model/grupo-model';
-import { GrupoDataSource } from '../service/grupo-data-source';
-import { GrupoService } from '../service/grupo.service';
+import {NIVELES_CONSTANTS} from '../model/niveles-constants';
+import { NivelesCriteria} from '../model/niveles-criteria';
+import { NivelesModel } from '../model/niveles-model';
+import { NivelModel } from '../../nivel/models/nivel-model';
+import { NivelesDataSource } from '../service/niveles-data-source';
+import { NivelesService } from '../service/niveles.service';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
-import { GrupoEditComponent } from '../grupo-edit/grupo-edit.component';
+import { NivelesEditComponent } from '../niveles-edit/niveles-edit.component';
 import { TempDataService } from '../../shared/services/temp-data.service';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
+import { GrupoModel } from 'app/admin/grupo/model/grupo-model';
+import { NivelService } from 'app/admin/nivel-list/service/nivel.service';
 
 @Component({
-  selector: 'app-grupo-admin',
-  templateUrl: './grupo-admin.component.html',
-  styleUrls: ['./grupo-admin.component.css']
+  selector: 'app-niveles-admin',
+  templateUrl: './niveles-admin.component.html',
+  styleUrls: ['./niveles-admin.component.css']
 })
-export class GrupoAdminComponent  implements OnInit, AfterViewInit {
+export class NivelesAdminComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
-  GrupoCriteria: GrupoCriteria = new GrupoCriteria();
-  Grupo: GrupoModel = new GrupoModel();
+  NivelesCriteria: NivelesCriteria = new NivelesCriteria();
+  nivelesList: NivelModel[] = [];
+  Niveles: NivelesModel = new NivelesModel();
   displayedColumns = [
       'nombre',
-      'anio',
       'activo',
       'actions'
   ];
@@ -33,27 +36,40 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort: MatSort = new MatSort;
 
-  grupoDatasource!: GrupoDataSource<GrupoModel>;
+  nivelesDatasource: NivelesDataSource<NivelesModel>;
   loading = true;
-  constants = GRUPO_CONSTANTS;
+  constants = NIVELES_CONSTANTS;
   disabledButton = false;
+  grupo: GrupoModel = new GrupoModel();
 
   constructor(
-    private grupoService: GrupoService,
+    private nivelesService: NivelesService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private utilitiesService: UtilitiesService,
     private tempDataService: TempDataService,
+    private nivelService: NivelService,
     private router: Router
     ) {}
 
   ngOnInit() {
-      this.grupoDatasource = new GrupoDataSource(this.grupoService);
+
+      const grupoSerializado =  this.tempDataService.getDataNivel1();
+      this.grupo = JSON.parse(grupoSerializado);
+      this.NivelesCriteria.grupo = this.grupo;
+      this.nivelesDatasource = new NivelesDataSource(this.nivelesService);
+      this.cargarNiveles();
+  }
+
+  cargarNiveles() {
+    this.nivelService.findAll().subscribe( data => {
+      this.nivelesList = data;
+    });
   }
 
   ngAfterViewInit(): void {
     this.paginator._intl.itemsPerPageLabel = this.constants.itemPorPagina;
-      this.grupoDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
+      this.nivelesDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
           this.loading = _loading;
       });
 
@@ -61,7 +77,7 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
       this.sort.sortChange.subscribe((dir: any) => {
           this.searchData();
       });
-      this.grupoDatasource.errorSubject$.subscribe(resultError => {
+      this.nivelesDatasource.errorSubject$.subscribe(resultError => {
         if ( resultError.ok !== undefined && resultError.ok === false) {
           this.utilitiesService.actionErrorMessages(resultError, this.snackBar);
         }
@@ -70,10 +86,10 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
   }
 
   searchData(): void {
-      this.GrupoCriteria.setTableElements(this.paginator, this.sort);
-      this.grupoDatasource.sort = this.sort;
-      this.grupoDatasource.paginator = this.paginator;
-      this.grupoDatasource.search(this.GrupoCriteria);
+      this.NivelesCriteria.setTableElements(this.paginator, this.sort);
+      this.nivelesDatasource.sort = this.sort;
+      this.nivelesDatasource.paginator = this.paginator;
+      this.nivelesDatasource.search(this.NivelesCriteria);
   }
 
   create(): void {
@@ -82,10 +98,15 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
     dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    const newGrupo = new GrupoModel();
-    dialogConfig.data = newGrupo;
+    const newNiveles = new NivelesModel();
+    newNiveles.grupo = this.grupo;
+    const dataParam = {
+      nivelesList: this.nivelesList,
+      itemData: newNiveles
+    };
+    dialogConfig.data = dataParam;
 
-    const dialogRef = this.dialog.open(GrupoEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(NivelesEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
@@ -97,16 +118,22 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  edit(grupo: GrupoModel): void {
-
+  edit(nivel: NivelesModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'edit-modalbox';
     dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = grupo;
+    if (nivel !== null) {
+      nivel.grupo.id = this.grupo.id;
+    }
+    const dataParam = {
+      nivelesList: this.nivelesList,
+      itemData: nivel
+    };
+    dialogConfig.data = dataParam;
 
-    const dialogRef = this.dialog.open(GrupoEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(NivelesEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
@@ -118,11 +145,11 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  delete(grupo: GrupoModel): void {
+  delete(niveles: NivelesModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = grupo;
+    dialogConfig.data = niveles;
 
     const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
     // const _this = this;
@@ -130,7 +157,7 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
       (val: any) => {
         if (val) {
           this.disabledButton = true;
-          this.grupoService.delete(dialogConfig.data.id).subscribe(
+          this.nivelesService.delete(dialogConfig.data.id).subscribe(
             () => {
               this.disabledButton = false;
               this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
@@ -146,9 +173,11 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  niveles(grupo: GrupoModel): void {
-    this.tempDataService.setDataNivel1( JSON.stringify(grupo));
-    this.router.navigate(['/niveles']);
+  niveles(niveles: NivelesModel): void {
+
+    this.tempDataService.setDataNivel2( JSON.stringify(niveles));
+    this.router.navigate([environment.apiUrl + '/temas']);
   }
 
 }
+

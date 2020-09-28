@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title>Grupos
+    <mat-card-title>Niveles
       <div fxLayoutAlign="end">
         <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
           <mat-icon class="m-1">note_add</mat-icon>
@@ -8,49 +8,63 @@
     </div>
 
     </mat-card-title>
-    <mat-card-subtitle>Grupos registrados</mat-card-subtitle>
+    <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>Grupo</mat-grid-tile>
+        <mat-grid-tile>{{this.grupo.nombre}}</mat-grid-tile>
+      </mat-grid-list>
+
+    </div>
+
+    <!-- <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+      <div class="item" fxlex [formGroup]="form">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="{{ constants.nombre }}" formControlName="grupo" value="this.grupo.nombre"
+            autocomplete="off" type="text">
+        </mat-form-field>
+      </div>
+
+    </div> -->
+
     <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner [diameter]="50" color="primary"></mat-spinner>
     </div>
+    <div class="">
+
+    </div>
     <div class="center">
       <div [hidden]="loading">
-          <mat-table #table [dataSource]="grupoDatasource"
+          <mat-table #table [dataSource]="nivelesDatasource"
                      matSort
                      matSortActive="nombre"
                      matSortDirection="asc">
 
               <ng-container matColumnDef="nombre">
                   <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
-                  <mat-cell *matCellDef="let grupo">
-                     {{grupo.nombre}}
-                  </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="anio">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.anio}}</b></mat-header-cell>
-                  <mat-cell *matCellDef="let grupo">
-                      {{grupo.anio}}
+                  <mat-cell *matCellDef="let nivel">
+                     {{nivel.nombre}}
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="activo">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
-                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
-                    <span class="alert alert-danger" [hidden]="menu.activo">{{ constants.no }}</span>
-                    <span class="alert alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
+                <mat-cell *matCellDef="let niveles" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="niveles.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!niveles.activo">{{ constants.si }}</span>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
-                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
-                  <button mat-raised-button  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                <mat-cell *matCellDef="let niveles" [attr.data-label]="constants.acciones">
+                  <button mat-raised-button  (click)="edit(niveles)" [disabled]="disabledButton" color="primary" class="m-1">
                     <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
                   </button>
-                  <button mat-raised-button  (click)="delete(menu)" [disabled]="disabledButton" color="warn" class="m-1">
+                  <button mat-raised-button  (click)="delete(niveles)" [disabled]="disabledButton" color="warn" class="m-1">
                     <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
                   </button>
-                  <button mat-raised-button  (click)="niveles(menu)" color="primary" class="m-1">
+                  <button mat-raised-button  (click)="niveles(niveles)" color="primary" class="m-1">
                     <mat-icon matTooltip="Niveles" matTooltipPosition="above">line_style</mat-icon>
                   </button>
                 </mat-cell>
@@ -60,7 +74,7 @@
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
 
-          <mat-paginator #paginator [length]="grupoDatasource.counter$ | async"
+          <mat-paginator #paginator [length]="nivelesDatasource.counter$ | async"
                          [pageIndex]="0"
                          [pageSize]="5"
                          [pageSizeOptions]="[5, 10, 15]">
