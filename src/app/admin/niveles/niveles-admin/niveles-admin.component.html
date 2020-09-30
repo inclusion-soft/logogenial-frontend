@@ -37,13 +37,13 @@
       <div [hidden]="loading">
           <mat-table #table [dataSource]="nivelesDatasource"
                      matSort
-                     matSortActive="nombre"
+                     matSortActive="nivel.nombre"
                      matSortDirection="asc">
 
-              <ng-container matColumnDef="nombre">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
-                  <mat-cell *matCellDef="let nivel">
-                     {{nivel.nombre}}
+              <ng-container matColumnDef="nivel">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nivel}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let niveles">
+                     {{niveles.nivel.nombre}}
                   </mat-cell>
               </ng-container>
 

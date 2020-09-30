@@ -21,6 +21,7 @@ import { NivelesDataSource } from './niveles/service/niveles-data-source';
 import { NivelesEditComponent } from './niveles/niveles-edit/niveles-edit.component';
 import { NivelesAdminComponent } from './niveles/niveles-admin/niveles-admin.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 export const AdminRoutes: Routes = [
   {
@@ -65,6 +66,7 @@ export const AdminRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     MatSelectFilterModule,
+    NgxMatSelectSearchModule,
     RouterModule.forChild(AdminRoutes)
   ]
 })

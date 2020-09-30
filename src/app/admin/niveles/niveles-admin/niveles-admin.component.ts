@@ -27,7 +27,7 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
   nivelesList: NivelModel[] = [];
   Niveles: NivelesModel = new NivelesModel();
   displayedColumns = [
-      'nombre',
+      'nivel',
       'activo',
       'actions'
   ];
@@ -53,7 +53,6 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
     ) {}
 
   ngOnInit() {
-
       const grupoSerializado =  this.tempDataService.getDataNivel1();
       this.grupo = JSON.parse(grupoSerializado);
       this.NivelesCriteria.grupo = this.grupo;
@@ -62,7 +61,7 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
   }
 
   cargarNiveles() {
-    this.nivelService.findAll().subscribe( data => {
+    this.nivelService.findAll().subscribe( (data: NivelModel[]) => {
       this.nivelesList = data;
     });
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NivelesModel } from '../model/niveles-model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatDialogConfig, MatDialog } from '@angular/material';
 import { NivelesService } from '../service/niveles.service';
 import { NIVELES_CONSTANTS } from '../model/niveles-constants';
@@ -23,8 +23,14 @@ export class NivelesEditComponent implements OnInit {
   disableSubmit = false;
   nivelesList: NivelModel[] = [];
   nivelesListFiltered: NivelModel[] = this.nivelesList;
+  // selected:any;
 
-  //public nivelesListFiltered = this.nivelesList.slice();
+  // public options2 = [
+  //   {"id": 1, "name": "option1"},
+  //   {"id": 2, "name": "option2"}
+  // ]
+  // selected2 :any;
+  //public nivelesCtrl: FormControl = new FormControl();
 
   constructor(private dialogRef: MatDialogRef<NivelesEditComponent>,
     private formBuilder: FormBuilder,
@@ -38,11 +44,23 @@ export class NivelesEditComponent implements OnInit {
       this.nivelesListFiltered = this.nivelesList.slice();
     }
 
+    // onAfterViewInit(): void {
+    //   // setTimeout(function(_this:any){
+    //   // },300,this);
+    // }
+
   ngOnInit(): void {
+    // this.selected2 = this.options2[1].id;
     if(this.niveles.id > 0) {
       this.clone = JSON.parse(JSON.stringify(this.niveles));
     }
     this.initForm();
+    if(this.niveles.id > 0){
+      const formValue = this.form as any;
+      formValue.value = this.niveles;
+      const toSelect = this.nivelesList.find(c => c.id === this.niveles.nivel.id);
+      this.form.get('nivel')!.setValue(toSelect);
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -52,14 +70,16 @@ export class NivelesEditComponent implements OnInit {
    this.form = this.formBuilder.group({
     'id': [this.niveles.id, null],
     'activo': [this.niveles.activo, Validators.compose([Validators.required])],
-    'nombre': [this.niveles.nombre, Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'nivel': [null, Validators.compose([Validators.required])],
     'grupo': [this.niveles.grupo, null],
    });
+
   }
 
   onSubmit() {
     this.submitted = true;
     // se actualizan las listas con el model
+    this.markFormGroupTouched(this.form);
     this.niveles = this.form.value;
     // this.form.value.permiso = this.menu.permiso;
     // this.form.value.parent = this.menu.parent;
@@ -73,7 +93,6 @@ export class NivelesEditComponent implements OnInit {
   }
 
   save() {
-    //this.niveles.dificultad = Number(this.niveles.dificultad);
     this.disableSubmit = true;
     if (this.niveles.id === 0) {
       this.servicio.create(this.form.value).subscribe(
@@ -98,6 +117,33 @@ export class NivelesEditComponent implements OnInit {
     );
   }
 
+  /**
+   * Método encargado de marcar las validaciones erroneas en el formulario
+   * @param anyForm Grupo del formulario q se esta procesando
+   */
+  // private markAndValidateAllInputs(anyForm: FormGroup) {
+  //   // tslint:disable-next-line: forin
+  //   try {
+  //     // tslint:disable-next-line: forin
+  //     for (const inner in anyForm.controls) {
+  //       anyForm.get('xx').markAsTouched();
+  //       anyForm.get(inner).updateValueAndValidity();
+  //     }
+  //   } catch (error) {
+
+  //   }
+
+  // }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: FormGroup) => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 
   close() {
     const dialogConfig = new MatDialogConfig();

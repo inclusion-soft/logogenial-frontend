@@ -6,26 +6,18 @@
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
 
     <div class="item" fxFlex>
-      <mat-form-field class="w-100">
-        <input matInput placeholder="{{ constants.nombre }}" formControlName="nombre"
-          [(ngModel)]="niveles.nombre" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
-          [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" >
-          <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-            <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
-            <div *ngIf="f.nombre.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
-          </div>
-      </mat-form-field>
-    </div>
 
-    <div class="item" fxFlex>
       <mat-form-field>
-        <mat-select placeholder="Nivel" [disableOptionCentering]="true" #select1>
-          <mat-select-filter [placeholder]="'Seleccione...'" *ngIf="select1.focused" [displayMember]="'nombre'" [array]="nivelesList"
-          (filteredReturn)="nivelesListFiltered =$event"> </mat-select-filter>
-          <mat-option *ngFor="let item of nivelesListFiltered" [value]="niveles.nivel">
-            {{item.nombre}}
-          </mat-option>
-        </mat-select>
+        <mat-select formControlName="nivel">
+           <!-- <ngx-mat-select-search [(ngModel)]="niveles.nivel" [placeholderLabel]="'Buscar...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
+          <mat-option *ngFor="let nivel of nivelesList" [value]="nivel">
+          {{nivel.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.nivel.errors">
+        <div *ngIf="f.nivel.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
       </mat-form-field>
     </div>
 
