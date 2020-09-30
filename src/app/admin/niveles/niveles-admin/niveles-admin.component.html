@@ -9,13 +9,33 @@
 
     </mat-card-title>
     <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+
+
+    <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+       <mat-icon>group</mat-icon>
+     </button>
+     <a [routerLink]="['/grupo']" matTooltip="Volver a grupo {{this.grupo.nombre}}">
+      <span class="font-12 font-normal">Grupo: {{this.grupo.nombre}}</span>
+    </a>
+    &nbsp;
+
+    <a mat-raised-button color="primary"  [routerLink]="['/grupo']"  matTooltip="Volver a grupo {{this.grupo.nombre}}">Volver</a>
+     <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+       <mat-icon>favorite</mat-icon>
+     </button>
+     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button> -->
+   </mat-toolbar>
+
+    <!-- <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
       <mat-grid-list cols="2" rowHeight="2:1">
         <mat-grid-tile>Grupo</mat-grid-tile>
         <mat-grid-tile>{{this.grupo.nombre}}</mat-grid-tile>
       </mat-grid-list>
 
-    </div>
+    </div> -->
 
     <!-- <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
       <div class="item" fxlex [formGroup]="form">
