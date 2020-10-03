@@ -1,7 +1,7 @@
-import { NivelesModel } from './niveles-model';
+import { GrupoNivelModel } from './grupo-nivel-model';
 import { MatPaginator, MatSort } from '@angular/material';
 
-export class NivelesCriteria extends NivelesModel  {
+export class GrupoNivelCriteria extends GrupoNivelModel  {
   setTableElements(paginator: MatPaginator, sort: MatSort) {
     this.page = paginator.pageIndex;
     this.size = paginator.pageSize;
@@ -17,7 +17,7 @@ export class NivelesCriteria extends NivelesModel  {
   /** Filtro de cantidad de registros por página */
   public size = 10;
   /** nombre de la columna por la cual se realizará el ordenamiento */
-  public sortBy = 'nivel.nombre';
+  public sortBy = 'grupo.nombre';
   /** tipo de ordenamiento de la grilla */
   public sortOrder = 'asc';
 

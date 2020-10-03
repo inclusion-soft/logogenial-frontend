@@ -1,7 +1,8 @@
-import {GrupoModel} from '../../grupo/model/grupo-model';
-import { NivelModel } from 'app/admin/nivel/models/nivel-model';
 
-export class NivelesModel {
+import {GrupoModel} from '../../grupo/model/grupo-model';
+import { NivelModel } from '../../nivel/models/nivel-model';
+
+export class GrupoNivelModel {
   id = 0;
   nombre!: string;
   anio!: number;

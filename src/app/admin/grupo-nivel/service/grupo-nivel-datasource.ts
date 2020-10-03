@@ -1,10 +1,11 @@
-import { BehaviorSubject, Observable } from "rxjs";
-import { NivelesService } from './niveles.service';
-import { NivelesCriteria } from '../model/niveles-criteria';
-import { CollectionViewer } from "@angular/cdk/collections";
 
-export class NivelesDataSource <NivelesModel> {
-  private nivelesSubject = new BehaviorSubject<NivelesModel[]>([]);
+import { BehaviorSubject, Observable } from "rxjs";
+import { CollectionViewer } from "@angular/cdk/collections";
+import { GrupoNivelService } from "./grupo-nivel.service";
+import { GrupoNivelCriteria } from "../model/grupo-nivel-criteria";
+
+export class GrupoNivelDatasource <GrupoNivelModel> {
+  private nivelesSubject = new BehaviorSubject<GrupoNivelModel[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private errorSubject = new BehaviorSubject<any>({});
   private countSubject = new BehaviorSubject<number>(0);
@@ -16,9 +17,9 @@ export class NivelesDataSource <NivelesModel> {
   public nivelesData: any;
 
   constructor(
-    private nivelesService: NivelesService) {}
+    private nivelesService: GrupoNivelService) {}
 
-  connect(collectionViewer: CollectionViewer): Observable<NivelesModel[]> {
+  connect(collectionViewer: CollectionViewer): Observable<GrupoNivelModel[]> {
       return this.nivelesSubject.asObservable();
   }
 
@@ -28,7 +29,7 @@ export class NivelesDataSource <NivelesModel> {
       this.countSubject.complete();
   }
 
-  search(nivelesCriteria: NivelesCriteria): void {
+  search(nivelesCriteria: GrupoNivelCriteria): void {
       this.loadingSubject.next(true);
       this.nivelesService.search(nivelesCriteria).subscribe((result: any) => {
           this.nivelesData = result.content;

@@ -1,28 +1,28 @@
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { NivelesModel } from '../model/niveles-model';
+import { GrupoNivelModel } from '../model/grupo-nivel-model';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatDialogConfig, MatDialog } from '@angular/material';
-import { NivelesService } from '../service/niveles.service';
-import { NIVELES_CONSTANTS } from '../model/niveles-constants';
-import { Menu } from 'app/shared/menu-items/menu-items';
+import { GrupoNivelService } from '../service/grupo-nivel.service';
+import { GRUPO_NIVEL_CONSTANTS } from '../model/grupo-nivel-constant';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 import { NivelModel } from 'app/admin/nivel/models/nivel-model';
 
 @Component({
-  selector: 'app-niveles-edit',
-  templateUrl: './niveles-edit.component.html',
-  styleUrls: ['./niveles-edit.component.css']
+  selector: 'app-grupo-nivel-edit',
+  templateUrl: './grupo-nivel-edit.component.html',
+  styleUrls: ['./grupo-nivel-edit.component.css']
 })
-export class NivelesEditComponent implements OnInit {
-  niveles: NivelesModel = new NivelesModel();
+export class GrupoNivelEditComponent implements OnInit {
+  grupoNivel: GrupoNivelModel = new GrupoNivelModel();
   form: FormGroup;
   submitted = false;
-  constants = NIVELES_CONSTANTS;
+  constants = GRUPO_NIVEL_CONSTANTS;
   clone = {};
   disableSubmit = false;
-  nivelesList: NivelModel[] = [];
-  nivelesListFiltered: NivelModel[] = this.nivelesList;
+  grupoNivelList: NivelModel[] = [];
+  grupoNivelListFiltered: NivelModel[] = this.grupoNivelList;
   // selected:any;
 
   // public options2 = [
@@ -30,18 +30,18 @@ export class NivelesEditComponent implements OnInit {
   //   {"id": 2, "name": "option2"}
   // ]
   // selected2 :any;
-  //public nivelesCtrl: FormControl = new FormControl();
+  //public grupo-nivelCtrl: FormControl = new FormControl();
 
-  constructor(private dialogRef: MatDialogRef<NivelesEditComponent>,
+  constructor(private dialogRef: MatDialogRef<GrupoNivelEditComponent>,
     private formBuilder: FormBuilder,
-    private servicio: NivelesService,
+    private servicio: GrupoNivelService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private utilitiesService: UtilitiesService,
     @Inject(MAT_DIALOG_DATA) data: any) {
-      this.niveles = data.itemData;
-      this.nivelesList = data.nivelesList;
-      this.nivelesListFiltered = this.nivelesList.slice();
+      this.grupoNivel = data.itemData;
+      this.grupoNivelList = data.grupoNivelList;
+      this.grupoNivelListFiltered = this.grupoNivelList.slice();
     }
 
     // onAfterViewInit(): void {
@@ -51,14 +51,14 @@ export class NivelesEditComponent implements OnInit {
 
   ngOnInit(): void {
     // this.selected2 = this.options2[1].id;
-    if(this.niveles.id > 0) {
-      this.clone = JSON.parse(JSON.stringify(this.niveles));
+    if(this.grupoNivel.id > 0) {
+      this.clone = JSON.parse(JSON.stringify(this.grupoNivel));
     }
     this.initForm();
-    if(this.niveles.id > 0){
+    if (this.grupoNivel.id > 0) {
       const formValue = this.form as any;
-      formValue.value = this.niveles;
-      const toSelect = this.nivelesList.find(c => c.id === this.niveles.nivel.id);
+      formValue.value = this.grupoNivel;
+      const toSelect = this.grupoNivelList.find(c => c.id === this.grupoNivel.nivel.id);
       this.form.get('nivel')!.setValue(toSelect);
     }
   }
@@ -68,10 +68,10 @@ export class NivelesEditComponent implements OnInit {
 
   initForm() {
    this.form = this.formBuilder.group({
-    'id': [this.niveles.id, null],
-    'activo': [this.niveles.activo, Validators.compose([Validators.required])],
+    'id': [this.grupoNivel.id, null],
+    'activo': [this.grupoNivel.activo, Validators.compose([Validators.required])],
     'nivel': [null, Validators.compose([Validators.required])],
-    'grupo': [this.niveles.grupo, null],
+    'grupo': [this.grupoNivel.grupo, null],
    });
 
   }
@@ -80,7 +80,7 @@ export class NivelesEditComponent implements OnInit {
     this.submitted = true;
     // se actualizan las listas con el model
     this.markFormGroupTouched(this.form);
-    this.niveles = this.form.value;
+    this.grupoNivel = this.form.value;
     // this.form.value.permiso = this.menu.permiso;
     // this.form.value.parent = this.menu.parent;
     if (this.form.valid === true) {
@@ -94,7 +94,7 @@ export class NivelesEditComponent implements OnInit {
 
   save() {
     this.disableSubmit = true;
-    if (this.niveles.id === 0) {
+    if (this.grupoNivel.id === 0) {
       this.servicio.create(this.form.value).subscribe(
         data => {
           this.disableSubmit = false;
@@ -156,7 +156,7 @@ export class NivelesEditComponent implements OnInit {
 
     dialogRef.beforeClosed().subscribe((val: any) => {
       if (val === 1) {
-        Object.assign(this.niveles, this.clone);
+        Object.assign(this.grupoNivel, this.clone);
         this.dialogRef.close();
       }
     });

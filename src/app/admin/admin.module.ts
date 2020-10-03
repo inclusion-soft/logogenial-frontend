@@ -17,11 +17,12 @@ import { DatageniaEditComponent } from './datagenia/datagenia-edit/datagenia-edi
 import { ArchivoEditComponent } from './archivo/archivo-edit/archivo-edit.component';
 import { GrupoAdminComponent } from './grupo/grupo-admin/grupo-admin.component';
 import { GrupoEditComponent } from './grupo/grupo-edit/grupo-edit.component';
-import { NivelesDataSource } from './niveles/service/niveles-data-source';
-import { NivelesEditComponent } from './niveles/niveles-edit/niveles-edit.component';
-import { NivelesAdminComponent } from './niveles/niveles-admin/niveles-admin.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { GrupoNivelTemaAdminComponent } from './grupo-nivel-tema/grupo-nivel-tema-admin/grupo-nivel-tema-admin.component';
+import { GrupoNivelTemaEditComponent } from './grupo-nivel-tema/grupo-nivel-tema-edit/grupo-nivel-tema-edit.component';
+import { GrupoNivelEditComponent } from './grupo-nivel/grupo-nivel-edit/grupo-nivel-edit.component';
+import { GrupoNivelAdminComponent } from './grupo-nivel/grupo-nivel-admin/grupo-nivel-admin.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -46,7 +47,7 @@ export const AdminRoutes: Routes = [
   },
   {
     path: 'niveles',
-      component: NivelesAdminComponent,
+      component: GrupoNivelAdminComponent,
       canActivate: [AuthGuardService]
     },
 ];
@@ -57,7 +58,8 @@ export const AdminRoutes: Routes = [
     TemaListComponent, TemaEditComponent,
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
-    GrupoAdminComponent, GrupoEditComponent, NivelesEditComponent, NivelesAdminComponent
+    GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
+    GrupoNivelEditComponent, GrupoNivelAdminComponent
   ],
   imports: [
     CommonModule,

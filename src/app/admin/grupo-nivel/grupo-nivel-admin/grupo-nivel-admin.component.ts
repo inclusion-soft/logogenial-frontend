@@ -1,31 +1,31 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { tap } from 'rxjs/operators';
-import {NIVELES_CONSTANTS} from '../model/niveles-constants';
-import { NivelesCriteria} from '../model/niveles-criteria';
-import { NivelesModel } from '../model/niveles-model';
+import {GRUPO_NIVEL_CONSTANTS} from '../model/grupo-nivel-constant';
+import { GrupoNivelCriteria} from '../model/grupo-nivel-criteria';
+import { GrupoNivelModel } from '../model/grupo-nivel-model';
 import { NivelModel } from '../../nivel/models/nivel-model';
-import { NivelesDataSource } from '../service/niveles-data-source';
-import { NivelesService } from '../service/niveles.service';
+import { GrupoNivelDatasource } from '../service/grupo-nivel-datasource';
+import { GrupoNivelService } from '../service/grupo-nivel.service';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
-import { NivelesEditComponent } from '../niveles-edit/niveles-edit.component';
 import { TempDataService } from '../../shared/services/temp-data.service';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { GrupoModel } from 'app/admin/grupo/model/grupo-model';
 import { NivelService } from 'app/admin/nivel-list/service/nivel.service';
+import { GrupoNivelEditComponent } from '../grupo-nivel-edit/grupo-nivel-edit.component';
 
 @Component({
-  selector: 'app-niveles-admin',
-  templateUrl: './niveles-admin.component.html',
-  styleUrls: ['./niveles-admin.component.css']
+  selector: 'app-grupo-nivel-admin',
+  templateUrl: './grupo-nivel-admin.component.html',
+  styleUrls: ['./grupo-nivel-admin.component.css']
 })
-export class NivelesAdminComponent implements OnInit, AfterViewInit {
+export class GrupoNivelAdminComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
-  NivelesCriteria: NivelesCriteria = new NivelesCriteria();
-  nivelesList: NivelModel[] = [];
-  Niveles: NivelesModel = new NivelesModel();
+  GrupoNivelCriteria: GrupoNivelCriteria = new GrupoNivelCriteria();
+  grupoNivelList: NivelModel[] = [];
+  GrupoNivel: GrupoNivelModel = new GrupoNivelModel();
   displayedColumns = [
       'nivel',
       'activo',
@@ -36,14 +36,14 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort: MatSort = new MatSort;
 
-  nivelesDatasource: NivelesDataSource<NivelesModel>;
+  grupoNivelDatasource: GrupoNivelDatasource<GrupoNivelModel>;
   loading = true;
-  constants = NIVELES_CONSTANTS;
+  constants = GRUPO_NIVEL_CONSTANTS;
   disabledButton = false;
   grupo: GrupoModel = new GrupoModel();
 
   constructor(
-    private nivelesService: NivelesService,
+    private grupoNivelService: GrupoNivelService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private utilitiesService: UtilitiesService,
@@ -55,20 +55,20 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       const grupoSerializado =  this.tempDataService.getDataNivel1();
       this.grupo = JSON.parse(grupoSerializado);
-      this.NivelesCriteria.grupo = this.grupo;
-      this.nivelesDatasource = new NivelesDataSource(this.nivelesService);
-      this.cargarNiveles();
+      this.GrupoNivelCriteria.grupo = this.grupo;
+      this.grupoNivelDatasource = new GrupoNivelDatasource(this.grupoNivelService);
+      this.cargarGrupoNivel();
   }
 
-  cargarNiveles() {
+  cargarGrupoNivel() {
     this.nivelService.findAll().subscribe( (data: NivelModel[]) => {
-      this.nivelesList = data;
+      this.grupoNivelList = data;
     });
   }
 
   ngAfterViewInit(): void {
     this.paginator._intl.itemsPerPageLabel = this.constants.itemPorPagina;
-      this.nivelesDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
+      this.grupoNivelDatasource.loadingSubject$.subscribe( (_loading: boolean) => {
           this.loading = _loading;
       });
 
@@ -76,7 +76,7 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
       this.sort.sortChange.subscribe((dir: any) => {
           this.searchData();
       });
-      this.nivelesDatasource.errorSubject$.subscribe(resultError => {
+      this.grupoNivelDatasource.errorSubject$.subscribe( (resultError: any) => {
         if ( resultError.ok !== undefined && resultError.ok === false) {
           this.utilitiesService.actionErrorMessages(resultError, this.snackBar);
         }
@@ -85,10 +85,10 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
   }
 
   searchData(): void {
-      this.NivelesCriteria.setTableElements(this.paginator, this.sort);
-      this.nivelesDatasource.sort = this.sort;
-      this.nivelesDatasource.paginator = this.paginator;
-      this.nivelesDatasource.search(this.NivelesCriteria);
+      this.GrupoNivelCriteria.setTableElements(this.paginator, this.sort);
+      this.grupoNivelDatasource.sort = this.sort;
+      this.grupoNivelDatasource.paginator = this.paginator;
+      this.grupoNivelDatasource.search(this.GrupoNivelCriteria);
   }
 
   create(): void {
@@ -97,15 +97,15 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
     dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    const newNiveles = new NivelesModel();
-    newNiveles.grupo = this.grupo;
+    const newGrupoNivel = new GrupoNivelModel();
+    newGrupoNivel.grupo = this.grupo;
     const dataParam = {
-      nivelesList: this.nivelesList,
-      itemData: newNiveles
+      grupoNivelList: this.grupoNivelList,
+      itemData: newGrupoNivel
     };
     dialogConfig.data = dataParam;
 
-    const dialogRef = this.dialog.open(NivelesEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(GrupoNivelEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
@@ -117,7 +117,7 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  edit(nivel: NivelesModel): void {
+  edit(nivel: GrupoNivelModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'edit-modalbox';
     dialogConfig.width = '70%';
@@ -127,12 +127,12 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
       nivel.grupo.id = this.grupo.id;
     }
     const dataParam = {
-      nivelesList: this.nivelesList,
+      grupoNivelList: this.grupoNivelList,
       itemData: nivel
     };
     dialogConfig.data = dataParam;
 
-    const dialogRef = this.dialog.open(NivelesEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(GrupoNivelEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
@@ -144,11 +144,11 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  delete(niveles: NivelesModel): void {
+  delete(grupoNivel: GrupoNivelModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = niveles;
+    dialogConfig.data = grupoNivel;
 
     const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
     // const _this = this;
@@ -156,7 +156,7 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
       (val: any) => {
         if (val) {
           this.disabledButton = true;
-          this.nivelesService.delete(dialogConfig.data.id).subscribe(
+          this.grupoNivelService.delete(dialogConfig.data.id).subscribe(
             () => {
               this.disabledButton = false;
               this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
@@ -172,9 +172,9 @@ export class NivelesAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  niveles(niveles: NivelesModel): void {
+  grupoNivel(grupoNivel: GrupoNivelModel): void {
 
-    this.tempDataService.setDataNivel2( JSON.stringify(niveles));
+    this.tempDataService.setDataNivel2( JSON.stringify(grupoNivel));
     this.router.navigate([environment.apiUrl + '/temas']);
   }
 
