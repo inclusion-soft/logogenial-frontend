@@ -8,7 +8,7 @@
     </div>
 
     </mat-card-title>
-    <mat-card-subtitle>Niveles registrados</mat-card-subtitle>
+    <mat-card-subtitle>{{constants.tituloFormAdmin}}</mat-card-subtitle>
 
 
     <mat-toolbar>
@@ -61,8 +61,8 @@
                   <button mat-raised-button  (click)="delete(grupoNivel)" [disabled]="disabledButton" color="warn" class="m-1">
                     <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
                   </button>
-                  <button mat-raised-button  (click)="grupoNivel(grupoNivel)" color="primary" class="m-1">
-                    <mat-icon matTooltip="Niveles" matTooltipPosition="above">line_style</mat-icon>
+                  <button mat-raised-button  (click)="grupoNivelTemas(grupoNivel)" color="primary" class="m-1">
+                    <mat-icon matTooltip="Temas" matTooltipPosition="above">line_style</mat-icon>
                   </button>
                 </mat-cell>
               </ng-container>

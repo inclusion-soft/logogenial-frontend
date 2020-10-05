@@ -46,10 +46,15 @@ export const AdminRoutes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'niveles',
+    path: 'grupo-nivel',
       component: GrupoNivelAdminComponent,
       canActivate: [AuthGuardService]
-    },
+  },
+  {
+    path: 'grupo-nivel-tema',
+      component: GrupoNivelTemaAdminComponent,
+      canActivate: [AuthGuardService]
+  }
 ];
 
 @NgModule({

@@ -146,9 +146,9 @@ export class GrupoAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  niveles(grupo: GrupoModel): void {
+  grupoNiveles(grupo: GrupoModel): void {
     this.tempDataService.setDataNivel1( JSON.stringify(grupo));
-    this.router.navigate(['/niveles']);
+    this.router.navigate(['/grupo-nivel']);
   }
 
 }

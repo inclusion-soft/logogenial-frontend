@@ -25,6 +25,11 @@ export class TemaService {
       return this.http.get<CollectionResponse<TemaModel>>(endpoint);
     }
 
+    findAll(): Observable<TemaModel[]> {
+      const endpoint = this.urlService +  '/findAll';
+      return this.http.get<TemaModel[]>(endpoint);
+    }
+
     create (tema: TemaModel): Observable<TemaModel> {
       return this.http.post<TemaModel>(this.urlService, tema, httpOptions);
     }
