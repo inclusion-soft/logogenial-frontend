@@ -54,7 +54,7 @@ export class GrupoNivelTemaEditComponent implements OnInit {
       const formValue = this.form as any;
       formValue.value = this.model;
       const toSelect = this.temaList.find(c => c.id === this.model.tema.id);
-      this.form.get('nivel')!.setValue(toSelect);
+      this.form.get('tema')!.setValue(toSelect);
     }
   }
 

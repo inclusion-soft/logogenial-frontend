@@ -97,8 +97,11 @@ export class UtilitiesService {
 
 
   formErrorMessages(error:any, form: FormGroup, snackBar: MatSnackBar) {
+    let errorMessage = '';
+    if (error.error !== undefined && error.error.message !== undefined){
+      errorMessage = error.error.message;
+    }
     if (error.status === 400 || error.status === 409) {
-      let errorMessage: String;
       try {
         form.controls[error.error[0].field].setErrors({ 'incorrect': true });
       } catch (error) { }
@@ -112,30 +115,29 @@ export class UtilitiesService {
       // );
     } else if (error.status === 401 || error.status === 403) {
       snackBar.open(
-        this.constants.unauthorized, 'X', {
+        errorMessage === '' ? this.constants.unauthorized : errorMessage, 'X', {
         duration: 6000,
         panelClass: ['error-snackbar']
       }
       );
     } else if (error.status === 404) {
       snackBar.open(
-        this.constants.noResultados, 'X', {
+        errorMessage === '' ? this.constants.noResultados : errorMessage , 'X', {
         duration: 6000,
         panelClass: ['error-snackbar']
       }
       );
     } else if (error.status === 500) {
-      let errorMessage: String;
       try {
         snackBar.open(
-          this.constants.error500, 'X', {
+          errorMessage === '' ? this.constants.error500 : errorMessage, 'X', {
           duration: 6000,
           panelClass: ['error-snackbar']
         }
         );
       } catch (error) {
         snackBar.open(
-          this.constants.error500, 'X', {
+          errorMessage === '' ? this.constants.error500 : errorMessage, 'X', {
           duration: 6000,
           panelClass: ['error-snackbar']
         }
@@ -144,7 +146,7 @@ export class UtilitiesService {
 
     } else {
       snackBar.open(
-        this.constants.error500, 'X', {
+        errorMessage === '' ? this.constants.error500 : errorMessage, 'X', {
         duration: 6000,
         panelClass: ['error-snackbar']
       }

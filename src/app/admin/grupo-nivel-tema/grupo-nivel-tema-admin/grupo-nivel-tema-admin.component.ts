@@ -26,7 +26,7 @@ export class GrupoNivelTemaAdminComponent implements OnInit, AfterViewInit {
   temaList: TemaModel[] = [];
   GrupoNivelTema: GrupoNivelTemaModel = new GrupoNivelTemaModel();
   displayedColumns = [
-      'nivel',
+      'tema',
       'activo',
       'actions'
   ];

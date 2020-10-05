@@ -65,9 +65,7 @@ export class GrupoEditComponent  implements OnInit {
   }
 
   save() {
-    //this.grupo.dificultad = Number(this.grupo.dificultad);
     this.disableSubmit = true;
-    debugger;
     if (this.grupo.id === 0) {
       this.servicio.create(this.form.value).subscribe(
         data => {

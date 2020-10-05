@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title>Niveles
+    <mat-card-title>{{constants.tituloFormAdmin}}
       <div fxLayoutAlign="end">
         <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
           <mat-icon class="m-1">note_add</mat-icon>
@@ -11,23 +11,20 @@
     <mat-card-subtitle>{{constants.tituloFormAdmin}}</mat-card-subtitle>
 
     <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>group</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo Grupos">
+        <span class="font-12 font-normal">Grupo: {{this.grupoNivel.grupo.nombre}}</span>
+      </a>
+      &nbsp;
 
-          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>group</mat-icon>
-          </button>
-          <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo {{this.grupoNivel.grupo.nombre}}">
-            <span class="font-12 font-normal">Grupo: {{this.grupoNivel.grupo.nombre}}</span>
-          </a>
-          &nbsp;
-
-          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>calendar_view_day</mat-icon>
-          </button>
-          <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a nivel {{this.grupoNivel.nivel.nombre}}">
-            <span class="font-12 font-normal">Nivel: {{this.grupoNivel.nivel.nombre}}</span>
-          </a>
-          &nbsp;
-
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>calendar_view_day</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo {{this.grupoNivel.grupo.nombre}}">
+        <span class="font-12 font-normal">Nivel: {{this.grupoNivel.nivel.nombre}}</span>
+      </a>
    </mat-toolbar>
 
 
@@ -44,18 +41,18 @@
                      matSortActive="grupoNivel.grupo.nombre"
                      matSortDirection="asc">
 
-              <ng-container matColumnDef="nivel">
+              <ng-container matColumnDef="tema">
                   <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nivel}}</b> </mat-header-cell>
-                  <mat-cell *matCellDef="let grupoNivelTema">
-                     {{grupoNivelTema.nivel.nombre}}
+                  <mat-cell *matCellDef="let item">
+                     {{item.tema.nombre}}
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="activo">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
-                <mat-cell *matCellDef="let grupoNivelTema" [attr.data-label]="constants.activo">
-                    <span class="alert alert-danger" [hidden]="grupoNivelTema.activo">{{ constants.no }}</span>
-                    <span class="alert alert-success" [hidden]="!grupoNivelTema.activo">{{ constants.si }}</span>
+                <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
                 </mat-cell>
               </ng-container>
 
