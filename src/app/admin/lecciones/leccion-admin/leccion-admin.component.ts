@@ -33,6 +33,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   constants = LECCIONES_CONSTANTS;
   disabledButton = false;
   grupoNivelTema: GrupoNivelTemaModel = new GrupoNivelTemaModel();
+  LeccionSelectedRowIndex:any;
 
   constructor(
     private grupoNivelService: LeccionService,
@@ -139,6 +140,10 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
         }
       }
     );
+  }
+
+  leccionHighlight(row: any) {
+    this.LeccionSelectedRowIndex = row.id;
   }
 
   // grupoNivelTema(grupoNivel: LeccionModel): void {

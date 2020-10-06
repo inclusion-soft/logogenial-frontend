@@ -24,7 +24,7 @@
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>alt_route</mat-icon>
       </button>
-      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a temas">
+      <a [routerLink]="['/grupo-nivel-tema']" matTooltip="Volver a temas">
         <span class="font-12 font-normal">Tema: {{this.grupoNivelTema.tema.nombre}}</span>
       </a>
 
@@ -76,7 +76,8 @@
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: leccionesDisplayedColumns;"></mat-row>
+              <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionHighlight(row)"
+              [ngClass]="{'highlightTableColor': LeccionSelectedRowIndex == row.id}"></mat-row>
           </mat-table>
 
       </div>
