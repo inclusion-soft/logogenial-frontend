@@ -13,6 +13,7 @@ import { TemaService } from 'app/admin/tema/services/tema.service';
 import { SimpleModel } from '../../shared/model/simple-model';
 import { TemaModel } from 'app/admin/tema/models/tema-model';
 import { GrupoNivelTemaModel } from 'app/admin/grupo-nivel-tema/model/grupo-nivel-tema-model';
+import { LeccionEditComponent } from '../leccion-edit/leccion-edit.component';
 
 @Component({
   selector: 'app-leccion-admin',
@@ -50,7 +51,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   }
 
   cargarLecciones() {
-    this.leccionService.findAll().subscribe( (data: any) => {
+    this.leccionService.findAllByGrupoNivelTemaId(this.grupoNivelTema.id).subscribe( (data: any) => {
       this.lecciones = data;
       this.loadingLecciones = false;
     });
@@ -69,23 +70,22 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const newLeccion = new LeccionModel();
-    // newLeccion.grupoNivel = this.grupoNivel;
-    // const dataParam = {
-    //   temaList: this.temaList,
-    //   itemData: newLeccion
-    // };
-    // dialogConfig.data = dataParam;
+    newLeccion.grupoNivelTema = this.grupoNivelTema;
+    const dataParam = {
+      itemData: newLeccion
+    };
+    dialogConfig.data = dataParam;
 
-    // const dialogRef = this.dialog.open(LeccionEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(LeccionEditComponent, dialogConfig);
 
-    // dialogRef.afterClosed().subscribe(
-    //   (val: any) => {
-    //     if (val) {
-    //       this.utilitiesService.formSuccessCreateMessage(this.snackBar);
-    //       this.searchData();
-    //     }
-    //   }
-    // );
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessCreateMessage(this.snackBar);
+          this.cargarLecciones();
+        }
+      }
+    );
   }
 
   edit(grupoNivelTema: LeccionModel): void {
@@ -94,25 +94,24 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    // if (grupoNivelTema !== null) {
-    //   grupoNivelTema.grupoNivel.id = this.grupoNivel.id;
-    // }
-    // const dataParam = {
-    //   temaList: this.temaList,
-    //   itemData: grupoNivelTema
-    // };
-    // dialogConfig.data = dataParam;
+    if (grupoNivelTema !== null) {
+      grupoNivelTema.id = this.grupoNivelTema.id;
+    }
+    const dataParam = {
+      itemData: grupoNivelTema
+    };
+    dialogConfig.data = dataParam;
 
-    // const dialogRef = this.dialog.open(LeccionEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(LeccionEditComponent, dialogConfig);
 
-    // dialogRef.afterClosed().subscribe(
-    //   (val: any) => {
-    //     if (val) {
-    //       this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
-    //       this.searchData();
-    //     }
-    //   }
-    // );
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
+          this.cargarLecciones();
+        }
+      }
+    );
   }
 
   delete(grupoNivel: LeccionModel): void {
@@ -130,7 +129,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
             () => {
               this.disabledButton = false;
               this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
-              this.searchData();
+              this.cargarLecciones();
             },
             error => {
               this.disabledButton = false;

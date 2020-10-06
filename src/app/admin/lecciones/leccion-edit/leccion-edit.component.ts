@@ -1,38 +1,39 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { GrupoModel } from '../model/grupo-model';
+import { LeccionModel } from '../model/leccion-model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatDialogConfig, MatDialog } from '@angular/material';
-import { GrupoService } from '../service/grupo.service';
-import { GRUPO_CONSTANTS } from '../model/grupo-constants';
+import { LeccionService } from '../service/leccion.service';
+import { LECCIONES_CONSTANTS } from '../model/lecciones-constants-model';
 import { Menu } from 'app/shared/menu-items/menu-items';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 
+
 @Component({
-  selector: 'app-grupo-edit',
-  templateUrl: './grupo-edit.component.html',
-  styleUrls: ['./grupo-edit.component.css']
+  selector: 'app-leccion-edit',
+  templateUrl: './leccion-edit.component.html',
+  styleUrls: ['./leccion-edit.component.css']
 })
-export class GrupoEditComponent implements OnInit {
-  grupo: GrupoModel;
+export class LeccionEditComponent implements OnInit {
+  leccion: LeccionModel;
   form: FormGroup;
   submitted = false;
-  constants = GRUPO_CONSTANTS;
+  constants = LECCIONES_CONSTANTS;
   clone = {};
   disableSubmit: boolean = false;
-  constructor(private dialogRef: MatDialogRef<GrupoEditComponent>,
+  constructor(private dialogRef: MatDialogRef<LeccionEditComponent>,
     private formBuilder: FormBuilder,
-    private servicio: GrupoService,
+    private servicio: LeccionService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private utilitiesService: UtilitiesService,
-    @Inject(MAT_DIALOG_DATA) data: GrupoModel) {
-      this.grupo = data;
+    @Inject(MAT_DIALOG_DATA) data: any) {
+      this.leccion = data.itemData;
     }
 
   ngOnInit(): void {
-    if(this.grupo.id > 0) {
-      this.clone = JSON.parse(JSON.stringify(this.grupo));
+    if(this.leccion.id > 0) {
+      this.clone = JSON.parse(JSON.stringify(this.leccion));
     }
     this.initForm();
   }
@@ -42,17 +43,17 @@ export class GrupoEditComponent implements OnInit {
 
   initForm() {
    this.form = this.formBuilder.group({
-    'id': [this.grupo.id, null],
-    'activo': [this.grupo.activo, Validators.compose([Validators.required])],
-    'nombre': [this.grupo.nombre, Validators.compose([Validators.required, Validators.maxLength(30)])],
-    'anio': [this.grupo.anio, Validators.compose([Validators.max(2050), Validators.pattern('[0-9]*')])],
+    'id': [this.leccion.id, null],
+    'activo': [this.leccion.activo, Validators.compose([Validators.required])],
+    'nombre': [this.leccion.nombre, Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'grupoNivelTema': [this.leccion.grupoNivelTema, null],
    });
   }
 
   onSubmit() {
     this.submitted = true;
     // se actualizan las listas con el model
-    this.grupo = this.form.value;
+    this.leccion = this.form.value;
     // this.form.value.permiso = this.menu.permiso;
     // this.form.value.parent = this.menu.parent;
     if (this.form.valid === true) {
@@ -66,7 +67,7 @@ export class GrupoEditComponent implements OnInit {
 
   save() {
     this.disableSubmit = true;
-    if (this.grupo.id === 0) {
+    if (this.leccion.id === 0) {
       this.servicio.create(this.form.value).subscribe(
         data => {
           this.disableSubmit = false;
@@ -89,7 +90,6 @@ export class GrupoEditComponent implements OnInit {
     );
   }
 
-
   close() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'custom-modalbox';
@@ -101,7 +101,7 @@ export class GrupoEditComponent implements OnInit {
 
     dialogRef.beforeClosed().subscribe((val: any) => {
       if (val === 1) {
-        Object.assign(this.grupo, this.clone);
+        Object.assign(this.leccion, this.clone);
         this.dialogRef.close();
       }
     });
