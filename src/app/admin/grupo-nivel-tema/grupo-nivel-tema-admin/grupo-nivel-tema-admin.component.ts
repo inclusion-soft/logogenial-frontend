@@ -170,10 +170,10 @@ export class GrupoNivelTemaAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  // grupoNivelTema(grupoNivel: GrupoNivelTemaModel): void {
-  //   this.tempDataService.setDataNivel2( JSON.stringify(grupoNivel));
-  //   this.router.navigate([environment.apiUrl + '/temas']);
-  // }
+  lecciones(grupoNivelTema: GrupoNivelTemaModel): void {
+    this.tempDataService.setDataNivel3( JSON.stringify(grupoNivelTema));
+    this.router.navigate(['/lecciones']);
+  }
 
 }
 

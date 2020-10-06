@@ -8,7 +8,7 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'temas', name: 'Temas', type: 'link', icon: 'category' },
+  { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree' },
   { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route' },
   { state: 'grupo-nivel', name: 'Niveles por grupo', type: 'link', icon: 'alt_route' },
   { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group' },

@@ -1,0 +1,91 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{constants.tituloFormAdminLecciones}}
+    </mat-card-title>
+    <mat-card-subtitle>{{constants.tituloFormAdminLecciones}}</mat-card-subtitle>
+
+    <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>group</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo Grupos">
+        <span class="font-12 font-normal">Grupo: {{this.grupoNivelTema.grupoNivel.grupo.nombre}}</span>
+      </a>
+      &nbsp;
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>calendar_view_day</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a niveles">
+        <span class="font-12 font-normal">Nivel: {{this.grupoNivelTema.grupoNivel.grupo.nombre}}</span>
+      </a>
+      &nbsp;
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>alt_route</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a temas">
+        <span class="font-12 font-normal">Tema: {{this.grupoNivelTema.tema.nombre}}</span>
+      </a>
+
+   </mat-toolbar>
+
+   <mat-card class="mat-elevation-z5">
+    <mat-card-header>
+      <mat-card-title>
+        <div fxLayoutAlign="end">
+          <button mat-fab (click)="createLeccion()" color="primary" matTooltip="Crear nueva lección">
+            <mat-icon class="m-1">note_add</mat-icon>
+          </button>
+      </div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loadingLecciones=== true" fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+      </div>
+      <div class="center">
+        <div [hidden]="loadingLecciones">
+          <mat-table #table [dataSource]="lecciones">
+
+              <ng-container matColumnDef="nombre">
+                  <mat-header-cell *matHeaderCellDef><b>{{constants.nombre}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let item">
+                     {{item.nombre}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                  <button mat-raised-button  (click)="edit(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                    <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                  </button>
+                  <button mat-raised-button  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                    <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: leccionesDisplayedColumns;"></mat-row>
+          </mat-table>
+
+      </div>
+    </div>
+
+    </mat-card-content>
+  </mat-card>
+
+
+
+  </mat-card-content>
+</mat-card>
