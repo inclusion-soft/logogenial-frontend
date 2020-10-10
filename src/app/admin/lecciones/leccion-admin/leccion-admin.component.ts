@@ -26,7 +26,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   Leccion: LeccionModel = new LeccionModel();
   leccionesDisplayedColumns = [
     'nombre',
-    'activo',
+    //'activo',
     'actions'
   ];
   loadingLecciones = true;
