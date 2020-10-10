@@ -5,13 +5,24 @@
 
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
-      <mat-form-field class="w-100">
-        <input matInput placeholder="{{ constants.nombre }}" formControlName="nombre"
-          [(ngModel)]="leccion.nombre" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
-          [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" >
-          <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-            <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
-            <div *ngIf="f.nombre.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.leyenda }}" formControlName="leyenda"
+          [(ngModel)]="leccion.leyenda" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
+          [ngClass]="{ 'is-invalid': submitted && f.leyenda.errors }" >
+          <div *ngIf="submitted && f.leyenda.errors" class="invalid-feedback">
+            <div *ngIf="f.leyenda.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.leyenda.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.enumeracion }}" formControlName="enumeracion"
+          [(ngModel)]="leccion.enumeracion" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.enumeracion.errors" class="invalid-feedback">
+            <div *ngIf="f.enumeracion.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.enumeracion.errors.max">{{ constants.valormaximo }} 9</div>
           </div>
       </mat-form-field>
     </div>

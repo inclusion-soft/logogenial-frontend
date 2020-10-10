@@ -45,7 +45,8 @@ export class LeccionEditComponent implements OnInit {
    this.form = this.formBuilder.group({
     'id': [this.leccion.id, null],
     'activo': [this.leccion.activo, Validators.compose([Validators.required])],
-    'nombre': [this.leccion.nombre, Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'leyenda': [this.leccion.leyenda, Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'enumeracion': [this.leccion.enumeracion, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
     'grupoNivelTema': [this.leccion.grupoNivelTema, null],
    });
   }

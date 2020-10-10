@@ -25,7 +25,8 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   lecciones: SimpleModel[] = [];
   Leccion: LeccionModel = new LeccionModel();
   leccionesDisplayedColumns = [
-    'nombre',
+    'enumeracion',
+    'leyenda',
     //'activo',
     'actions'
   ];
