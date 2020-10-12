@@ -25,6 +25,7 @@ import { GrupoNivelEditComponent } from './grupo-nivel/grupo-nivel-edit/grupo-ni
 import { GrupoNivelAdminComponent } from './grupo-nivel/grupo-nivel-admin/grupo-nivel-admin.component';
 import { LeccionAdminComponent } from './lecciones/leccion-admin/leccion-admin.component';
 import { LeccionEditComponent } from './lecciones/leccion-edit/leccion-edit.component';
+import { PreguntaEditComponent } from './preguntas/pregunta-edit/pregunta-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -71,7 +72,7 @@ export const AdminRoutes: Routes = [
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
-    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent
+    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent
   ],
   imports: [
     CommonModule,

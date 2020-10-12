@@ -51,43 +51,43 @@
             <div [hidden]="loadingLecciones">
               <mat-table #table [dataSource]="lecciones">
 
-                  <ng-container matColumnDef="enumeracion">
-                      <mat-header-cell *matHeaderCellDef class="font-11"><b>#</b> </mat-header-cell>
-                      <mat-cell *matCellDef="let item" class="font-11">
-                         {{item.enumeracion}}
-                      </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="leyenda">
-                    <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.leyenda}}</b> </mat-header-cell>
+                <ng-container matColumnDef="enumeracion">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>#</b> </mat-header-cell>
                     <mat-cell *matCellDef="let item" class="font-11">
-                       {{item.leyenda}}
+                        {{item.enumeracion}}
                     </mat-cell>
                 </ng-container>
 
-                  <ng-container matColumnDef="activo">
-                    <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
-                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
-                        <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
-                        <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
-                    </mat-cell>
-                  </ng-container>
+                <ng-container matColumnDef="leyenda">
+                  <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.leyenda}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let item" class="font-11">
+                      {{item.leyenda}}
+                  </mat-cell>
+                </ng-container>
 
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
-                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
-                      <button mat-mini-fab  (click)="edit(item)" [disabled]="disabledButton" color="primary" class="m-1">
-                        <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
-                      </button>
-                      <button mat-mini-fab  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">
-                        <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
-                      </button>
-                    </mat-cell>
-                  </ng-container>
+                <ng-container matColumnDef="activo">
+                  <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                  <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                      <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                      <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                  </mat-cell>
+                </ng-container>
 
-                  <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
-                  <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionHighlight(row)"
-                  [ngClass]="{'highlightTableColor': LeccionSelectedRowIndex == row.id}"></mat-row>
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
+                  <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                    <button mat-mini-fab  (click)="edit(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                      <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                      <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionSelected(row)"
+                [ngClass]="{'highlightTableColor': LeccionSelectedId == row.id}"></mat-row>
               </mat-table>
 
           </div>
@@ -101,36 +101,36 @@
       <mat-card class="mat-elevation-z2">
         <mat-card-header>
           <mat-card-title>
-            Lecciones
+            Preguntas
             <div fxLayoutAlign="end">
-              <button mat-fab (click)="createLeccion()" color="primary" matTooltip="Crear nueva lección">
+              <button mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
                 <mat-icon class="m-1">note_add</mat-icon>
               </button>
           </div>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div *ngIf="loadingLecciones=== true" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngIf="loadingPreguntas=== true" fxLayout="column" fxLayoutAlign="center center">
             <mat-spinner [diameter]="50" color="primary"></mat-spinner>
           </div>
           <div class="center">
-            <div [hidden]="loadingLecciones">
-              <mat-table #table [dataSource]="lecciones">
+            <div [hidden]="loadingPreguntas">
+              <mat-table #table [dataSource]="preguntas">
                   <ng-container matColumnDef="enumeracion">
                     <mat-header-cell *matHeaderCellDef class="font-11"><b>#</b> </mat-header-cell>
                     <mat-cell *matCellDef="let item" class="font-11">
                       {{item.enumeracion}}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="leyenda" >
-                      <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.leyenda}}</b> </mat-header-cell>
+                  <ng-container matColumnDef="descripcion" >
+                      <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.descripcion}}</b> </mat-header-cell>
                       <mat-cell *matCellDef="let item" class="font-11">
-                         {{item.leyenda}}
+                         {{item.descripcion}}
                       </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="activo">
-                    <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                  <ng-container matColumnDef="aprobacion">
+                    <mat-header-cell *matHeaderCellDef><b>{{ constants.aprobacion }}</b></mat-header-cell>
                     <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
                         <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
                         <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
@@ -149,9 +149,9 @@
                     </mat-cell>
                   </ng-container>
 
-                  <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
-                  <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionHighlight(row)"
-                  [ngClass]="{'highlightTableColor': LeccionSelectedRowIndex == row.id}"></mat-row>
+                  <mat-header-row *matHeaderRowDef="PreguntasDisplayedColumns; sticky:true"></mat-header-row>
+                  <mat-row *matRowDef="let row;  let i = index; columns: PreguntasDisplayedColumns;" (click)="preguntaSelected(row)"
+                  [ngClass]="{'highlightTableColor': PreguntaSelectedId == row.id}"></mat-row>
               </mat-table>
 
           </div>

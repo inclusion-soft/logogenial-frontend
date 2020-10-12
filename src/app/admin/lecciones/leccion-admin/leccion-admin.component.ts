@@ -14,6 +14,9 @@ import { SimpleModel } from '../../shared/model/simple-model';
 import { TemaModel } from 'app/admin/tema/models/tema-model';
 import { GrupoNivelTemaModel } from 'app/admin/grupo-nivel-tema/model/grupo-nivel-tema-model';
 import { LeccionEditComponent } from '../leccion-edit/leccion-edit.component';
+import { PreguntaService } from 'app/admin/preguntas/service/pregunta.service';
+import { PreguntaModel } from 'app/admin/preguntas/model/pregunta-model';
+import { PreguntaEditComponent } from 'app/admin/preguntas/pregunta-edit/pregunta-edit.component';
 
 @Component({
   selector: 'app-leccion-admin',
@@ -23,18 +26,25 @@ import { LeccionEditComponent } from '../leccion-edit/leccion-edit.component';
 export class LeccionAdminComponent  implements OnInit, AfterViewInit {
 
   lecciones: SimpleModel[] = [];
+  preguntas: PreguntaModel[] = [];
   Leccion: LeccionModel = new LeccionModel();
   leccionesDisplayedColumns = [
     'enumeracion',
     'leyenda',
-    //'activo',
+    'actions'
+  ];
+  PreguntasDisplayedColumns = [
+    'enumeracion',
+    'descripcion',
     'actions'
   ];
   loadingLecciones = true;
+  loadingPreguntas = false;
   constants = LECCIONES_CONSTANTS;
   disabledButton = false;
   grupoNivelTema: GrupoNivelTemaModel = new GrupoNivelTemaModel();
-  LeccionSelectedRowIndex:any;
+  LeccionSelectedId: number;
+  PreguntaSelectedId: number;
 
   constructor(
     private grupoNivelService: LeccionService,
@@ -43,7 +53,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     private utilitiesService: UtilitiesService,
     private tempDataService: TempDataService,
     private leccionService: LeccionService,
-    private router: Router
+    private preguntaService: PreguntaService
     ) {}
 
   ngOnInit() {
@@ -143,8 +153,46 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  leccionHighlight(row: any) {
-    this.LeccionSelectedRowIndex = row.id;
+  leccionSelected(row: any) {
+    this.LeccionSelectedId = row.id;
+    this.cargarPreguntas(row.id);
+  }
+
+  cargarPreguntas(leccionId: number) {
+    this.loadingPreguntas = true;
+    this.preguntaService.findAllByLeccionId(leccionId).subscribe( (data: any) => {
+      this.preguntas = data;
+      this.loadingPreguntas = false;
+    });
+  }
+
+  createPregunta(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const newPregunta = new PreguntaModel();
+    newPregunta.leccion.id = this.LeccionSelectedId;
+    const dataParam = {
+      itemData: newPregunta
+    };
+    dialogConfig.data = dataParam;
+
+    const dialogRef = this.dialog.open(PreguntaEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessCreateMessage(this.snackBar);
+          this.cargarPreguntas(this.LeccionSelectedId);
+        }
+      }
+    );
+  }
+
+  preguntaSelected(row: any) {
+    this.PreguntaSelectedId = row.id;
   }
 
   // grupoNivelTema(grupoNivel: LeccionModel): void {
