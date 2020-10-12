@@ -7,6 +7,7 @@ export const LECCIONES_CONSTANTS = {
   enumeracion: 'Enumeracion',
   usocompartido: 'Uso compartido',
   aprobacion: 'Aprobación',
+  seleccionarRespuesta: 'Seleccionar Respuesta',
   ...GRUPO_NIVELTEMA_CONSTANTS,
   ...CONSTANTS_SHARED,
 };

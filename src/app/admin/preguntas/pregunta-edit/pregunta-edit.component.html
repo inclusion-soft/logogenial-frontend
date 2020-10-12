@@ -28,13 +28,29 @@
 
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
-      <div class="item" fxFlex="100">
-        <input  formControlName="datagenia" [(ngModel)]="pregunta.datagenia"  type="hidden" required>
-          <div *ngIf="submitted && f.datagenia.errors" class="invalid-feedback">
-            <div *ngIf="f.datagenia.errors.required">{{ constants.campoRequerido }}</div>
-          </div>
-        <app-archivo-edit (archivoBaseDatosChange)="onChangeArchivo($event)"></app-archivo-edit>
+      <div *ngIf="respuesta !== undefined && respuesta.nombre !== undefined && respuesta.nombre !== ''">
+        Nombre: {{respuesta.nombre}}
+        <img  *ngIf="respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ respuesta.nombre }}"
+        style="height: 120px; cursor: pointer;">
       </div>
+
+      <mat-dialog-actions align="end">
+        <button mat-button color="primary" (click)="seleccionarRespuesta()">
+          <mat-icon class="m-1">image_search</mat-icon>{{ constants.seleccionarRespuesta }}
+        </button>
+      </mat-dialog-actions>
+      <!-- <mat-form-field>
+        <mat-select formControlName="nivel">
+           <ngx-mat-select-search [(ngModel)]="grupoNivel.nivel" [placeholderLabel]="'Buscar...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+          <mat-option *ngFor="let nivel of grupoNivelList" [value]="nivel">
+          {{nivel.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.nivel.errors">
+        <div *ngIf="f.nivel.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
+      </mat-form-field> -->
     </div>
   </div>
 

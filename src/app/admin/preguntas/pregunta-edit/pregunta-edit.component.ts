@@ -6,6 +6,9 @@ import { PreguntaModel } from '../model/pregunta-model';
 import { PreguntaService } from '../service/pregunta.service';
 import { UtilitiesService } from '../../shared/services/utilities.service';
 import { GeneralConfirmComponent } from '../../shared/components/general-confirm/general-confirm.component';
+import { DatageniaListComponent } from 'app/admin/datagenia/datagenia-list/datagenia-list.component';
+import { DatageniaModel } from 'app/admin/datagenia/models/datagenia-model';
+import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 
 @Component({
   selector: 'app-pregunta-edit',
@@ -14,6 +17,7 @@ import { GeneralConfirmComponent } from '../../shared/components/general-confirm
 })
 export class PreguntaEditComponent  implements OnInit{
   pregunta: PreguntaModel;
+  respuesta: DatageniaModel;
   form: FormGroup;
   submitted = false;
   disableSubmit = false;
@@ -25,6 +29,7 @@ export class PreguntaEditComponent  implements OnInit{
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private utilitiesService: UtilitiesService,
+    private archivoService: ArchivoService,
     @Inject(MAT_DIALOG_DATA) data: PreguntaModel) {
       this.pregunta = data;
     }
@@ -49,6 +54,25 @@ export class PreguntaEditComponent  implements OnInit{
     'leccion': [this.pregunta.leccion, Validators.compose([Validators.required])],
     'datagenia': [this.pregunta.datagenia, Validators.compose([Validators.required])],
    });
+  }
+
+  seleccionarRespuesta() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = true;
+    const dialogRef = this.dialog.open(DatageniaListComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          // this.utilitiesService.formSuccessCreateMessage(this.snackBar);
+          // this.cargarLecciones();
+        }
+      }
+    );
   }
 
   onChangeArchivo(archivoId: number) {

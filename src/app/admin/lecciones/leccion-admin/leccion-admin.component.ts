@@ -17,6 +17,7 @@ import { LeccionEditComponent } from '../leccion-edit/leccion-edit.component';
 import { PreguntaService } from 'app/admin/preguntas/service/pregunta.service';
 import { PreguntaModel } from 'app/admin/preguntas/model/pregunta-model';
 import { PreguntaEditComponent } from 'app/admin/preguntas/pregunta-edit/pregunta-edit.component';
+import { DatageniaService } from 'app/admin/datagenia/services/datagenia.service';
 
 @Component({
   selector: 'app-leccion-admin',
@@ -53,7 +54,8 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     private utilitiesService: UtilitiesService,
     private tempDataService: TempDataService,
     private leccionService: LeccionService,
-    private preguntaService: PreguntaService
+    private preguntaService: PreguntaService,
+    private datageniaService: DatageniaService
     ) {}
 
   ngOnInit() {
@@ -67,6 +69,13 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
       this.lecciones = data;
       this.loadingLecciones = false;
     });
+  }
+
+  cargarDatagenias() {
+    // this.datageniaService.(this.grupoNivelTema.id).subscribe( (data: any) => {
+    //   this.lecciones = data;
+    //   this.loadingLecciones = false;
+    // });
   }
 
   ngAfterViewInit(): void {
