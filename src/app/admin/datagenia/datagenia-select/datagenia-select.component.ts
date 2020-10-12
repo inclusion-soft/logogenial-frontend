@@ -1,4 +1,4 @@
-import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { tap } from 'rxjs/operators';
 import { DatageniaModel} from '../models/datagenia-model';
 import { DatageniaCriteria} from '../models/datagenia-criteria';
@@ -7,24 +7,24 @@ import { DatageniaService } from '../services/datagenia.service';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { DatageniaEditComponent } from '../datagenia-edit/datagenia-edit.component';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Inject } from '@angular/core';
 import { CONSTANT_DATAGENIA } from '../models/CONSTANT_DATAGENIA';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 
 @Component({
-  selector: 'app-datagenia-list',
-  templateUrl: './datagenia-list.component.html',
-  styleUrls: ['./datagenia-list.component.css']
+  selector: 'app-datagenia-select',
+  templateUrl: './datagenia-select.component.html',
+  styleUrls: ['./datagenia-select.component.css']
 })
-export class DatageniaListComponent implements OnInit, AfterViewInit {
+export class DatageniaSelectComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
   DatageniaCriteria: DatageniaCriteria = new DatageniaCriteria();
   Datagenia: DatageniaModel = new DatageniaModel();
   displayedColumns = [
       'nombre',
       'frase',
-      'compartido',
-      'usuarioCreadorId',
+      // 'compartido',
+      // 'usuarioCreadorId',
       'dificultad',
       'archivoId',
       'activo',
@@ -40,14 +40,22 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
   loading = true;
   constants = CONSTANT_DATAGENIA;
   disabledButton = false;
+  @Input() modeAdmin = true;
 
   constructor(
+    private dialogRef: MatDialogRef<DatageniaSelectComponent>,
     public datageniaService: DatageniaService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private utilitiesService: UtilitiesService,
-    private archivoService: ArchivoService
-    ) {}
+    private archivoService: ArchivoService,
+    @Inject(MAT_DIALOG_DATA) data: any
+    ) {
+      if(data === true){
+        this.modeAdmin = false;
+      }
+    }
+
 
   ngOnInit() {
       this.datageniaDatasource = new DatageniaDatasourceService(this.datageniaService);
@@ -120,6 +128,10 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
     );
   }
 
+  selected(datagenia: DatageniaModel): void {
+    this.dialogRef.close(datagenia);
+  }
+
   delete(menu: DatageniaModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -146,6 +158,22 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
         }
       }
     );
+  }
+
+  cancelar() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'custom-modalbox';
+    dialogConfig.width = '30%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
+
+    dialogRef.beforeClosed().subscribe((val: any) => {
+      if (val === 1) {
+        this.dialogRef.close();
+      }
+    });
   }
 
 }

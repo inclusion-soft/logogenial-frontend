@@ -28,29 +28,27 @@
 
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
+      <mat-list>
+        <mat-list-item>Respuesta *</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
       <div *ngIf="respuesta !== undefined && respuesta.nombre !== undefined && respuesta.nombre !== ''">
-        Nombre: {{respuesta.nombre}}
-        <img  *ngIf="respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ respuesta.nombre }}"
-        style="height: 120px; cursor: pointer;">
+        <mat-selection-list>
+          <mat-list-option>
+            <a mat-list-item>
+              <img class="img-thumbnail rounded"  matListAvatar src="{{ archivoService.getUrlBase() }}/getById/{{respuesta.archivoId}}" >
+              <span class="contact-names">{{ respuesta.nombre }}</span>
+              <span class="contact-names">"{{ respuesta.frase }}"</span>
+            </a>
+          </mat-list-option>
+        </mat-selection-list>
       </div>
 
       <mat-dialog-actions align="end">
-        <button mat-button color="primary" (click)="seleccionarRespuesta()">
-          <mat-icon class="m-1">image_search</mat-icon>{{ constants.seleccionarRespuesta }}
+        <button mat-raised-button color="primary" (click)="seleccionarRespuesta()">
+          <mat-icon class="m-1" matTooltip="Consultar respuesta">image_search</mat-icon> Seleccionar respuesta
         </button>
       </mat-dialog-actions>
-      <!-- <mat-form-field>
-        <mat-select formControlName="nivel">
-           <ngx-mat-select-search [(ngModel)]="grupoNivel.nivel" [placeholderLabel]="'Buscar...'"
-            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-          <mat-option *ngFor="let nivel of grupoNivelList" [value]="nivel">
-          {{nivel.nombre}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="submitted && f.nivel.errors">
-        <div *ngIf="f.nivel.errors.required">{{ constants.campoRequerido }}</div>
-      </mat-error>
-      </mat-form-field> -->
     </div>
   </div>
 

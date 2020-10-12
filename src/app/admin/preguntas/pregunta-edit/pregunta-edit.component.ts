@@ -6,9 +6,9 @@ import { PreguntaModel } from '../model/pregunta-model';
 import { PreguntaService } from '../service/pregunta.service';
 import { UtilitiesService } from '../../shared/services/utilities.service';
 import { GeneralConfirmComponent } from '../../shared/components/general-confirm/general-confirm.component';
-import { DatageniaListComponent } from 'app/admin/datagenia/datagenia-list/datagenia-list.component';
 import { DatageniaModel } from 'app/admin/datagenia/models/datagenia-model';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
+import { DatageniaSelectComponent } from 'app/admin/datagenia/datagenia-select/datagenia-select.component';
 
 @Component({
   selector: 'app-pregunta-edit',
@@ -63,7 +63,7 @@ export class PreguntaEditComponent  implements OnInit{
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = true;
-    const dialogRef = this.dialog.open(DatageniaListComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DatageniaSelectComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
