@@ -14,7 +14,7 @@ import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 @Component({
   selector: 'app-datagenia-list',
   templateUrl: './datagenia-list.component.html',
-  styleUrls: ['./datagenia-list.component.css']
+  styles: ['.hidden { display: block }']
 })
 export class DatageniaListComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
@@ -23,8 +23,8 @@ export class DatageniaListComponent implements OnInit, AfterViewInit {
   displayedColumns = [
       'nombre',
       'frase',
-      'compartido',
-      'usuarioCreadorId',
+      // 'compartido',
+      // 'usuarioCreadorId',
       'dificultad',
       'archivoId',
       'activo',

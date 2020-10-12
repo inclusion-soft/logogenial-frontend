@@ -103,7 +103,7 @@
           <mat-card-title>
             Preguntas
             <div fxLayoutAlign="end">
-              <button mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
+              <button [disabled]="LeccionSelectedId === 0" mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
                 <mat-icon class="m-1">note_add</mat-icon>
               </button>
           </div>

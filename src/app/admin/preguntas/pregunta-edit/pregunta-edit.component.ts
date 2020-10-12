@@ -67,9 +67,8 @@ export class PreguntaEditComponent  implements OnInit{
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
-        if (val) {
-          // this.utilitiesService.formSuccessCreateMessage(this.snackBar);
-          // this.cargarLecciones();
+        if (val.id !== undefined) {
+          this.respuesta = val;
         }
       }
     );

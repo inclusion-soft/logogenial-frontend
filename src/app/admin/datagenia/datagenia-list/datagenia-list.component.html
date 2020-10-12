@@ -71,18 +71,18 @@
               </ng-container>
 
               <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }} {{modeAdmin}}</b></mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
                   <!-- <button mat-raised-button  (click)="detail(menu)" color="primary" class="m-1">
                     <mat-icon matTooltip="Detalles" matTooltipPosition="above">open_in_new</mat-icon>
                   </button> -->
-                  <button mat-raised-button [hidden]= "!modeAdmin"  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                  <button mat-raised-button *ngIf="modeAdmin === true"  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
                     <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
                   </button>
-                  <button mat-raised-button [hidden]= "!modeAdmin" (click)="delete(menu)" [disabled]="disabledButton" color="warn" class="m-1">
+                  <button mat-raised-button *ngIf="modeAdmin === true" (click)="delete(menu)" [disabled]="disabledButton" color="warn" class="m-1">
                     <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
                   </button>
-                  <button mat-raised-button [hidden]= "modeAdmin" (click)="selected(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                  <button mat-raised-button *ngIf="modeAdmin === false" (click)="selected(menu)" [disabled]="disabledButton" color="primary" class="m-1">
                     <mat-icon matTooltip="Seleccionar" matTooltipPosition="above">check_circle</mat-icon>
                   </button>
                 </mat-cell>
@@ -101,7 +101,7 @@
       </div>
   </div>
 
-    <mat-dialog-actions [hidden]="modeAdmin" fxLayoutAlign="end" fxLayout="row" fxLayout.lt-sm="column">
+    <mat-dialog-actions *ngIf="modeAdmin === false" fxLayoutAlign="end" fxLayout="row" fxLayout.lt-sm="column">
       <button class="mb-10" fxFlex="25" fxFlex.lt-sm="100" mat-button color="warn" (click)="cancelar()">
           <mat-icon class="m-1">clear</mat-icon> {{ constants.cancelar }}
       </button>
