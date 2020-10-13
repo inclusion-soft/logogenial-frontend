@@ -2,52 +2,48 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LECCIONES_CONSTANTS } from '../../lecciones/model/lecciones-constants-model';
 import { MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
-import { PreguntaModel } from '../model/pregunta-model';
-import { PreguntaService } from '../service/pregunta.service';
+import { OpcionRespuestaModel } from '../model/opcion-respuesta-model';
+import { OpcionRespuestaService } from '../service/opcion-respuesta.service';
 import { UtilitiesService } from '../../shared/services/utilities.service';
 import { GeneralConfirmComponent } from '../../shared/components/general-confirm/general-confirm.component';
 import { DatageniaModel } from 'app/admin/datagenia/models/datagenia-model';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 import { DatageniaSelectComponent } from 'app/admin/datagenia/datagenia-select/datagenia-select.component';
 import { LeccionModel } from 'app/admin/lecciones/model/leccion-model';
-import { UsuarioModel } from 'app/seguridad/models/usuario-model';
+import { PreguntaModel } from 'app/admin/preguntas/model/pregunta-model';
 
 @Component({
-  selector: 'app-pregunta-edit',
-  templateUrl: './pregunta-edit.component.html',
-  styleUrls: ['./pregunta-edit.component.css']
+  selector: 'app-opcion-respuesta-edit',
+  templateUrl: './opcion-respuesta-edit.component.html',
+  styleUrls: ['./opcion-respuesta-edit.component.css']
 })
-export class PreguntaEditComponent  implements OnInit{
+export class OpcionRespuestaEditComponent implements OnInit {
+  opcionRespuesta: OpcionRespuestaModel;
   pregunta: PreguntaModel;
-  respuesta: DatageniaModel;
-  leccion: LeccionModel;
+  opcionSeleccionada: DatageniaModel;
   form: FormGroup;
   submitted = false;
   disableSubmit = false;
   constants = LECCIONES_CONSTANTS;
   clone = {};
-  tipoPregunta = [{id: 1, nombre: 'Tipo 1'}, {id: 2, nombre: 'Tipo 2' } ];
-  constructor(private dialogRef: MatDialogRef<PreguntaEditComponent>,
+  constructor(private dialogRef: MatDialogRef<OpcionRespuestaEditComponent>,
     private formBuilder: FormBuilder,
-    private servicio: PreguntaService,
+    private servicio: OpcionRespuestaService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private utilitiesService: UtilitiesService,
     private archivoService: ArchivoService,
     @Inject(MAT_DIALOG_DATA) data: any) {
+      this.opcionRespuesta = data.itemOpcionRespuesta;
       this.pregunta = data.itemPregunta;
-      this.leccion = data.itemLeccion;
-      //this.pregunta.usuario.id = 1;
     }
 
   ngOnInit(): void {
     this.initForm();
-    if (this.pregunta.id > 0) {
-      this.clone = JSON.parse(JSON.stringify(this.pregunta));
-      this.respuesta = this.pregunta.respuesta;
-      const toSelect = this.tipoPregunta.find(c => c.id === this.pregunta.tipopregunta);
-      this.form.get('listatipopregunta')!.setValue(toSelect);
-      this.form.get('usuario')!.setValue({ id: 1});
+    if (this.opcionRespuesta.id > 0) {
+      this.clone = JSON.parse(JSON.stringify(this.opcionRespuesta));
+      this.pregunta = this.opcionRespuesta.pregunta;
+      //this.opcionSeleccionada = this.opcionRespuesta.opcion;
     }
   }
 
@@ -56,20 +52,19 @@ export class PreguntaEditComponent  implements OnInit{
 
   initForm() {
    this.form = this.formBuilder.group({
-    'id': [this.pregunta.id, null],
-    'usuario': [this.pregunta.usuario, Validators.compose([Validators.required])],
-    'activo': [this.pregunta.activo, Validators.compose([Validators.required])],
-    'descripcion': [this.pregunta.descripcion, Validators.compose([Validators.required, Validators.maxLength(200)])],
-    'tipopregunta': [null, Validators.compose([Validators.required])],
-    'listatipopregunta': [null, Validators.compose([Validators.required])],
-    'enumeracion': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
-    'leccion': [this.pregunta.leccion, Validators.compose([Validators.required])],
-    'respuesta': [this.pregunta.respuesta, null],
-    'respuestaid': [null, Validators.compose([Validators.min(1)])],
+    'id': [this.opcionRespuesta.id, null],
+    'activo': [this.opcionRespuesta.activo, Validators.compose([Validators.required])],
+    'orden': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
+    'opcion': [null, Validators.compose([Validators.required])],
+    'pregunta': [this.opcionRespuesta.pregunta, Validators.compose([Validators.required])],
    });
   }
 
-  seleccionarRespuesta() {
+  getUrlBase(): string {
+    return this.archivoService.getUrlBase();
+  }
+
+  seleccionarOpcion() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'edit-modalbox';
     dialogConfig.width = '70%';
@@ -81,8 +76,8 @@ export class PreguntaEditComponent  implements OnInit{
     dialogRef.afterClosed().subscribe(
       (val: any) => {
         if (val.id !== undefined) {
-          this.pregunta.respuesta = val;
-          this.respuesta = val;
+          this.opcionRespuesta.opcion = val;
+          this.opcionSeleccionada = val;
         }
       }
     );
@@ -99,13 +94,9 @@ export class PreguntaEditComponent  implements OnInit{
   onSubmit() {
     this.submitted = true;
     // se actualizan las listas con el model
-    this.pregunta = this.form.value;
-    if (this.form.value.listatipopregunta !== undefined) {
-      this.form.get('tipopregunta')!.setValue(this.form.value.listatipopregunta.id);
-    }
+    this.opcionRespuesta = this.form.value;
+    //this.form.get('tipoopcionRespuesta')!.setValue(this.form.value.listatipoopcionRespuesta.id);
     if (this.form.valid === true) {
-      // this.enviada = true;
-      // this.disabledBtn_Login = true;
       this.save();
     } else {
       this.utilitiesService.formWarningMessage(this.snackBar);
@@ -113,7 +104,7 @@ export class PreguntaEditComponent  implements OnInit{
   }
 
   save() {
-    if (this.pregunta.id === 0) {
+    if (this.opcionRespuesta.id === 0) {
       this.servicio.create(this.form.value).subscribe(
         data => {
           this.dialogRef.close(this.form.value);
@@ -147,7 +138,7 @@ export class PreguntaEditComponent  implements OnInit{
 
     dialogRef.beforeClosed().subscribe((val: any) => {
       if (val === 1) {
-        Object.assign(this.pregunta, this.clone);
+        Object.assign(this.opcionRespuesta, this.clone);
         this.dialogRef.close();
       }
     });

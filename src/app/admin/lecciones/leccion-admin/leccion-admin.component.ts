@@ -9,9 +9,7 @@ import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 import { TempDataService } from '../../shared/services/temp-data.service';
 import { Router } from '@angular/router';
-import { TemaService } from 'app/admin/tema/services/tema.service';
 import { SimpleModel } from '../../shared/model/simple-model';
-import { TemaModel } from 'app/admin/tema/models/tema-model';
 import { GrupoNivelTemaModel } from 'app/admin/grupo-nivel-tema/model/grupo-nivel-tema-model';
 import { LeccionEditComponent } from '../leccion-edit/leccion-edit.component';
 import { PreguntaService } from 'app/admin/preguntas/service/pregunta.service';
@@ -19,6 +17,9 @@ import { PreguntaModel } from 'app/admin/preguntas/model/pregunta-model';
 import { PreguntaEditComponent } from 'app/admin/preguntas/pregunta-edit/pregunta-edit.component';
 import { DatageniaService } from 'app/admin/datagenia/services/datagenia.service';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
+import { OpcionRespuestaService } from 'app/admin/opcion-respuestas/service/opcion-respuesta.service';
+import { OpcionRespuestaModel } from 'app/admin/opcion-respuestas/model/opcion-respuesta-model';
+import { OpcionRespuestaEditComponent } from 'app/admin/opcion-respuestas/opcion-respuesta-edit/opcion-respuesta-edit.component';
 
 @Component({
   selector: 'app-leccion-admin',
@@ -29,7 +30,9 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
 
   lecciones: SimpleModel[] = [];
   preguntas: PreguntaModel[] = [];
+  opciones: OpcionRespuestaModel[] = [];
   leccionSeleccionada: LeccionModel = new LeccionModel();
+  preguntaSeleccionada: PreguntaModel = new PreguntaModel();
   leccionesDisplayedColumns = [
     'enumeracion',
     'leyenda',
@@ -41,8 +44,14 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     'descripcion',
     'actions'
   ];
+  OpcionesDisplayedColumns = [
+    'orden',
+    'opcion',
+    'actions'
+  ];
   loadingLecciones = true;
   loadingPreguntas = false;
+  loadingOpciones = false;
   constants = LECCIONES_CONSTANTS;
   disabledButton = false;
   grupoNivelTema: GrupoNivelTemaModel = new GrupoNivelTemaModel();
@@ -58,7 +67,8 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     private leccionService: LeccionService,
     private preguntaService: PreguntaService,
     private datageniaService: DatageniaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private opcionesRespuestaService: OpcionRespuestaService
     ) {}
 
   ngOnInit() {
@@ -227,14 +237,120 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  preguntaSelected(row: any) {
-    this.PreguntaSelectedId = row.id;
+  deletePregunta(pregunta: PreguntaModel): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = pregunta;
+
+    const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
+    dialogRef.beforeClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.disabledButton = true;
+          this.preguntaService.delete(dialogConfig.data.id).subscribe(
+            () => {
+              this.disabledButton = false;
+              this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
+              this.cargarPreguntas(this.leccionSeleccionada.id);
+            },
+            error => {
+              this.disabledButton = false;
+              this.utilitiesService.actionErrorMessages(error, this.snackBar);
+            }
+          );
+        }
+      }
+    );
   }
 
-  // grupoNivelTema(grupoNivel: LeccionModel): void {
-  //   this.tempDataService.setDataNivel2( JSON.stringify(grupoNivel));
-  //   this.router.navigate([environment.apiUrl + '/temas']);
-  // }
+  preguntaSelected(row: any) {
+    this.preguntaSeleccionada = row;
+    this.cargarOpciones(this.preguntaSeleccionada.id);
+  }
+
+  cargarOpciones(preguntaId: number) {
+    this.loadingOpciones = true;
+    this.opcionesRespuestaService.findAllByPreguntaId(preguntaId).subscribe(  (data: any) => {
+      this.opciones = data;
+      this.loadingOpciones = false;
+    });
+  }
+
+  createOpcion(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const newOpcion = new OpcionRespuestaModel();
+    newOpcion.pregunta = this.preguntaSeleccionada;
+    const dataParam = {
+      itemOpcionRespuesta: newOpcion,
+      itemPregunta: this.preguntaSeleccionada
+    };
+    dialogConfig.data = dataParam;
+
+    const dialogRef = this.dialog.open(OpcionRespuestaEditComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessCreateMessage(this.snackBar);
+          this.cargarOpciones(this.preguntaSeleccionada.id);
+        }
+      }
+    );
+  }
+
+  editOpcion(item: PreguntaModel): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dataParam = {
+      itemOpcion: item,
+      itemPregunta: this.preguntaSeleccionada
+    };
+    dialogConfig.data = dataParam;
+
+    const dialogRef = this.dialog.open(OpcionRespuestaEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
+          this.cargarLecciones();
+        }
+      }
+    );
+  }
+
+  deleteOpcion(opcion: OpcionRespuestaModel): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = opcion;
+
+    const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
+    dialogRef.beforeClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.disabledButton = true;
+          this.preguntaService.delete(dialogConfig.data.id).subscribe(
+            () => {
+              this.disabledButton = false;
+              this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
+              this.cargarOpciones(this.preguntaSeleccionada.id);
+            },
+            error => {
+              this.disabledButton = false;
+              this.utilitiesService.actionErrorMessages(error, this.snackBar);
+            }
+          );
+        }
+      }
+    );
+  }
 
 }
-

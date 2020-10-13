@@ -27,6 +27,7 @@ import { LeccionAdminComponent } from './lecciones/leccion-admin/leccion-admin.c
 import { LeccionEditComponent } from './lecciones/leccion-edit/leccion-edit.component';
 import { PreguntaEditComponent } from './preguntas/pregunta-edit/pregunta-edit.component';
 import { DatageniaSelectComponent } from './datagenia/datagenia-select/datagenia-select.component';
+import { OpcionRespuestaEditComponent } from './opcion-respuestas/opcion-respuesta-edit/opcion-respuesta-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -73,7 +74,7 @@ export const AdminRoutes: Routes = [
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
-    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent, DatageniaSelectComponent
+    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent
   ],
   imports: [
     CommonModule,

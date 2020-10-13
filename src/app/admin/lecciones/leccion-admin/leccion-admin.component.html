@@ -31,7 +31,7 @@
    </mat-toolbar>
 
    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-    <div fxFlex="33%">
+    <div fxFlex="34%">
       <mat-card class="mat-elevation-z2">
         <mat-card-header>
           <mat-card-title>
@@ -96,7 +96,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div fxFlex="33%">
+    <div fxFlex="38%">
 
       <mat-card class="mat-elevation-z2">
         <mat-card-header>
@@ -125,16 +125,7 @@
                   <ng-container matColumnDef="respueta.id">
                     <mat-header-cell *matHeaderCellDef><b>{{constants.imagen}}</b> </mat-header-cell>
                     <mat-cell *matCellDef="let item">
-                      <!-- <mat-selection-list  *ngIf="item.respuesta?.archivoId">
-                        <mat-list-option>
-                          <a mat-list-item>
-                            <img  src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ item.respuesta.nombre }}"  >
-                          </a>
-                        </mat-list-option>
-                      </mat-selection-list> -->
                       <img  *ngIf="item.respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail-small" alt="{{ item.respuesta.nombre }}"  >
-                      <!-- <img  src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ item.respuesta.nombre }}"
-                      style="height: 120px; cursor: pointer;"> -->
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="descripcion" >
@@ -158,7 +149,7 @@
                       <button mat-mini-fab  (click)="editPregunta(item)" [disabled]="disabledButton" color="primary" class="m-1">
                         <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
                       </button>
-                      <button mat-mini-fab  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                      <button mat-mini-fab  (click)="deletePregunta(item)" [disabled]="disabledButton" color="warn" class="m-1">
                         <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
                       </button>
                     </mat-cell>
@@ -166,18 +157,79 @@
 
                   <mat-header-row *matHeaderRowDef="PreguntasDisplayedColumns; sticky:true"></mat-header-row>
                   <mat-row *matRowDef="let row;  let i = index; columns: PreguntasDisplayedColumns;" (click)="preguntaSelected(row)"
-                  [ngClass]="{'highlightTableColor': PreguntaSelectedId == row.id}"></mat-row>
+                  [ngClass]="{'highlightTableColor': preguntaSeleccionada.id == row.id}"></mat-row>
               </mat-table>
 
           </div>
-        </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="28%">
+
+
+<mat-card class="mat-elevation-z2">
+        <mat-card-header>
+          <mat-card-title>
+            Respuestas
+            <div fxLayoutAlign="end">
+              <button [disabled]="preguntaSeleccionada === undefined || preguntaSeleccionada.id === 0" mat-fab (click)="createOpcion()" color="primary" matTooltip="Crear nueva pregunta">
+                <mat-icon class="m-1">note_add</mat-icon>
+              </button>
+          </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="loadingOpciones === true" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+          </div>
+          <div class="center">
+            <div [hidden]="loadingOpciones">
+              <mat-table #table [dataSource]="opciones">
+                  <ng-container matColumnDef="orden">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.orden}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item" class="font-11">
+                      {{item.orden}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="opcion">
+                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagen}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <img  *ngIf="item.opcion?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.opcion.archivoId}}" class="img-thumbnail-small" alt="{{ item.opcion.nombre }}"  >
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="aprobacion">
+                    <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                        <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                        <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                      <button mat-mini-fab  (click)="editOpcion(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                        <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                      </button>
+                      <button mat-mini-fab  (click)="deleteOpcion(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                        <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="OpcionesDisplayedColumns; sticky:true"></mat-header-row>
+                  <mat-row *matRowDef="let row;  let i = index; columns: OpcionesDisplayedColumns;"></mat-row>
+              </mat-table>
+
+            </div>
+          </div>
 
         </mat-card-content>
       </mat-card>
 
-    </div>
-    <div fxFlex="33%">
-      <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg">
     </div>
   </div>
 

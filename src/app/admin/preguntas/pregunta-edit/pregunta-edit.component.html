@@ -44,20 +44,18 @@
     <div class="item" fxFlex>
         <mat-form-field>
           <mat-select formControlName="listatipopregunta">
-             <!-- <ngx-mat-select-search [(ngModel)]="model.nivel" [placeholderLabel]="'Buscar...'"
-              [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
             <mat-option *ngFor="let tipo of tipoPregunta" [value]="tipo">
             {{tipo.nombre}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="submitted && f.tema.errors">
-          <div *ngIf="f.tema.errors.required">{{ constants.campoRequerido }}</div>
+        <mat-error *ngIf="submitted && f.listatipopregunta.errors">
+          <div *ngIf="f.listatipopregunta.errors.required">{{ constants.campoRequerido }}</div>
         </mat-error>
         </mat-form-field>
     </div>
 
   </div>
-
+  <input type="hidden" formControlName="respuestaid" [(ngModel)]="pregunta.respuesta.id">
   <input type="hidden" formControlName="respuesta" [(ngModel)]="pregunta.respuesta">
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>

@@ -14,7 +14,7 @@ export class ArchivoService {
     this.urlService = environment.apiUrl + this.urlService;
   }
 
-  getUrlBase() {
+  public getUrlBase() {
     return this.urlService;
   }
 
