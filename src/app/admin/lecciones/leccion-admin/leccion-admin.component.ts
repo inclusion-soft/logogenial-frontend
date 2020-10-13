@@ -200,6 +200,30 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     );
   }
 
+  editPregunta(item: PreguntaModel): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'edit-modalbox';
+    dialogConfig.width = '70%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dataParam = {
+      itemPregunta: item,
+      itemLeccion: this.leccionSeleccionada
+    };
+    dialogConfig.data = dataParam;
+
+    const dialogRef = this.dialog.open(PreguntaEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (val: any) => {
+        if (val) {
+          this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
+          this.cargarLecciones();
+        }
+      }
+    );
+  }
+
   preguntaSelected(row: any) {
     this.PreguntaSelectedId = row.id;
   }

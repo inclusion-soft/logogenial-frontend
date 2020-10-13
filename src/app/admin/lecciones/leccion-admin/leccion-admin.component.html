@@ -140,7 +140,7 @@
                   <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
                     <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
-                      <button mat-mini-fab  (click)="edit(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                      <button mat-mini-fab  (click)="editPregunta(item)" [disabled]="disabledButton" color="primary" class="m-1">
                         <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
                       </button>
                       <button mat-mini-fab  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">

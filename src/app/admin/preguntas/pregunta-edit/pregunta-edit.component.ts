@@ -10,6 +10,7 @@ import { DatageniaModel } from 'app/admin/datagenia/models/datagenia-model';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 import { DatageniaSelectComponent } from 'app/admin/datagenia/datagenia-select/datagenia-select.component';
 import { LeccionModel } from 'app/admin/lecciones/model/leccion-model';
+import { UsuarioModel } from 'app/seguridad/models/usuario-model';
 
 @Component({
   selector: 'app-pregunta-edit',
@@ -36,13 +37,18 @@ export class PreguntaEditComponent  implements OnInit{
     @Inject(MAT_DIALOG_DATA) data: any) {
       this.pregunta = data.itemPregunta;
       this.leccion = data.itemLeccion;
+      //this.pregunta.usuario.id = 1;
     }
 
   ngOnInit(): void {
+    this.initForm();
     if (this.pregunta.id > 0) {
       this.clone = JSON.parse(JSON.stringify(this.pregunta));
+      this.respuesta = this.pregunta.respuesta;
+      const toSelect = this.tipoPregunta.find(c => c.id === this.pregunta.tipopregunta);
+      this.form.get('listatipopregunta')!.setValue(toSelect);
+      this.form.get('usuario')!.setValue({ id: 1});
     }
-    this.initForm();
   }
 
   // convenience getter for easy access to form fields
@@ -54,7 +60,6 @@ export class PreguntaEditComponent  implements OnInit{
     'usuario': [this.pregunta.usuario, Validators.compose([Validators.required])],
     'activo': [this.pregunta.activo, Validators.compose([Validators.required])],
     'descripcion': [this.pregunta.descripcion, Validators.compose([Validators.required, Validators.maxLength(200)])],
-    'usocompartido': [this.pregunta.usocompartido, Validators.compose([Validators.required])],
     'tipopregunta': [null, Validators.compose([Validators.required])],
     'listatipopregunta': [null, Validators.compose([Validators.required])],
     'enumeracion': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],

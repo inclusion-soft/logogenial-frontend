@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>{{ constants.editar }} Pregunta</h2>
 <mat-toolbar>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>group</mat-icon>
+    <mat-icon>account_tree</mat-icon>
   </button>
-  <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo Grupos">
+
     <span class="font-12 font-normal">Lección: {{this.leccion.leyenda}}</span>
-  </a>
+
 
 </mat-toolbar>
 <p></p>
@@ -25,13 +25,6 @@
             <div *ngIf="f.descripcion.errors.maxlength">{{ constants.longitud_maxima }} 50 carácteres</div>
           </div>
       </mat-form-field>
-    </div>
-
-    <div class="item" fxFlex>
-      <div class="item" fxFlex="20">
-        <mat-checkbox formControlName="compartido" name="compartido" [(value)]="pregunta.usocompartido" id="compartido">{{ constants.usocompartido }}
-        </mat-checkbox>
-      </div>
     </div>
 
   </div>

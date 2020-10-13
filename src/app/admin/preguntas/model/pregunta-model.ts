@@ -6,6 +6,7 @@ export class PreguntaModel {
   id = 0;
   descripcion!: string;
   enumeracion!: number;
+  tipopregunta!: number;
   aprobacion!: boolean;
   usocompartido!: boolean;
   usuario!: UsuarioModel;
