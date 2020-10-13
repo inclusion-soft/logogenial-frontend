@@ -116,10 +116,10 @@
           <div class="center">
             <div [hidden]="loadingPreguntas">
               <mat-table #table [dataSource]="preguntas">
-                  <ng-container matColumnDef="enumeracion">
-                    <mat-header-cell *matHeaderCellDef class="font-11"><b>#</b> </mat-header-cell>
+                  <ng-container matColumnDef="tipopregunta">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>Tipo</b> </mat-header-cell>
                     <mat-cell *matCellDef="let item" class="font-11">
-                      {{item.enumeracion}}
+                      {{item.tipopregunta}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="descripcion" >

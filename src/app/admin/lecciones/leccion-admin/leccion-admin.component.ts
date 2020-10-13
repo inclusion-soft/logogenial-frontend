@@ -35,7 +35,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     'actions'
   ];
   PreguntasDisplayedColumns = [
-    'enumeracion',
+    'tipopregunta',
     'descripcion',
     'actions'
   ];
