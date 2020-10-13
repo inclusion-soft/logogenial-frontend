@@ -9,6 +9,7 @@ import { GeneralConfirmComponent } from '../../shared/components/general-confirm
 import { DatageniaModel } from 'app/admin/datagenia/models/datagenia-model';
 import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 import { DatageniaSelectComponent } from 'app/admin/datagenia/datagenia-select/datagenia-select.component';
+import { LeccionModel } from 'app/admin/lecciones/model/leccion-model';
 
 @Component({
   selector: 'app-pregunta-edit',
@@ -18,11 +19,13 @@ import { DatageniaSelectComponent } from 'app/admin/datagenia/datagenia-select/d
 export class PreguntaEditComponent  implements OnInit{
   pregunta: PreguntaModel;
   respuesta: DatageniaModel;
+  leccion: LeccionModel;
   form: FormGroup;
   submitted = false;
   disableSubmit = false;
   constants = LECCIONES_CONSTANTS;
   clone = {};
+  tipoPregunta = [{id: 1, nombre: 'Tipo 1'}, {id: 2, nombre: 'Tipo 2' } ];
   constructor(private dialogRef: MatDialogRef<PreguntaEditComponent>,
     private formBuilder: FormBuilder,
     private servicio: PreguntaService,
@@ -30,8 +33,9 @@ export class PreguntaEditComponent  implements OnInit{
     private dialog: MatDialog,
     private utilitiesService: UtilitiesService,
     private archivoService: ArchivoService,
-    @Inject(MAT_DIALOG_DATA) data: PreguntaModel) {
-      this.pregunta = data;
+    @Inject(MAT_DIALOG_DATA) data: any) {
+      this.pregunta = data.itemPregunta;
+      this.leccion = data.itemLeccion;
     }
 
   ngOnInit(): void {
@@ -51,8 +55,11 @@ export class PreguntaEditComponent  implements OnInit{
     'activo': [this.pregunta.activo, Validators.compose([Validators.required])],
     'descripcion': [this.pregunta.descripcion, Validators.compose([Validators.required, Validators.maxLength(200)])],
     'usocompartido': [this.pregunta.usocompartido, Validators.compose([Validators.required])],
+    'tipopregunta': [null, Validators.compose([Validators.required])],
+    'listatipopregunta': [null, Validators.compose([Validators.required])],
+    'enumeracion': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
     'leccion': [this.pregunta.leccion, Validators.compose([Validators.required])],
-    'datagenia': [this.pregunta.datagenia, Validators.compose([Validators.required])],
+    'respuesta': [this.pregunta.respuesta, Validators.compose([Validators.required])],
    });
   }
 
@@ -68,6 +75,7 @@ export class PreguntaEditComponent  implements OnInit{
     dialogRef.afterClosed().subscribe(
       (val: any) => {
         if (val.id !== undefined) {
+          this.pregunta.respuesta = val;
           this.respuesta = val;
         }
       }
@@ -86,8 +94,8 @@ export class PreguntaEditComponent  implements OnInit{
     this.submitted = true;
     // se actualizan las listas con el model
     this.pregunta = this.form.value;
-    // this.form.value.permiso = this.menu.permiso;
-    // this.form.value.parent = this.menu.parent;
+    //this.form.value.tipopregunta = this.form.value.listatipopregunta.id;
+    this.form.get('tipopregunta')!.setValue(this.form.value.listatipopregunta.id);
     if (this.form.valid === true) {
       // this.enviada = true;
       // this.disabledBtn_Login = true;
@@ -98,7 +106,6 @@ export class PreguntaEditComponent  implements OnInit{
   }
 
   save() {
-    // this.pregunta.dificultad = Number(this.pregunta.dificultad);
     if (this.pregunta.id === 0) {
       this.servicio.create(this.form.value).subscribe(
         data => {

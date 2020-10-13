@@ -28,7 +28,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
 
   lecciones: SimpleModel[] = [];
   preguntas: PreguntaModel[] = [];
-  Leccion: LeccionModel = new LeccionModel();
+  leccionSeleccionada: LeccionModel = new LeccionModel();
   leccionesDisplayedColumns = [
     'enumeracion',
     'leyenda',
@@ -44,7 +44,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   constants = LECCIONES_CONSTANTS;
   disabledButton = false;
   grupoNivelTema: GrupoNivelTemaModel = new GrupoNivelTemaModel();
-  LeccionSelectedId: number;
+  leccionSelectedId: number;
   PreguntaSelectedId: number;
 
   constructor(
@@ -163,13 +163,13 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   }
 
   leccionSelected(row: any) {
-    this.LeccionSelectedId = row.id;
+    this.leccionSeleccionada = row;
     this.cargarPreguntas(row.id);
   }
 
   cargarPreguntas(leccionId: number) {
     this.loadingPreguntas = true;
-    this.preguntaService.findAllByLeccionId(leccionId).subscribe( (data: any) => {
+    this.preguntaService.findAllByLeccionId(leccionId).subscribe(  (data: any) => {
       this.preguntas = data;
       this.loadingPreguntas = false;
     });
@@ -182,19 +182,19 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const newPregunta = new PreguntaModel();
-    newPregunta.leccion.id = this.LeccionSelectedId;
+    newPregunta.leccion = this.leccionSeleccionada;
     const dataParam = {
-      itemData: newPregunta
+      itemPregunta: newPregunta,
+      itemLeccion: this.leccionSeleccionada
     };
     dialogConfig.data = dataParam;
 
     const dialogRef = this.dialog.open(PreguntaEditComponent, dialogConfig);
-
     dialogRef.afterClosed().subscribe(
       (val: any) => {
         if (val) {
           this.utilitiesService.formSuccessCreateMessage(this.snackBar);
-          this.cargarPreguntas(this.LeccionSelectedId);
+          this.cargarPreguntas(this.leccionSeleccionada.id);
         }
       }
     );

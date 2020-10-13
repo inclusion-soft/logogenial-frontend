@@ -17,7 +17,7 @@
         <mat-icon>calendar_view_day</mat-icon>
       </button>
       <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a niveles">
-        <span class="font-12 font-normal">Nivel: {{this.grupoNivelTema.grupoNivel.grupo.nombre}}</span>
+        <span class="font-12 font-normal">Nivel: {{this.grupoNivelTema.grupoNivel.nivel.nombre}}</span>
       </a>
       &nbsp;
 
@@ -87,7 +87,7 @@
 
                 <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
                 <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionSelected(row)"
-                [ngClass]="{'highlightTableColor': LeccionSelectedId == row.id}"></mat-row>
+                [ngClass]="{'highlightTableColor': leccionSeleccionada.id == row.id}"></mat-row>
               </mat-table>
 
           </div>
@@ -103,7 +103,7 @@
           <mat-card-title>
             Preguntas
             <div fxLayoutAlign="end">
-              <button [disabled]="LeccionSelectedId === 0" mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
+              <button [disabled]="leccionSeleccionada === undefined || leccionSeleccionada.id === 0" mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
                 <mat-icon class="m-1">note_add</mat-icon>
               </button>
           </div>

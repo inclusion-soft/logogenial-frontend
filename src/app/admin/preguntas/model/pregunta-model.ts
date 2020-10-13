@@ -11,12 +11,12 @@ export class PreguntaModel {
   usuario!: UsuarioModel;
   activo!: boolean;
   leccion!: LeccionModel;
-  datagenia!: DatageniaModel;
+  respuesta!: DatageniaModel;
   constructor() {
     this.leccion = new LeccionModel();
     this.usuario = new UsuarioModel();
     this.usuario.id = 1;
-    this.datagenia = new DatageniaModel();
+    this.respuesta = new DatageniaModel();
     this.aprobacion = false;
     this.usocompartido = true;
     this.activo = true;

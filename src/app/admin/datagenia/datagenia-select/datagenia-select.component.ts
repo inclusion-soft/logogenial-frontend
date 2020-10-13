@@ -51,9 +51,7 @@ export class DatageniaSelectComponent implements OnInit, AfterViewInit {
     private archivoService: ArchivoService,
     @Inject(MAT_DIALOG_DATA) data: any
     ) {
-      if(data === true){
-        this.modeAdmin = false;
-      }
+
     }
 
 

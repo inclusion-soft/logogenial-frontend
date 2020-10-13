@@ -1,4 +1,14 @@
 <h2 mat-dialog-title>{{ constants.editar }} Pregunta</h2>
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>group</mat-icon>
+  </button>
+  <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo Grupos">
+    <span class="font-12 font-normal">Lección: {{this.leccion.leyenda}}</span>
+  </a>
+
+</mat-toolbar>
+<p></p>
 
 <mat-dialog-content [formGroup]="form">
   <input type="hidden" formControlName="id" [(ngModel)]="pregunta.id">
@@ -26,6 +36,36 @@
 
   </div>
 
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.enumeracion }}" formControlName="enumeracion"
+          [(ngModel)]="leccion.enumeracion" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.enumeracion.errors" class="invalid-feedback">
+            <div *ngIf="f.enumeracion.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.enumeracion.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+        <mat-form-field>
+          <mat-select formControlName="listatipopregunta">
+             <!-- <ngx-mat-select-search [(ngModel)]="model.nivel" [placeholderLabel]="'Buscar...'"
+              [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
+            <mat-option *ngFor="let tipo of tipoPregunta" [value]="tipo">
+            {{tipo.nombre}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && f.tema.errors">
+          <div *ngIf="f.tema.errors.required">{{ constants.campoRequerido }}</div>
+        </mat-error>
+        </mat-form-field>
+    </div>
+
+  </div>
+
+  <input type="hidden" formControlName="respuesta" [(ngModel)]="pregunta.respuesta">
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
       <mat-list>
