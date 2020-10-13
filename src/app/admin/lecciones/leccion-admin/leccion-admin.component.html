@@ -122,6 +122,21 @@
                       {{item.tipopregunta}}
                     </mat-cell>
                   </ng-container>
+                  <ng-container matColumnDef="respueta.id">
+                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagen}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <!-- <mat-selection-list  *ngIf="item.respuesta?.archivoId">
+                        <mat-list-option>
+                          <a mat-list-item>
+                            <img  src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ item.respuesta.nombre }}"  >
+                          </a>
+                        </mat-list-option>
+                      </mat-selection-list> -->
+                      <img  *ngIf="item.respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail-small" alt="{{ item.respuesta.nombre }}"  >
+                      <!-- <img  src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail rounded" alt="{{ item.respuesta.nombre }}"
+                      style="height: 120px; cursor: pointer;"> -->
+                    </mat-cell>
+                  </ng-container>
                   <ng-container matColumnDef="descripcion" >
                       <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.descripcion}}</b> </mat-header-cell>
                       <mat-cell *matCellDef="let item" class="font-11">

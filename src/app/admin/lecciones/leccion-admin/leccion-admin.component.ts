@@ -18,6 +18,7 @@ import { PreguntaService } from 'app/admin/preguntas/service/pregunta.service';
 import { PreguntaModel } from 'app/admin/preguntas/model/pregunta-model';
 import { PreguntaEditComponent } from 'app/admin/preguntas/pregunta-edit/pregunta-edit.component';
 import { DatageniaService } from 'app/admin/datagenia/services/datagenia.service';
+import { ArchivoService } from 'app/admin/archivo/services/archivo.service';
 
 @Component({
   selector: 'app-leccion-admin',
@@ -36,6 +37,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   ];
   PreguntasDisplayedColumns = [
     'tipopregunta',
+    'respueta.id',
     'descripcion',
     'actions'
   ];
@@ -55,7 +57,8 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     private tempDataService: TempDataService,
     private leccionService: LeccionService,
     private preguntaService: PreguntaService,
-    private datageniaService: DatageniaService
+    private datageniaService: DatageniaService,
+    private archivoService: ArchivoService
     ) {}
 
   ngOnInit() {

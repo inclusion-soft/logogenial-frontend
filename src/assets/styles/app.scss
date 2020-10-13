@@ -61,6 +61,12 @@ a.link{
 .img-rounded{
     border-radius: $radius;
 }
+.img-thumbnail-small{
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
 html body .mdi:before, html body .mdi-set{
     line-height: initial;
 }
