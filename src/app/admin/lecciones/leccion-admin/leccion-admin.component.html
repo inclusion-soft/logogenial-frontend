@@ -172,7 +172,7 @@
 <mat-card class="mat-elevation-z2">
         <mat-card-header>
           <mat-card-title>
-            Respuestas
+            Opciones de Respuesta
             <div fxLayoutAlign="end">
               <button [disabled]="preguntaSeleccionada === undefined || preguntaSeleccionada.id === 0" mat-fab (click)="createOpcion()" color="primary" matTooltip="Crear nueva pregunta">
                 <mat-icon class="m-1">note_add</mat-icon>
@@ -194,7 +194,7 @@
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="opcion">
-                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagen}}</b> </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagenRespuesta}}</b> </mat-header-cell>
                     <mat-cell *matCellDef="let item">
                       <img  *ngIf="item.opcion?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.opcion.archivoId}}" class="img-thumbnail-small" alt="{{ item.opcion.nombre }}"  >
                     </mat-cell>

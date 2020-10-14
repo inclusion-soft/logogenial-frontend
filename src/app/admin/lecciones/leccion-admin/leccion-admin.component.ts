@@ -159,7 +159,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
       (val: any) => {
         if (val) {
           this.disabledButton = true;
-          this.grupoNivelService.delete(dialogConfig.data.id).subscribe(
+          this.leccionService.delete(dialogConfig.data.id).subscribe(
             () => {
               this.disabledButton = false;
               this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
@@ -178,6 +178,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
   leccionSelected(row: any) {
     this.leccionSeleccionada = row;
     this.cargarPreguntas(row.id);
+    this.opciones = [];
   }
 
   cargarPreguntas(leccionId: number) {
@@ -286,7 +287,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
     const newOpcion = new OpcionRespuestaModel();
     newOpcion.pregunta = this.preguntaSeleccionada;
     const dataParam = {
-      itemOpcionRespuesta: newOpcion,
+      itemOpcion: newOpcion,
       itemPregunta: this.preguntaSeleccionada
     };
     dialogConfig.data = dataParam;
@@ -320,7 +321,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
       (val: any) => {
         if (val) {
           this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
-          this.cargarLecciones();
+          this.cargarOpciones(this.preguntaSeleccionada.id);
         }
       }
     );
@@ -337,7 +338,7 @@ export class LeccionAdminComponent  implements OnInit, AfterViewInit {
       (val: any) => {
         if (val) {
           this.disabledButton = true;
-          this.preguntaService.delete(dialogConfig.data.id).subscribe(
+          this.opcionesRespuestaService.delete(dialogConfig.data.id).subscribe(
             () => {
               this.disabledButton = false;
               this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);

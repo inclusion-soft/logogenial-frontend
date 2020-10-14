@@ -34,7 +34,7 @@ export class OpcionRespuestaEditComponent implements OnInit {
     private utilitiesService: UtilitiesService,
     private archivoService: ArchivoService,
     @Inject(MAT_DIALOG_DATA) data: any) {
-      this.opcionRespuesta = data.itemOpcionRespuesta;
+      this.opcionRespuesta = data.itemOpcion;
       this.pregunta = data.itemPregunta;
     }
 

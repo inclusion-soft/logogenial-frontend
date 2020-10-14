@@ -9,6 +9,7 @@ export const LECCIONES_CONSTANTS = {
   aprobacion: 'Aprobación',
   seleccionarRespuesta: 'Seleccionar Respuesta',
   imagen: 'Imagen pregunta',
+  imagenRespuesta: 'Imagen respuesta',
   orden: 'Orden',
   ...GRUPO_NIVELTEMA_CONSTANTS,
   ...CONSTANTS_SHARED,

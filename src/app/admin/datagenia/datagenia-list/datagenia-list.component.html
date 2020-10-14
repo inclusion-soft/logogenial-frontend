@@ -36,7 +36,8 @@
               <ng-container matColumnDef="compartido">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.compartido}}</b> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
-                   {{datagenia.compartido}}
+                   <span class="alert alert-danger" [hidden]="datagenia.compartido">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!datagenia.compartido">{{ constants.si }}</span>
                 </mat-cell>
               </ng-container>
 
@@ -64,9 +65,9 @@
 
               <ng-container matColumnDef="activo">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
-                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
-                    <span class="alert alert-danger" [hidden]="menu.activo">{{ constants.no }}</span>
-                    <span class="alert alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
+                <mat-cell *matCellDef="let datagenia" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="datagenia.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!datagenia.activo">{{ constants.si }}</span>
                 </mat-cell>
               </ng-container>
 
