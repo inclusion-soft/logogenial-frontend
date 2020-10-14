@@ -45,7 +45,7 @@ export class LeccionEditComponent implements OnInit {
    this.form = this.formBuilder.group({
     'id': [this.leccion.id, null],
     'activo': [this.leccion.activo, Validators.compose([Validators.required])],
-    'leyenda': [this.leccion.leyenda, Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'leyenda': [this.leccion.leyenda, Validators.compose([Validators.required, Validators.maxLength(100)])],
     'enumeracion': [this.leccion.enumeracion, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
     'grupoNivelTema': [this.leccion.grupoNivelTema, null],
    });
@@ -53,6 +53,7 @@ export class LeccionEditComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.markFormGroupTouched(this.form);
     // se actualizan las listas con el model
     this.leccion = this.form.value;
     // this.form.value.permiso = this.menu.permiso;
@@ -104,6 +105,16 @@ export class LeccionEditComponent implements OnInit {
       if (val === 1) {
         Object.assign(this.leccion, this.clone);
         this.dialogRef.close();
+      }
+    });
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: FormGroup) => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+      if (control.controls) {
+        this.markFormGroupTouched(control);
       }
     });
   }

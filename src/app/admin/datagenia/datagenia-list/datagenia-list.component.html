@@ -58,8 +58,7 @@
               <ng-container matColumnDef="archivoId">
                 <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.archivoId}}</b> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
-                  <img  *ngIf="datagenia?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{datagenia.archivoId}}" class="img-thumbnail rounded" alt="{{ datagenia.nombre }}"
-                  style="height: 120px; cursor: pointer;">
+                  <img  *ngIf="datagenia?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{datagenia.archivoId}}" class="img-thumbnail-md" alt="{{ datagenia.nombre }}">
                 </mat-cell>
               </ng-container>
 

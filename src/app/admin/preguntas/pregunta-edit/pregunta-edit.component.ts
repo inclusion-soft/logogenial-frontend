@@ -98,6 +98,7 @@ export class PreguntaEditComponent  implements OnInit{
 
   onSubmit() {
     this.submitted = true;
+    this.markFormGroupTouched(this.form);
     // se actualizan las listas con el model
     this.pregunta = this.form.value;
     if (this.form.value.listatipopregunta !== undefined) {
@@ -149,6 +150,16 @@ export class PreguntaEditComponent  implements OnInit{
       if (val === 1) {
         Object.assign(this.pregunta, this.clone);
         this.dialogRef.close();
+      }
+    });
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: FormGroup) => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+      if (control.controls) {
+        this.markFormGroupTouched(control);
       }
     });
   }

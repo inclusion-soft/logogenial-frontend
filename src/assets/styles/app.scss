@@ -61,6 +61,13 @@ a.link{
 .img-rounded{
     border-radius: $radius;
 }
+
+.img-thumbnail-md{
+  border-radius: 25%;
+  height: 85px;
+  width: 85px;
+}
+
 .img-thumbnail-small{
   border-radius: 50%;
   height: 70px;
