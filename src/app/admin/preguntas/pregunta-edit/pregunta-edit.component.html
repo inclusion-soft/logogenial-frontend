@@ -43,7 +43,7 @@
 
     <div class="item" fxFlex>
         <mat-form-field>
-          <mat-select formControlName="listatipopregunta">
+          <mat-select formControlName="listatipopregunta" placeholder="Tipo de pregunta">
             <mat-option *ngFor="let tipo of tipoPregunta" [value]="tipo">
             {{tipo.nombre}}
           </mat-option>

@@ -29,6 +29,22 @@
 
   </div>
 
+
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.puntos }}" formControlName="puntos"
+          [(ngModel)]="leccion.puntos" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.puntos.errors" class="invalid-feedback">
+            <div *ngIf="f.puntos.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.puntos.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+  </div>
+
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
     <div class="item" fxFlex="50%">
       <mat-checkbox formControlName="activo" name="activo" [(value)]="leccion.activo" id="activo">{{ constants.activo }}

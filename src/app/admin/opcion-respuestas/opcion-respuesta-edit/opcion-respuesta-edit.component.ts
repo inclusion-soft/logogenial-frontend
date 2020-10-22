@@ -54,7 +54,7 @@ export class OpcionRespuestaEditComponent implements OnInit {
    this.form = this.formBuilder.group({
     'id': [this.opcionRespuesta.id, null],
     'activo': [this.opcionRespuesta.activo, Validators.compose([Validators.required])],
-    'orden': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
+    'orden': [null, Validators.nullValidator],
     'opcion': [null, Validators.compose([Validators.required])],
     'pregunta': [this.opcionRespuesta.pregunta, Validators.compose([Validators.required])],
    });

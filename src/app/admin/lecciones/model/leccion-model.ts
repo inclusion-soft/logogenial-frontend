@@ -3,6 +3,7 @@ export class LeccionModel  {
   id = 0;
   leyenda!: string;
   enumeracion!: number;
+  puntos!: number;
   activo!: boolean;
   grupoNivelTema!: GrupoNivelTemaModel;
   constructor() {
