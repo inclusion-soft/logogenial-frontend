@@ -9,6 +9,7 @@ export const LECCIONES_CONSTANTS = {
   usocompartido: 'Uso compartido',
   aprobacion: 'Aprobación',
   seleccionarRespuesta: 'Seleccionar Respuesta',
+  fraseRespuesta: 'Frase o descripción Respuesta',
   imagen: 'Imagen pregunta',
   imagenRespuesta: 'Imagen respuesta',
   orden: 'Orden',

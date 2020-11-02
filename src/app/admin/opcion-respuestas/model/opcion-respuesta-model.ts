@@ -4,6 +4,7 @@ import { DatageniaModel } from "app/admin/datagenia/models/datagenia-model";
 export class OpcionRespuestaModel {
   id = 0;
   orden!: number;
+  fraseRespuesta: string;
   pregunta!: PreguntaModel;
   opcion!: DatageniaModel;
   activo!: boolean;

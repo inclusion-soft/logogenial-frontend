@@ -54,6 +54,7 @@ export class OpcionRespuestaEditComponent implements OnInit {
    this.form = this.formBuilder.group({
     'id': [this.opcionRespuesta.id, null],
     'activo': [this.opcionRespuesta.activo, Validators.compose([Validators.required])],
+    'fraseRespuesta': [this.opcionRespuesta.fraseRespuesta, Validators.compose([Validators.required, Validators.maxLength(200)])],
     'orden': [null, Validators.nullValidator],
     'opcion': [null, Validators.compose([Validators.required])],
     'pregunta': [this.opcionRespuesta.pregunta, Validators.compose([Validators.required])],
@@ -75,8 +76,10 @@ export class OpcionRespuestaEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
+        debugger;
         if (val.id !== undefined) {
           this.opcionRespuesta.opcion = val;
+          this.opcionRespuesta.fraseRespuesta = val.frase;
           this.opcionSeleccionada = val;
         }
       }

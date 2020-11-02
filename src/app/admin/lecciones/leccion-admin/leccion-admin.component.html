@@ -128,10 +128,10 @@
                       <img  *ngIf="item.respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail-small" alt="{{ item.respuesta.nombre }}"  >
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="descripcion" >
-                      <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.descripcion}}</b> </mat-header-cell>
+                  <ng-container matColumnDef="fraseRespuesta" >
+                      <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.fraseRespuesta}}</b> </mat-header-cell>
                       <mat-cell *matCellDef="let item" class="font-11">
-                         {{item.descripcion}}
+                         {{item.fraseRespuesta}}
                       </mat-cell>
                   </ng-container>
 

@@ -59,7 +59,7 @@ export class PreguntaEditComponent  implements OnInit{
     'id': [this.pregunta.id, null],
     'usuario': [this.pregunta.usuario, Validators.compose([Validators.required])],
     'activo': [this.pregunta.activo, Validators.compose([Validators.required])],
-    'descripcion': [this.pregunta.descripcion, Validators.compose([Validators.required, Validators.maxLength(200)])],
+    'fraseRespuesta': [this.pregunta.fraseRespuesta, Validators.compose([Validators.required, Validators.maxLength(200)])],
     'tipopregunta': [null, Validators.compose([Validators.required])],
     'listatipopregunta': [null, Validators.compose([Validators.required])],
     'enumeracion': [null, Validators.compose([Validators.max(30), Validators.pattern('[0-9]*')])],
@@ -82,6 +82,7 @@ export class PreguntaEditComponent  implements OnInit{
       (val: any) => {
         if (val.id !== undefined) {
           this.pregunta.respuesta = val;
+          this.pregunta.fraseRespuesta = val.frase;
           this.respuesta = val;
         }
       }

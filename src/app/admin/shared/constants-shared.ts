@@ -165,7 +165,7 @@ export const CONSTANTS_SHARED = {
     domingo: 'Domingo'
   },
   activo: 'Activo',
-  descripcion: 'Descripción',
+  descripcion: 'Descripción o llave de respuesta',
   formatoArchivos: [
     { mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', nombreTipoArchivo: 'Excel 2007 en adelante'},
     { mimeType: 'application/vnd.ms-excel', nombreTipoArchivo: 'Excel 2003'},

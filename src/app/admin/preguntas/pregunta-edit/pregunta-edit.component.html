@@ -15,18 +15,42 @@
 
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
+      <mat-list>
+        <mat-list-item>Respuesta *</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+      <div *ngIf="respuesta !== undefined && respuesta.nombre !== undefined && respuesta.nombre !== ''">
+        <mat-selection-list>
+          <mat-list-option>
+            <a mat-list-item>
+              <img class="img-thumbnail rounded"  matListAvatar src="{{ archivoService.getUrlBase() }}/getById/{{respuesta.archivoId}}" >
+              <span class="contact-names">{{ respuesta.nombre }}</span>
+              <span class="contact-names">"{{ respuesta.frase }}"</span>
+            </a>
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+
+      <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="seleccionarRespuesta()">
+          <mat-icon class="m-1" matTooltip="Consultar respuesta">image_search</mat-icon> Seleccionar respuesta
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
       <mat-form-field class="w-80">
-        <input matInput placeholder="{{ constants.descripcion }}" formControlName="descripcion"
-          [(ngModel)]="pregunta.descripcion" autocomplete
+        <input matInput placeholder="{{ constants.fraseRespuesta }}" formControlName="fraseRespuesta"
+          [(ngModel)]="pregunta.fraseRespuesta" autocomplete
           ="off" type="text" required pattern="^(?!\s*$).+"
-          [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }" >
-          <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
-            <div *ngIf="f.descripcion.errors.required">{{ constants.campoRequerido }}</div>
-            <div *ngIf="f.descripcion.errors.maxlength">{{ constants.longitud_maxima }} 50 carácteres</div>
+          [ngClass]="{ 'is-invalid': submitted && f.fraseRespuesta.errors }" >
+          <div *ngIf="submitted && f.fraseRespuesta.errors" class="invalid-feedback">
+            <div *ngIf="f.fraseRespuesta.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.fraseRespuesta.errors.maxlength">{{ constants.longitud_maxima }} 50 carácteres</div>
           </div>
       </mat-form-field>
     </div>
-
   </div>
 
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
@@ -57,31 +81,7 @@
   </div>
   <input type="hidden" formControlName="respuestaid" [(ngModel)]="pregunta.respuesta.id">
   <input type="hidden" formControlName="respuesta" [(ngModel)]="pregunta.respuesta">
-  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
-    <div class="item" fxFlex>
-      <mat-list>
-        <mat-list-item>Respuesta *</mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-      <div *ngIf="respuesta !== undefined && respuesta.nombre !== undefined && respuesta.nombre !== ''">
-        <mat-selection-list>
-          <mat-list-option>
-            <a mat-list-item>
-              <img class="img-thumbnail rounded"  matListAvatar src="{{ archivoService.getUrlBase() }}/getById/{{respuesta.archivoId}}" >
-              <span class="contact-names">{{ respuesta.nombre }}</span>
-              <span class="contact-names">"{{ respuesta.frase }}"</span>
-            </a>
-          </mat-list-option>
-        </mat-selection-list>
-      </div>
 
-      <mat-dialog-actions align="end">
-        <button mat-raised-button color="primary" (click)="seleccionarRespuesta()">
-          <mat-icon class="m-1" matTooltip="Consultar respuesta">image_search</mat-icon> Seleccionar respuesta
-        </button>
-      </mat-dialog-actions>
-    </div>
-  </div>
 
 
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
