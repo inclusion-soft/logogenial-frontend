@@ -38,6 +38,13 @@ export class UtilitiesService {
     });
   }
 
+  simpleWarningMessage(mensaje: string, snackBar: MatSnackBar) {
+    snackBar.open(mensaje, 'X', {
+      duration: 5000,
+      panelClass: ['bg-warning']
+    });
+  }
+
   // actionNotFoundWarningMessage(snackBar: MatSnackBar) {
   //   snackBar.open(this.constants.errorForm, 'X', {
   //     duration: 5000,

@@ -31,42 +31,42 @@
 
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nombres" formControlName="nombre" [(ngModel)]="userLogin.nombre" [type]="'text'">
+          <input matInput placeholder="Nombres" formControlName="nombre"  autocomplete="off" [(ngModel)]="userLogin.nombre" [type]="'text'">
           <mat-error  *ngIf="submitted && registerForm.controls['nombre'].invalid">
             El campo Nombres es requerido
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Apellidos" formControlName="apellido" [(ngModel)]="userLogin.apellido" [type]="'text'">
+          <input matInput placeholder="Apellidos" formControlName="apellido"  autocomplete="off" [(ngModel)]="userLogin.apellido" [type]="'text'">
           <mat-error  *ngIf="submitted && registerForm.controls['apellido'].invalid">
             El campo Apellidos es requerido
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Correo electrónico" formControlName="email" [(ngModel)]="userLogin.email" [type]="'text'">
+          <input matInput placeholder="Correo electrónico" formControlName="email"  autocomplete="off" [(ngModel)]="userLogin.email" [type]="'text'">
           <mat-error  *ngIf="submitted && registerForm.controls['email'].invalid">
             El campo Correo electrónico es requerido
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nick (Nombre corto)" formControlName="username" [(ngModel)]="userLogin.username" [type]="'text'">
+        <!-- <mat-form-field class="example-full-width">
+          <input matInput placeholder="Nick (Nombre corto)" formControlName="username"  autocomplete="off" [(ngModel)]="userLogin.username" [type]="'text'">
           <mat-error  *ngIf="submitted && registerForm.controls['username'].invalid">
             El campo Nick es requerido
           </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Contraseña" formControlName="password" [(ngModel)]="userLogin.password" [type]="'password'">
+          <input matInput placeholder="Contraseña" formControlName="password"  autocomplete="off" [(ngModel)]="userLogin.password" [type]="'password'">
           <mat-error  *ngIf="submitted && registerForm.controls['password'].invalid">
             El campo nombre es requerido
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Repetir Contraseña" formControlName="repetirPassword" [(ngModel)]="userLogin.repetirPassword" [type]="'password'">
+          <input matInput placeholder="Repetir Contraseña" formControlName="repetirPassword"  autocomplete="off" [(ngModel)]="userLogin.repetirPassword" [type]="'password'">
           <mat-error  *ngIf="submitted && registerForm.controls['repetirPassword'].invalid">
             El campo nombre es requerido
           </mat-error>

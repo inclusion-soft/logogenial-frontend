@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this._formBuilder.group({
       nombre   : [this.userLogin.username, [Validators.required]],
       apellido   : [this.userLogin.username, [Validators.required]],
-      username   : [this.userLogin.username, [Validators.required]],
       email   : [this.userLogin.username, [Validators.required]],
       password: [this.userLogin.password, Validators.required],
       repetirPassword: [this.userLogin.repetirPassword, Validators.required],
@@ -44,6 +43,12 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(): void {
+    if (this.userLogin.password !== this.userLogin.repetirPassword) {
+      this.utilitiesService.simpleWarningMessage('La contraseña es distinta en cada campo', this.snackBar);
+      return;
+    }
+
+    this.userLogin.username = this.userLogin.email;
     if (this.registerForm.valid) {
       //this.submitted = true;
       this.userLogin.roles = [];
