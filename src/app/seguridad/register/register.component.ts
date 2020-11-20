@@ -17,6 +17,7 @@ import { TokenResultData } from '../models/token-result-data';
 export class RegisterComponent implements OnInit {
   Roles: any = ['Estudiante', 'Docente / Tutor', 'Administrador'];
   selected: string;
+  status = 'editando';
   constructor(
     private _formBuilder: FormBuilder,
     private service: UserService,
@@ -53,14 +54,15 @@ export class RegisterComponent implements OnInit {
       this.userLogin.roles.push(rol);
       this.service.register(this.userLogin).subscribe(
         data => {
+          this.status = 'finalizado';
           // Realiza login usuario
-          this._authService.attemptAuth(this.userLogin).subscribe(
-            (r: TokenResultData) => {
-              this._tokenStorageService.setDatosUsuario(r.token);
-              this._router.navigate(['/']);
-            }, err => {
-              this.utilitiesService.formErrorMessages(err, this.registerForm, this.snackBar);
-           });
+          // this._authService.attemptAuth(this.userLogin).subscribe(
+          //   (r: TokenResultData) => {
+          //     this._tokenStorageService.setDatosUsuario(r.token);
+          //     this._router.navigate(['/']);
+          //   }, err => {
+          //     this.utilitiesService.formErrorMessages(err, this.registerForm, this.snackBar);
+          //  });
 
         },
         error => {
@@ -69,6 +71,10 @@ export class RegisterComponent implements OnInit {
         }
       );
     }
-}
+  }
+
+  clicGoLogin() {
+    this._router.navigate(['/login']);
+  }
 
 }
