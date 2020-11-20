@@ -16,7 +16,7 @@
     <form class="example-form" [formGroup]="loginForm">
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput formControlName="email" [(ngModel)]="userLogin.username" placeholder="Nombre de usuario">
+          <input matInput formControlName="email" [(ngModel)]="userLogin.username" placeholder="Correo electrónico">
           <mat-error *ngIf="hasError('email', 'required')">
             usuario es un campo obligatorio
           </mat-error>
