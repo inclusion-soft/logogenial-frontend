@@ -26,7 +26,10 @@ export class PreguntaEditComponent  implements OnInit{
   disableSubmit = false;
   constants = LECCIONES_CONSTANTS;
   clone = {};
-  tipoPregunta = [{id: 1, nombre: 'Tipo 1: multiple respuesta'} ];
+  tipoPregunta = [
+    {id: 1, nombre: 'Tipo 1: multiple respuesta'},
+    {id: 2, nombre: 'Tipo 2: relación'},
+  ];
   constructor(private dialogRef: MatDialogRef<PreguntaEditComponent>,
     private formBuilder: FormBuilder,
     private servicio: PreguntaService,
