@@ -11,6 +11,7 @@ const MENUITEMS = [
   { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree' },
   { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route' },
   { state: 'grupo-nivel', name: 'Niveles por grupo', type: 'link', icon: 'alt_route' },
+  { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face' },
   { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group' },
   { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day' },
   { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction' },

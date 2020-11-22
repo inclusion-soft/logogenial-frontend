@@ -28,6 +28,8 @@ import { LeccionEditComponent } from './lecciones/leccion-edit/leccion-edit.comp
 import { PreguntaEditComponent } from './preguntas/pregunta-edit/pregunta-edit.component';
 import { DatageniaSelectComponent } from './datagenia/datagenia-select/datagenia-select.component';
 import { OpcionRespuestaEditComponent } from './opcion-respuestas/opcion-respuesta-edit/opcion-respuesta-edit.component';
+import { GrupoEstudianteAdminComponent } from './grupo-estudiante/grupo-estudiante-admin/grupo-estudiante-admin.component';
+import { GrupoEstudianteEditComponent } from './grupo-estudiante/grupo-estudiante-edit/grupo-estudiante-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -64,6 +66,11 @@ export const AdminRoutes: Routes = [
     path: 'lecciones',
       component: LeccionAdminComponent,
       canActivate: [AuthGuardService]
+  },
+  {
+    path: 'grupo-estudiante',
+      component: GrupoEstudianteAdminComponent,
+      canActivate: [AuthGuardService]
   }
 ];
 
@@ -74,7 +81,7 @@ export const AdminRoutes: Routes = [
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
-    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent
+    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent, GrupoEstudianteEditComponent
   ],
   imports: [
     CommonModule,
