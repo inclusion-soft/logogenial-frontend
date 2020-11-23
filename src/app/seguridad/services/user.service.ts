@@ -16,4 +16,14 @@ export class UserService {
     const endPoint = this.urlService + '/create';
     return this.http.post<any>(endPoint, data);
   }
+
+  findAllEstudiantes(): Observable<UsuarioModel[]> {
+    const endpoint = this.urlService +  '/findAllStudends';
+    return this.http.get<UsuarioModel[]>(endpoint);
+  }
+
+  findAllDocentes(): Observable<UsuarioModel[]> {
+    const endpoint = this.urlService +  '/findAllTeachers';
+    return this.http.get<UsuarioModel[]>(endpoint);
+  }
 }

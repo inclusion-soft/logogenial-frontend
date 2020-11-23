@@ -40,4 +40,9 @@ export class GrupoService  {
     delete (grupoId: number): Observable<GrupoModel> {
       return this.http.delete<GrupoModel>(this.urlService + '/' + grupoId);
     }
+
+    findAllByDocenteId(id: number): Observable<GrupoModel[]> {
+      const endpoint = this.urlService +  '/findAllByDocenteId/'+ id;
+      return this.http.get<GrupoModel[]>(endpoint);
+    }
 }

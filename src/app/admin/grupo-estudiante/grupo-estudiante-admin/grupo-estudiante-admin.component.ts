@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { NivelModel } from 'app/admin/nivel/models/nivel-model';
 import { GrupoEstudianteModel } from '../model/grupo-estudiante-model';
-import { GRUPO_DOCENTE_CONSTANTS } from '../model/grupo-estudiante-constant';
 import { GrupoEstudianteCriteria } from '../model/grupo-estudiante-criteria';
 import { GrupoEstudianteDatasource } from '../service/grupo-estudiante-datasource';
 import { MatPaginator, MatSort, MatDialog, MatSnackBar, MatDialogConfig } from '@angular/material';
@@ -14,6 +13,7 @@ import { tap } from 'rxjs/operators';
 import { GrupoEstudianteEditComponent } from '../grupo-estudiante-edit/grupo-estudiante-edit.component';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 import { GrupoEstudianteService } from '../service/grupo-estudiante.service';
+import { GRUPO_ESTUDIANTE_CONSTANTS } from '../model/grupo-estudiante-constant';
 
 @Component({
   selector: 'app-grupo-estudiante-admin',
@@ -39,7 +39,7 @@ export class GrupoEstudianteAdminComponent implements OnInit, AfterViewInit {
 
   grupoEstudianteDatasource: GrupoEstudianteDatasource<GrupoEstudianteModel>;
   loading = true;
-  constants = GRUPO_DOCENTE_CONSTANTS;
+  constants = GRUPO_ESTUDIANTE_CONSTANTS;
   disabledButton = false;
   grupo: GrupoModel = new GrupoModel();
 
@@ -118,18 +118,14 @@ export class GrupoEstudianteAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  edit(nivel: GrupoEstudianteModel): void {
+  edit(grupoEstudiante: GrupoEstudianteModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'edit-modalbox';
     dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    if (nivel !== null) {
-      nivel.grupo.id = this.grupo.id;
-    }
     const dataParam = {
-      grupoNivelList: this.grupoNivelList,
-      itemData: nivel
+      itemData: grupoEstudiante
     };
     dialogConfig.data = dataParam;
 

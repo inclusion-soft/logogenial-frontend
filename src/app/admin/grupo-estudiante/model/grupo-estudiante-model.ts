@@ -6,6 +6,7 @@ export class GrupoEstudianteModel {
   activo!: boolean;
   grupo!: GrupoModel;
   usuarioestudiante!: SimpleModel;
+  docente!: SimpleModel;
   constructor() {
     this.grupo = new GrupoModel();
     this.usuarioestudiante = new SimpleModel();
