@@ -3,16 +3,15 @@ import {
   Input,
   TemplateRef,
   ViewContainerRef,
-  ElementRef,
-  OnInit,
-  Attribute
+  OnDestroy
 } from '@angular/core';
 import { TokenStorageService } from 'app/seguridad/services/token-storage.service';
 
 @Directive({
   selector: '[userHassPermission]'
 })
-export class HassPermissionDirective {
+export class HassPermissionDirective implements OnDestroy {
+  private alive = true;
   private hasView = false;
   constructor(private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
@@ -25,22 +24,17 @@ export class HassPermissionDirective {
       // DEVOLVER A LA NORMALIDAD CUANDO SE AGREGUE EL ROL Y USUARIO
       const roles = this.tokenStorageService.getRolesUsuario();
       const listaRoles = JSON.parse(roles) as string[];
-      debugger;
-      // this.tokenStorageService.getRolesUsuario()
-      //     .pipe(
-      //      //   pluck('state'),
-      //     ).subscribe((can: any) => {
-      //         if (typeof can !== 'undefined') {
-      //             if (can && !this.hasView) {
-      //                 this.viewContainer.createEmbeddedView(this.templateRef);
-      //                 this.hasView = true;
-      //             } else if (!can && this.hasView) {
-      //                 this.viewContainer.clear();
-      //                 this.hasView = false;
-      //             }
-      //         }
-
-      //     });
+      if( listaRoles.includes(rol)) {
+        //this.viewContainer.createEmbeddedView(this.templateRef);
+        this.hasView = true;
+      } else {
+        this.hasView = false;
+        this.viewContainer.clear();
+      }
   }
+
+  ngOnDestroy() {
+    this.alive = false;
+}
 
 }

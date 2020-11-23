@@ -38,7 +38,7 @@ export class TokenStorageService {
   }
 
   public getRolesUsuario(): any {
-    return window.sessionStorage.getItem(USER_NAME_KEY);
+    return window.sessionStorage.getItem(USER_ROLES_KEY);
   }
 
   public setTokenUser(data: string): void {

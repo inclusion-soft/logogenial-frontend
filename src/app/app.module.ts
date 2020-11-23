@@ -19,6 +19,7 @@ import {SeguridadModule} from './seguridad/seguridad.module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { AuthInterceptor } from './seguridad/auth-interceptor';
+import { HassPermissionDirective } from './administracion/directivas/hass-permission.directive';
 
 @NgModule({
   declarations: [

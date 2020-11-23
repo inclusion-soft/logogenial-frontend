@@ -30,6 +30,7 @@ import { DatageniaSelectComponent } from './datagenia/datagenia-select/datagenia
 import { OpcionRespuestaEditComponent } from './opcion-respuestas/opcion-respuesta-edit/opcion-respuesta-edit.component';
 import { GrupoEstudianteAdminComponent } from './grupo-estudiante/grupo-estudiante-admin/grupo-estudiante-admin.component';
 import { GrupoEstudianteEditComponent } from './grupo-estudiante/grupo-estudiante-edit/grupo-estudiante-edit.component';
+import { HassPermissionDirective } from 'app/administracion/directivas/hass-permission.directive';
 
 export const AdminRoutes: Routes = [
   {
@@ -81,7 +82,9 @@ export const AdminRoutes: Routes = [
     DatageniaListComponent, DatageniaEditComponent,
     ArchivoEditComponent,
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
-    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent, PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent, GrupoEstudianteEditComponent
+    GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent,
+    PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent,
+    GrupoEstudianteEditComponent, HassPermissionDirective
   ],
   imports: [
     CommonModule,
