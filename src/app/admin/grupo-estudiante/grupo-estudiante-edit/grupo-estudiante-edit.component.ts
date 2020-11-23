@@ -66,7 +66,7 @@ export class GrupoEstudianteEditComponent implements OnInit{
   }
 
   cargarEstudiantes() {
-    this.usuarioService.findAllEstudiantes().subscribe( (estudiantes: any) => {
+    this.usuarioService.findAllEstudiantes().subscribe( (estudiantes: any[]) => {
       this.estudianteList = estudiantes;
       if(this.grupoEstudiante.id > 0) {
         const toSelect = estudiantes.find(c => c.id === this.grupoEstudiante.usuarioestudiante.id);
@@ -76,7 +76,7 @@ export class GrupoEstudianteEditComponent implements OnInit{
   }
 
   cargarDocentes() {
-    this.usuarioService.findAllDocentes().subscribe( (docentes: any) => {
+    this.usuarioService.findAllDocentes().subscribe( (docentes: any[]) => {
       this.docenteList = docentes;
       if(this.grupoEstudiante.id > 0) {
         const toSelect = docentes.find(c => c.id === this.grupoEstudiante.grupo.usuario.id);
@@ -91,7 +91,7 @@ export class GrupoEstudianteEditComponent implements OnInit{
   }
 
   cargarGruposPorDocente(docenteId: number) {
-    this.grupoService.findAllByDocenteId(docenteId).subscribe( grupos => {
+    this.grupoService.findAllByDocenteId(docenteId).subscribe( (grupos: any[]) => {
       this.grupoList = grupos;
       if(this.grupoEstudiante.id > 0) {
         const toSelect = grupos.find(c => c.id === this.grupoEstudiante.grupo.id);

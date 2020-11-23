@@ -26,4 +26,9 @@ export class UserService {
     const endpoint = this.urlService +  '/findAllTeachers';
     return this.http.get<UsuarioModel[]>(endpoint);
   }
+
+  public getRoles(): Observable<any> {
+    const endpoint = this.urlService +  '/getRoles';
+    return this.http.get(endpoint);
+  }
 }

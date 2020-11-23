@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 const USER_TOKEN_KEY = 'tokenUsuario';
 const USER_NAME_KEY = 'nameUsuario';
 const USER_NAMES_KEY = 'nameUsuario';
 const USER_EMAIL_KEY = 'emailUsuario';
+const USER_ROLES_KEY = 'rolesUsuario';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,15 @@ export class TokenStorageService {
   }
 
   public getNameUser(): any {
+    return window.sessionStorage.getItem(USER_NAME_KEY);
+  }
+
+  public setRolesUsuario(roles: string): void {
+    window.sessionStorage.removeItem(USER_ROLES_KEY);
+    window.sessionStorage.setItem(USER_ROLES_KEY, JSON.stringify(roles));
+  }
+
+  public getRolesUsuario(): any {
     return window.sessionStorage.getItem(USER_NAME_KEY);
   }
 

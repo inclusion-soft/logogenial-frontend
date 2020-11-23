@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-card-title>{{constants.tituloFormAdmin}}
       <div fxLayoutAlign="end">
-        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}" *userHassPermission="'ADMINISTRADOR'">
           <mat-icon class="m-1">note_add</mat-icon>
         </button>
     </div>
