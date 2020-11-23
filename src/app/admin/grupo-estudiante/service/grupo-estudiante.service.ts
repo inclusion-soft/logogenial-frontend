@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class GrupoEstudianteService {
 
-  urlService = 'v1/grupo-nivel-api';
+  urlService = 'v1/grupo-estudiante-api';
   constructor(private http: HttpClient) {
     this.urlService = environment.apiUrl + this.urlService;
   }

@@ -32,9 +32,7 @@ export class GrupoEstudianteCriteria extends GrupoEstudianteModel  {
 
   /** Método encargado de construir el json de consulta de información para el servicio */
   public getUrlParameters(): string {
-    return //'grupoId=' + this.grupo.id +
-    // '&nivel_nombre=' + this.nombre +
-      '&page=' + (this.page) +
+    return '&page=' + (this.page) +
       '&size=' + this.size +
       '&sortBy=' + this.sortBy +
       '&sortOrder=' + this.sortOrder;
