@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   userLogin: UserLogin = new UserLogin();
   loginForm!: FormGroup;
   hide = true;
-
+  url = 'https://www.positronx.io';
   selected: any;
   constructor(
     private _formBuilder: FormBuilder,

@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
   userLogin: UsuarioModel = new UsuarioModel();
   registerForm!: FormGroup;
   submitted = false;
+  url = 'https://www.positronx.io';
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
       nombre   : [this.userLogin.username, [Validators.required]],
