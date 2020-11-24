@@ -20,49 +20,49 @@
                      matSortDirection="asc">
 
               <ng-container matColumnDef="nombre">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.nombre}}</strong> </mat-header-cell>
                   <mat-cell *matCellDef="let datagenia">
                      {{datagenia.nombre}}
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="frase">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.frase}}</b> </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.frase}}</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
                    {{datagenia.frase}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="compartido">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.compartido}}</b> </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.compartido}}</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
                    {{datagenia.compartido}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="dificultad">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.dificultad}}</b> </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.dificultad}}</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
                    {{datagenia.dificultad}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="usuarioCreadorId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.usuarioCreadorId}}</b> </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.usuarioCreadorId}}</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
                    {{datagenia.usuarioCreadorId}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="archivoId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.archivoId}}</b> </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.archivoId}}</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let datagenia">
                   <img  *ngIf="datagenia?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{datagenia.archivoId}}" class="img-thumbnail-md" alt="{{ datagenia.nombre }}">
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="activo">
-                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{ constants.activo }}</strong></mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
                     <span class="alert alert-danger" [hidden]="menu.activo">{{ constants.no }}</span>
                     <span class="alert alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
@@ -70,7 +70,7 @@
               </ng-container>
 
               <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef><strong>{{ constants.acciones }}</strong></mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
                   <!-- <button mat-raised-button  (click)="detail(menu)" color="primary" class="m-1">
                     <mat-icon matTooltip="Detalles" matTooltipPosition="above">open_in_new</mat-icon>

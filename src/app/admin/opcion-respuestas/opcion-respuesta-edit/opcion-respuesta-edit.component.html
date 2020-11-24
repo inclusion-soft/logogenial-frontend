@@ -7,7 +7,7 @@
     <span class="font-12 font-normal">Pregunta: {{this.pregunta.fraseRespuesta}}</span>
     &nbsp;
     &nbsp;
-    <img class="img-thumbnail-very-small"  matListAvatar src="{{ getUrlBase() }}/getById/{{this.pregunta.respuesta.archivoId}}" >
+    <img class="img-thumbnail-very-small"  matListAvatar src="{{ getUrlBase() }}/getById/{{this.pregunta.respuesta.archivoId}}" alt="imagen">
     &nbsp;
     &nbsp;
     <span class="font-12 text-muted">Frase:</span>
@@ -49,7 +49,7 @@
         <mat-selection-list>
           <mat-list-option>
             <a mat-list-item>
-              <img class="img-thumbnail rounded"  matListAvatar src="{{ getUrlBase() }}/getById/{{opcionRespuesta.opcion.archivoId}}" >
+              <img class="img-thumbnail rounded"  matListAvatar src="{{ getUrlBase() }}/getById/{{opcionRespuesta.opcion.archivoId}}" alt="imagen">
             </a>
           </mat-list-option>
         </mat-selection-list>
