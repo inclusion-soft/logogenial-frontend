@@ -3,8 +3,7 @@
 
 <mat-dialog-content [formGroup]="form">
   <input type="hidden" formControlName="id" [(ngModel)]="usuario.id">
-  <input type="hidden" formControlName="rol">
-
+  <input type="hidden" formControlName="avatar" [(ngModel)]="usuario.avatar">
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
       <mat-form-field class="w-50">
@@ -69,11 +68,11 @@
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
     <div class="item" fxFlex>
       <mat-label> Roles * </mat-label>
-      <!-- <mat-form-field class="w-100"> -->
-        <mat-selection-list [(ngModel)]="usuario.rol">
+
+        <mat-selection-list formControlName="roles">
           <mat-list-option *ngFor="let list of listaRoles" [selected]="roles.indexOf(list) > -1" [value]="list">{{list}}</mat-list-option>
         </mat-selection-list>
-      <!-- </mat-form-field> -->
+
     </div>
   </div>
 <p></p>

@@ -41,6 +41,9 @@ export class UsuarioEditComponent implements OnInit{
     this.initForm();
     if (this.usuario.id > 0) {
       this.clone = JSON.parse(JSON.stringify(this.usuario));
+    }else {
+      this.usuario.id = 0;
+      this.usuario.avatar = 'av-1.png';
     }
   }
 
@@ -54,11 +57,14 @@ export class UsuarioEditComponent implements OnInit{
     'nombre': [null, [Validators.required]],
     'apellido': [null, [Validators.required]],
     'email': [null, [Validators.required]],
+    'avatar': [null, [Validators.required]],
     'password': [null, Validators.required],
-    'repetirPassword': [, Validators.required],
-    'rol': [null, Validators.required]
+    'repetirPassword': [null, Validators.required],
+    'roles': [null, Validators.required]
    });
    this.form.get('activo')!.setValue(this.usuario.activo);
+   this.form.get('avatar')!.setValue(this.usuario.avatar);
+
   }
 
 
@@ -80,7 +86,6 @@ export class UsuarioEditComponent implements OnInit{
       return;
     }
     this.usuario.username = this.usuario.email;
-    this.usuario.rol = this.roles;
     //this.form.get('activo')!.setValue(this.usuario.activo);
 
     this.markFormGroupTouched(this.form);

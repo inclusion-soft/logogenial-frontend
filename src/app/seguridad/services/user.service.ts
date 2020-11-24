@@ -15,7 +15,7 @@ export class UserService {
     this.urlService = environment.apiUrl + this.urlService;
   }
   register(data: UsuarioModel): Observable<any> {
-    const endPoint = this.urlService + '/create';
+    const endPoint = this.urlService + '/createSecure';
     return this.http.post<any>(endPoint, data);
   }
 

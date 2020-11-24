@@ -172,6 +172,7 @@ export const CONSTANTS_SHARED = {
     domingo: 'Domingo'
   },
   activo: 'Activo',
+  estadoBloqueado: 'Estado de bloqueo',
   descripcion: 'Descripción o llave de respuesta',
   formatoArchivos: [
     { mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', nombreTipoArchivo: 'Excel 2007 en adelante'},
