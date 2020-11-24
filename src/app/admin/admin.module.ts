@@ -31,8 +31,15 @@ import { OpcionRespuestaEditComponent } from './opcion-respuestas/opcion-respues
 import { GrupoEstudianteAdminComponent } from './grupo-estudiante/grupo-estudiante-admin/grupo-estudiante-admin.component';
 import { GrupoEstudianteEditComponent } from './grupo-estudiante/grupo-estudiante-edit/grupo-estudiante-edit.component';
 import { HassPermissionDirective } from 'app/administracion/directivas/hass-permission.directive';
+import { UsuarioAdminComponent } from './usuario/usuario-admin/usuario-admin.component';
+import { UsuarioEditComponent } from './usuario/usuario-edit/usuario-edit.component';
 
 export const AdminRoutes: Routes = [
+  {
+    path: 'usuarios',
+      component: UsuarioAdminComponent,
+      canActivate: [AuthGuardService]
+  },
   {
   path: 'nivel',
     component: NivelListComponent,
@@ -84,7 +91,7 @@ export const AdminRoutes: Routes = [
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
     GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent,
     PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent,
-    GrupoEstudianteEditComponent, HassPermissionDirective
+    GrupoEstudianteEditComponent, HassPermissionDirective, UsuarioAdminComponent, UsuarioEditComponent
   ],
   imports: [
     CommonModule,

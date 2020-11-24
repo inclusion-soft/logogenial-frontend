@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TokenStorageService } from 'app/seguridad/services/token-storage.service';
-import { IfStmt } from '@angular/compiler';
 
 export interface Menu {
   state: string;
@@ -11,10 +10,11 @@ export interface Menu {
 }
 
 const MENUITEMS = [
+  { state: 'usuarios', name: 'Gestión usuarios', type: 'link', icon: 'supervisor_account', permission: 'ADMINISTRADOR' },
+  { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face', permission: 'TUTOR' },
   { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree', permission: 'TUTOR' },
   { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route', permission: 'TUTOR' },
   { state: 'grupo-nivel', name: 'Niveles por grupo', type: 'link', icon: 'alt_route', permission: 'TUTOR' },
-  { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face', permission: 'TUTOR' },
   { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group', permission: 'TUTOR' },
   { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day', permission: 'TUTOR'},
   { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction', permission: 'TUTOR' },
@@ -25,7 +25,6 @@ const MENUITEMS = [
 @Injectable()
 export class MenuItems {
   constructor(private tokenStorage: TokenStorageService) {
-
   }
   getMenuitem(){
     const roles = this.tokenStorage.getRolesUsuario() as string[];

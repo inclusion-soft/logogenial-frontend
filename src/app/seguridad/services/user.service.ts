@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { UsuarioModel } from '../models/usuario-model';
+import { UsuarioCriteria } from 'app/admin/usuario/model/usuario-criteria';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
+import { CollectionResponse } from 'app/admin/shared/collection-response';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,11 @@ export class UserService {
   register(data: UsuarioModel): Observable<any> {
     const endPoint = this.urlService + '/create';
     return this.http.post<any>(endPoint, data);
+  }
+
+  update(data: UsuarioModel): Observable<any> {
+    const endPoint = this.urlService + '/update';
+    return this.http.put<any>(endPoint, data);
   }
 
   findAllEstudiantes(): Observable<UsuarioModel[]> {
@@ -30,5 +37,10 @@ export class UserService {
   public getRoles(): Observable<any> {
     const endpoint = this.urlService +  '/getRoles';
     return this.http.get(endpoint);
+  }
+
+  search(criteria: UsuarioCriteria): Observable<CollectionResponse<UsuarioModel>> {
+    const endpoint = this.urlService +  '/search?' + criteria.getUrlParameters();
+    return this.http.get<CollectionResponse<UsuarioModel>>(endpoint);
   }
 }

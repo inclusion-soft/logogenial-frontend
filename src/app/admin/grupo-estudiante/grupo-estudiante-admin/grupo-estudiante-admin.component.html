@@ -11,16 +11,6 @@
     <mat-card-subtitle>{{constants.tituloFormAdmin}}</mat-card-subtitle>
 
 
-    <mat-toolbar>
-      <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>group</mat-icon>
-      </button> -->
-      <!-- <a [routerLink]="['/grupo']" matTooltip="Volver a Grupos">
-        <span class="font-12 font-normal">Grupo: {{this.grupo.nombre}}</span>
-      </a> -->
-   </mat-toolbar>
-
-
     <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner [diameter]="50" color="primary"></mat-spinner>
     </div>
