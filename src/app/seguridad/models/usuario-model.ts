@@ -7,5 +7,6 @@ export class UsuarioModel {
   password!: string;
   repetirPassword!: string;
   rol: string;
+  activo: boolean;
   roles: any[];
 }

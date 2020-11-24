@@ -76,7 +76,6 @@ export class OpcionRespuestaEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       (val: any) => {
-        debugger;
         if (val.id !== undefined) {
           this.opcionRespuesta.opcion = val;
           this.opcionRespuesta.fraseRespuesta = val.frase;

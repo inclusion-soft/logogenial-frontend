@@ -15,7 +15,8 @@ import { TokenResultData } from '../models/token-result-data';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  Roles: any = ['Estudiante', 'Docente / Tutor', 'Administrador'];
+  Roles: any = [];
+  ListaRoles: any = ['ADMINISTRADOR', 'TUTOR', 'ESTUDIANTE'];
   selected: string;
   status = 'editando';
   constructor(
