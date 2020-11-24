@@ -9,8 +9,6 @@
 
       <mat-form-field>
         <mat-select formControlName="nivel">
-           <!-- <ngx-mat-select-search [(ngModel)]="grupoNivel.nivel" [placeholderLabel]="'Buscar...'"
-            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
           <mat-option *ngFor="let nivel of grupoNivelList" [value]="nivel">
           {{nivel.nombre}}
         </mat-option>
@@ -27,8 +25,6 @@
     <div class="item" fxFlex="50%">
       <mat-checkbox formControlName="activo" name="activo" [(value)]="grupoNivel.activo" id="activo">{{ constants.activo }}
       </mat-checkbox>
-      <!-- <mat-error *ngIf="enviada && form.get('activo').hasError('required')"> {{ constantes.campoRequerido }}
-      </mat-error> -->
     </div>
   </div>
 

@@ -1,44 +1,35 @@
-<!-- ============================================================== -->
-<!-- Fixed height Card Grid-->
-<!-- ============================================================== -->
 <div fxLayout="row">
     <div fxFlex.gt-sm="100%" >
         <mat-card>
             <mat-card-content>
               <mat-card-title>Determinate progress-bar</mat-card-title>
               <mat-card-subtitle><code>&lt;mat-progress-bar mode="determinate"&gt;</code> is a horizontal progress-bar for indicating progress and activity.</mat-card-subtitle>
-              <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>  
-            </mat-card-content>        
+              <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>
-<!-- ============================================================== -->
-<!-- Fixed height Card Grid-->
-<!-- ============================================================== -->
 <div fxLayout="row">
     <div fxFlex.gt-sm="100%" >
         <mat-card>
             <mat-card-content>
               <mat-card-title>Indeterminate progress-bar</mat-card-title>
               <mat-card-subtitle><code>&lt;mat-progress-bar mode="indeterminate"&gt;</code> is a horizontal progress-bar for indicating progress and activity.</mat-card-subtitle>
-              <mat-progress-bar mode="indeterminate" value="40"></mat-progress-bar>  
-            </mat-card-content>        
+              <mat-progress-bar mode="indeterminate" value="40"></mat-progress-bar>
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>
-<!-- ============================================================== -->
-<!-- Fixed height Card Grid-->
-<!-- ============================================================== -->
 <div fxLayout="row">
     <div fxFlex.gt-sm="100%" >
         <mat-card>
             <mat-card-content>
               <mat-card-title>Buffer progress-bar</mat-card-title>
               <mat-card-subtitle><code>&lt;mat-progress-bar mode="buffer"&gt;</code> is a horizontal progress-bar for indicating progress and activity.</mat-card-subtitle>
-              <mat-progress-bar mode="buffer"></mat-progress-bar>  
-            </mat-card-content>        
+              <mat-progress-bar mode="buffer"></mat-progress-bar>
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>
 <!-- ============================================================== -->
 <!-- Fixed height Card Grid-->
@@ -49,10 +40,10 @@
             <mat-card-content>
               <mat-card-title>Query  progress-bar</mat-card-title>
               <mat-card-subtitle><code>&lt;mat-progress-bar mode="query"&gt;</code> is a horizontal progress-bar for indicating progress and activity.</mat-card-subtitle>
-              <mat-progress-bar mode="query"></mat-progress-bar>  
-            </mat-card-content>        
+              <mat-progress-bar mode="query"></mat-progress-bar>
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>
 <!-- ============================================================== -->
 <!-- Fixed height Card Grid-->
@@ -63,12 +54,12 @@
             <mat-card-content>
               <mat-card-title>Colored  progress-bar</mat-card-title>
               <mat-card-subtitle><code>&lt;mat-progress-bar mode="determinate"&gt;</code> is a horizontal progress-bar for indicating progress and activity.</mat-card-subtitle>
-              <mat-progress-bar mode="determinate" value="40" color="primary"></mat-progress-bar><br/>  
-              <mat-progress-bar mode="determinate" value="80" color="accent"></mat-progress-bar><br/>  
-              <mat-progress-bar mode="determinate" value="20" color="warn"></mat-progress-bar>      
-            </mat-card-content>        
+              <mat-progress-bar mode="determinate" value="40" color="primary"></mat-progress-bar><br/>
+              <mat-progress-bar mode="determinate" value="80" color="accent"></mat-progress-bar><br/>
+              <mat-progress-bar mode="determinate" value="20" color="warn"></mat-progress-bar>
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>
 <!-- ============================================================== -->
 <!-- Fixed height Card Grid-->
@@ -111,7 +102,7 @@
                     </mat-radio-button>
                   </mat-radio-group>
                 </section>
-                
+
                 <section class="example-section" *ngIf="mode == 'determinate' || mode == 'buffer'">
                   <label class="example-margin">Progress:</label>
                   <mat-slider class="example-margin" [(ngModel)]="value"></mat-slider>
@@ -131,7 +122,7 @@
                       [bufferValue]="bufferValue">
                   </mat-progress-bar>
                 </section>
-            </mat-card-content>        
+            </mat-card-content>
         </mat-card>
-    </div> 
+    </div>
 </div>

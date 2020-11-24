@@ -42,7 +42,6 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header><strong> Roles</strong> </mat-header-cell>
                 <mat-cell *matCellDef="let usuario">
                   <pre>{{ usuario.roles | arrayListPipe:"nombre"  }}</pre>
-                  <!-- <pre *ngFor="let obj of usuario.roles">{{obj.nombre | json}}</pre> -->
                 </mat-cell>
             </ng-container>
 
