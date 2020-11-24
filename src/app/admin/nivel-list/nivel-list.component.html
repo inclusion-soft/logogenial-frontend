@@ -44,9 +44,6 @@
               <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef><strong>{{ constants.acciones }}</strong></mat-header-cell>
                 <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
-                  <!-- <button mat-raised-button  (click)="detail(menu)" color="primary" class="m-1">
-                    <mat-icon matTooltip="Detalles" matTooltipPosition="above">open_in_new</mat-icon>
-                  </button> -->
                   <button mat-raised-button  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
                     <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
                   </button>
