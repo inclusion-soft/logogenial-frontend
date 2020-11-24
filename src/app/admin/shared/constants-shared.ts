@@ -1,4 +1,8 @@
 export const CONSTANTS_SHARED = {
+  rol_administrador: 'ADMINISTRADOR',
+  rol_tutor: 'TUTOR',
+  rol_estudiante: 'ESTUDIANTE',
+  rol_invitado: 'INVITADO',
   id: 'Id',
   leyenda: 'Leyenda',
   acciones: 'Acciones',

@@ -22,10 +22,7 @@ export class HassPermissionDirective implements OnDestroy {
       this.viewContainer.createEmbeddedView(this.templateRef);
       this.hasView = true;
       // DEVOLVER A LA NORMALIDAD CUANDO SE AGREGUE EL ROL Y USUARIO
-      const roles = this.tokenStorageService.getRolesUsuario();
-      const listaRoles = JSON.parse(roles) as string[];
-      if( listaRoles.includes(rol)) {
-        //this.viewContainer.createEmbeddedView(this.templateRef);
+      if ( this.tokenStorageService.userHasRole(rol)) {
         this.hasView = true;
       } else {
         this.hasView = false;

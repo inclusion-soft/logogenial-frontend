@@ -1,68 +1,40 @@
 import { Injectable } from '@angular/core';
+import { TokenStorageService } from 'app/seguridad/services/token-storage.service';
+import { IfStmt } from '@angular/compiler';
 
 export interface Menu {
   state: string;
   name: string;
   type: string;
   icon: string;
+  permission: string;
 }
 
 const MENUITEMS = [
-  { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree' },
-  { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route' },
-  { state: 'grupo-nivel', name: 'Niveles por grupo', type: 'link', icon: 'alt_route' },
-  { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face' },
-  { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group' },
-  { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day' },
-  { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction' },
-  { state: 'datagenia', name: 'Datagenias', type: 'link', icon: 'image_search' },
-  { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer' },
-  // { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' },
-  // { state: 'grid', type: 'link', name: 'Grid List', icon: 'view_comfy' },
-  // { state: 'lists', type: 'link', name: 'Lists', icon: 'view_list' },
-  // { state: 'menu', type: 'link', name: 'Menu', icon: 'view_headline' },
-  // { state: 'tabs', type: 'link', name: 'Tabs', icon: 'tab' },
-  // { state: 'stepper', type: 'link', name: 'Stepper', icon: 'web' },
-  // {
-  //   state: 'expansion',
-  //   type: 'link',
-  //   name: 'Expansion Panel',
-  //   icon: 'vertical_align_center'
-  // },
-  // { state: 'chips', type: 'link', name: 'Chips', icon: 'vignette' },
-  // { state: 'toolbar', type: 'link', name: 'Toolbar', icon: 'voicemail' },
-  // {
-  //   state: 'progress-snipper',
-  //   type: 'link',
-  //   name: 'Progress snipper',
-  //   icon: 'border_horizontal'
-  // },
-  // {
-  //   state: 'progress',
-  //   type: 'link',
-  //   name: 'Progress Bar',
-  //   icon: 'blur_circular'
-  // },
-  // {
-  //   state: 'dialog',
-  //   type: 'link',
-  //   name: 'Dialog',
-  //   icon: 'assignment_turned_in'
-  // },
-  // { state: 'tooltip', type: 'link', name: 'Tooltip', icon: 'assistant' },
-  // { state: 'snackbar', type: 'link', name: 'Snackbar', icon: 'adb' },
-  // { state: 'slider', type: 'link', name: 'Slider', icon: 'developer_mode' },
-  // {
-  //   state: 'slide-toggle',
-  //   type: 'link',
-  //   name: 'Slide Toggle',
-  //   icon: 'all_inclusive'
-  // }
+  { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree', permission: 'TUTOR' },
+  { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route', permission: 'TUTOR' },
+  { state: 'grupo-nivel', name: 'Niveles por grupo', type: 'link', icon: 'alt_route', permission: 'TUTOR' },
+  { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face', permission: 'TUTOR' },
+  { state: 'grupo', name: 'Grupos', type: 'link', icon: 'group', permission: 'TUTOR' },
+  { state: 'nivel', name: 'Niveles', type: 'link', icon: 'calendar_view_day', permission: 'TUTOR'},
+  { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction', permission: 'TUTOR' },
+  { state: 'datagenia', name: 'Datagenias', type: 'link', icon: 'image_search', permission: 'TUTOR' },
+  { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer', permission: 'TUTOR' },
 ];
 
 @Injectable()
 export class MenuItems {
-  getMenuitem(): Menu[] {
-    return MENUITEMS;
+  constructor(private tokenStorage: TokenStorageService) {
+
+  }
+  getMenuitem(){
+    const roles = this.tokenStorage.getRolesUsuario() as string[];
+    let itemsMenuConfirmados: ({ state: string; name: string; type: string; icon: string; permission: string; } | { state: string; name: string; type: string; icon: string; permission?: undefined; })[] = [];
+    MENUITEMS.forEach(element => {
+      if( roles.includes(element.permission + '')) {
+        itemsMenuConfirmados.push(element);
+      }
+    });
+    return itemsMenuConfirmados;
   }
 }
