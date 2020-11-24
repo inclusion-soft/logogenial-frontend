@@ -1,8 +1,8 @@
 <mat-card>
-	<mat-card-content>    
+	<mat-card-content>
 	<mat-card-title>Buttons</mat-card-title>
-			<mat-card-subtitle>Angular Material buttons are native <code> button or a </code> elements enhanced with Material Design styling and ink ripples. <code><a href="https://material.angular.io/components/button/overview" target="_blank">Official Doc</a></code></mat-card-subtitle>
-	
+			<mat-card-subtitle>Angular Material buttons are native <code> button or a </code> elements enhanced with Material Design styling and ink ripples. <code><a href="{{url}}" target="_blank">Official Doc</a></code></mat-card-subtitle>
+
 			<h4>Basic Buttons <br/><code class="bg-light">&lt;button mat-button color="primary"&gt;Primary&lt;/button&gt;</code></h4>
 		<div class="button-row">
 			<button mat-button>Basic</button>
@@ -76,7 +76,7 @@
 		</mat-button-toggle-group>
 
 
-		<h4>Button toggle </h4>  
+		<h4>Button toggle </h4>
 		<mat-button-toggle-group #group="matButtonToggleGroup">
 			<mat-button-toggle value="left">
 				<mat-icon>format_align_left</mat-icon>
@@ -91,7 +91,7 @@
 				<mat-icon>format_align_justify</mat-icon>
 			</mat-button-toggle>
 		</mat-button-toggle-group>
-		<div class="m-t-20">Selected value: {{group.value}}</div>  
+		<div class="m-t-20">Selected value: {{group.value}}</div>
 
 
 		<h4>Button toggle appearance <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span></h4>
