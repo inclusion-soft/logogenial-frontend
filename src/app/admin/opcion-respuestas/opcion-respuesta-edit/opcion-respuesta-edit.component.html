@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>{{ constants.editar }} OpcionRespuesta</h2>
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>device_unknown</mat-icon>
+  </button>
+
+    <span class="font-12 font-normal">Pregunta: {{this.pregunta.fraseRespuesta}}</span>
+    &nbsp;
+    &nbsp;
+    <img class="img-thumbnail-very-small"  matListAvatar src="{{ getUrlBase() }}/getById/{{this.pregunta.respuesta.archivoId}}" >
+    &nbsp;
+    &nbsp;
+    <span class="font-12 text-muted">Frase:</span>
+    &nbsp;
+    <span class="font-12 font-normal">{{ this.pregunta.respuesta.frase }}</span>
+    <mat-divider></mat-divider>
+    <div  fxLayout="row">
+
+    </div>
+
+</mat-toolbar>
+<p></p>
+
+<mat-dialog-content [formGroup]="form">
+  <!-- <input type="hidden" formControlName="id" [(ngModel)]="opcionRespuesta.id"> -->
+
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.orden }}" formControlName="orden"
+          [(ngModel)]="opcionRespuesta.orden" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.orden.errors" class="invalid-feedback">
+            <div *ngIf="f.orden.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.orden.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <input type="hidden" formControlName="opcion" [(ngModel)]="opcionRespuesta.opcion">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-list>
+        <mat-list-item>Respuesta *</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+      <div *ngIf="opcionRespuesta !== undefined && opcionRespuesta.fraseRespuesta !== undefined && opcionRespuesta.fraseRespuesta !== ''">
+        <mat-selection-list>
+          <mat-list-option>
+            <a mat-list-item>
+              <img class="img-thumbnail rounded"  matListAvatar src="{{ getUrlBase() }}/getById/{{opcionRespuesta.opcion.archivoId}}" >
+            </a>
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+
+      <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="seleccionarOpcion()">
+          <mat-icon class="m-1" matTooltip="Consultar respuesta">image_search</mat-icon> Seleccionar respuesta
+        </button>
+      </mat-dialog-actions>
+
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+        <div class="item" fxFlex>
+          <mat-form-field class="w-80">
+            <input matInput placeholder="{{ constants.fraseRespuesta }}" formControlName="fraseRespuesta"
+              [(ngModel)]="opcionRespuesta.fraseRespuesta" autocomplete
+              ="off" type="text" required pattern="^(?!\s*$).+"
+              [ngClass]="{ 'is-invalid': submitted && f.fraseRespuesta.errors }" >
+              <div *ngIf="submitted && f.fraseRespuesta.errors" class="invalid-feedback">
+                <div *ngIf="f.fraseRespuesta.errors.required">{{ constants.campoRequerido }}</div>
+                <div *ngIf="f.fraseRespuesta.errors.maxlength">{{ constants.longitud_maxima }} 50 carácteres</div>
+              </div>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="opcionRespuesta.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>
+

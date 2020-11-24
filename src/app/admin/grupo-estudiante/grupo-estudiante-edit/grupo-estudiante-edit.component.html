@@ -1,0 +1,119 @@
+<h2 mat-dialog-title>{{ constants.editar }} Asignación</h2>
+<!-- <mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>account_tree</mat-icon>
+  </button>
+
+  <span class="font-12 font-normal">Lección: {{this.leccion.leyenda}}</span>
+
+
+</mat-toolbar> -->
+<p></p>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="grupoEstudiante.id">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field>
+        <!-- <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnUser">
+          <mat-option *ngFor="let user of (estudianteList | async)" [value]="user">
+            <span>{{ user.name }}</span>
+            <small> | ID: {{user.id}}</small>
+          </mat-option>
+      </mat-autocomplete> -->
+      <!-- https://stackblitz.com/edit/angular-material-autocomplete-async1?file=src%2Fapp%2Fapp.component.html -->
+      <!-- https://www.djamware.com/post/5e379e4fd598ef0e8bbcc67e/angular-material-form-controls-select-mat-select-example -->
+      <mat-label>Estudiante</mat-label>
+        <mat-select formControlName="usuarioestudiante">
+          <mat-option *ngFor="let estudiante of estudianteList" [value]="estudiante">
+            {{estudiante.nombre}} {{estudiante.apellido}}
+          </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.usuarioestudiante.errors">
+        <div *ngIf="f.usuarioestudiante.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field>
+        <mat-label>Docente</mat-label>
+        <mat-select formControlName="docente" (selectionChange)="docenteSeleccionadoEvent($event)">
+          <mat-option *ngFor="let docente of docenteList" [value]="docente">
+          {{docente.nombre}} {{docente.apellido}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.docente.errors">
+        <div *ngIf="f.docente.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field>
+        <mat-select formControlName="grupo">
+           <!-- <ngx-mat-select-search [(ngModel)]="model.nivel" [placeholderLabel]="'Buscar...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
+          <mat-option *ngFor="let grupo of grupoList" [value]="grupo">
+          {{grupo.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.grupo.errors">
+        <div *ngIf="f.grupo.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.enumeracion }}" formControlName="enumeracion"
+          [(ngModel)]="leccion.enumeracion" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.enumeracion.errors" class="invalid-feedback">
+            <div *ngIf="f.enumeracion.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.enumeracion.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+        <mat-form-field>
+          <mat-select formControlName="listatipogrupoEstudiante" placeholder="Tipo de grupoEstudiante">
+            <mat-option *ngFor="let tipo of tipoPregunta" [value]="tipo">
+            {{tipo.nombre}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && f.listatipogrupoEstudiante.errors">
+          <div *ngIf="f.listatipogrupoEstudiante.errors.required">{{ constants.campoRequerido }}</div>
+        </mat-error>
+        </mat-form-field>
+    </div>
+  </div> -->
+
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="grupoEstudiante.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>
+

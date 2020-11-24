@@ -1,0 +1,237 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{constants.tituloFormAdminLecciones}}
+    </mat-card-title>
+    <mat-card-subtitle>{{constants.tituloFormAdminLecciones}}</mat-card-subtitle>
+
+    <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>group</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a grupo Grupos">
+        <span class="font-12 font-normal">Grupo: {{this.grupoNivelTema.grupoNivel.grupo.nombre}}</span>
+      </a>
+      &nbsp;
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>calendar_view_day</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel']" matTooltip="Volver a niveles">
+        <span class="font-12 font-normal">Nivel: {{this.grupoNivelTema.grupoNivel.nivel.nombre}}</span>
+      </a>
+      &nbsp;
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>alt_route</mat-icon>
+      </button>
+      <a [routerLink]="['/grupo-nivel-tema']" matTooltip="Volver a temas">
+        <span class="font-12 font-normal">Tema: {{this.grupoNivelTema.tema.nombre}}</span>
+      </a>
+
+   </mat-toolbar>
+
+   <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="34%">
+      <mat-card class="mat-elevation-z2">
+        <mat-card-header>
+          <mat-card-title>
+            Lecciones
+            <div fxLayoutAlign="end">
+              <button mat-fab (click)="createLeccion()" color="primary" matTooltip="Crear nueva lección">
+                <mat-icon class="m-1">note_add</mat-icon>
+              </button>
+          </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="loadingLecciones=== true" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+          </div>
+          <div class="center">
+            <div [hidden]="loadingLecciones">
+              <mat-table #table [dataSource]="lecciones">
+
+                <ng-container matColumnDef="enumeracion">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>#</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item" class="font-11">
+                        {{item.enumeracion}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="leyenda">
+                  <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.leyenda}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let item" class="font-11">
+                      {{item.leyenda}}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="activo">
+                  <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                  <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                      <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                      <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
+                  <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                    <button mat-mini-fab  (click)="edit(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                      <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab  (click)="delete(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                      <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leccionesDisplayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row;  let i = index; columns: leccionesDisplayedColumns;" (click)="leccionSelected(row)"
+                [ngClass]="{'highlightTableColor': leccionSeleccionada.id == row.id}"></mat-row>
+              </mat-table>
+
+          </div>
+        </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="38%">
+
+      <mat-card class="mat-elevation-z2">
+        <mat-card-header>
+          <mat-card-title>
+            Preguntas
+            <div fxLayoutAlign="end">
+              <button [disabled]="leccionSeleccionada === undefined || leccionSeleccionada.id === 0" mat-fab (click)="createPregunta()" color="primary" matTooltip="Crear nueva pregunta">
+                <mat-icon class="m-1">note_add</mat-icon>
+              </button>
+          </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="loadingPreguntas=== true" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+          </div>
+          <div class="center">
+            <div [hidden]="loadingPreguntas">
+              <mat-table #table [dataSource]="preguntas">
+                  <ng-container matColumnDef="tipopregunta">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>Tipo</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item" class="font-11">
+                      {{item.tipopregunta}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="respueta.id">
+                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagen}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <img  *ngIf="item.respuesta?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.respuesta.archivoId}}" class="img-thumbnail-small" alt="{{ item.respuesta.nombre }}"  >
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="fraseRespuesta" >
+                      <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.fraseRespuesta}}</b> </mat-header-cell>
+                      <mat-cell *matCellDef="let item" class="font-11">
+                         {{item.fraseRespuesta}}
+                      </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="aprobacion">
+                    <mat-header-cell *matHeaderCellDef><b>{{ constants.aprobacion }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                        <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                        <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                      <button mat-mini-fab  (click)="editPregunta(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                        <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                      </button>
+                      <button mat-mini-fab  (click)="deletePregunta(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                        <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="PreguntasDisplayedColumns; sticky:true"></mat-header-row>
+                  <mat-row *matRowDef="let row;  let i = index; columns: PreguntasDisplayedColumns;" (click)="preguntaSelected(row)"
+                  [ngClass]="{'highlightTableColor': preguntaSeleccionada.id == row.id}"></mat-row>
+              </mat-table>
+
+          </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="28%">
+
+
+<mat-card class="mat-elevation-z2">
+        <mat-card-header>
+          <mat-card-title>
+            Opciones de Respuesta
+            <div fxLayoutAlign="end">
+              <button [disabled]="preguntaSeleccionada === undefined || preguntaSeleccionada.id === 0" mat-fab (click)="createOpcion()" color="primary" matTooltip="Crear nueva pregunta">
+                <mat-icon class="m-1">note_add</mat-icon>
+              </button>
+          </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="loadingOpciones === true" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+          </div>
+          <div class="center">
+            <div [hidden]="loadingOpciones">
+              <mat-table #table [dataSource]="opciones">
+                  <ng-container matColumnDef="orden">
+                    <mat-header-cell *matHeaderCellDef class="font-11"><b>{{constants.orden}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item" class="font-11">
+                      {{item.orden}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="opcion">
+                    <mat-header-cell *matHeaderCellDef><b>{{constants.imagenRespuesta}}</b> </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <img  *ngIf="item.opcion?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{item.opcion.archivoId}}" class="img-thumbnail-small" alt="{{ item.opcion.nombre }}"  >
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="aprobacion">
+                    <mat-header-cell *matHeaderCellDef><b>{{ constants.activo }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.activo">
+                        <span class="alert alert-danger" [hidden]="item.activo">{{ constants.no }}</span>
+                        <span class="alert alert-success" [hidden]="!item.activo">{{ constants.si }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef  class="font-11"><b>{{ constants.acciones }}</b></mat-header-cell>
+                    <mat-cell *matCellDef="let item" [attr.data-label]="constants.acciones">
+                      <button mat-mini-fab  (click)="editOpcion(item)" [disabled]="disabledButton" color="primary" class="m-1">
+                        <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                      </button>
+                      <button mat-mini-fab  (click)="deleteOpcion(item)" [disabled]="disabledButton" color="warn" class="m-1">
+                        <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="OpcionesDisplayedColumns; sticky:true"></mat-header-row>
+                  <mat-row *matRowDef="let row;  let i = index; columns: OpcionesDisplayedColumns;"></mat-row>
+              </mat-table>
+
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+
+  </mat-card-content>
+</mat-card>

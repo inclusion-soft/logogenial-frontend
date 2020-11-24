@@ -1,0 +1,99 @@
+<h2 mat-dialog-title>{{ constants.editar }} Asignación</h2>
+<p></p>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="usuario.id">
+  <input type="hidden" formControlName="avatar" [(ngModel)]="usuario.avatar">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.nombre }}" formControlName="nombre"
+          [(ngModel)]="usuario.nombre" autocomplete="off" required>
+          <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+            <div *ngIf="f.nombre.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.nombre.errors.max">{{ constants.valormaximo }} 25</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.apellido }}" formControlName="apellido"
+          [(ngModel)]="usuario.apellido" autocomplete="off" required>
+          <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
+            <div *ngIf="f.apellido.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.apellido.errors.max">{{ constants.valormaximo }} 25</div>
+          </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="{{ constants.correo }}" formControlName="email"
+          [(ngModel)]="usuario.email" autocomplete="off" required>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.email.errors.max">{{ constants.valormaximo }} 25</div>
+          </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.contrasenia }}" formControlName="password" [type]="'password'"
+          [(ngModel)]="usuario.password" autocomplete="off" required>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.password.errors.max">{{ constants.valormaximo }} 25</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.repetirContrasenia }}" formControlName="repetirPassword" [type]="'password'"
+          [(ngModel)]="usuario.repetirPassword" autocomplete="off" required>
+          <div *ngIf="submitted && f.repetirPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.repetirPassword.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.repetirPassword.errors.max">{{ constants.valormaximo }} 25</div>
+          </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-label> Roles * </mat-label>
+
+        <mat-selection-list formControlName="roles">
+          <mat-list-option *ngFor="let list of listaRoles" [selected]="roles.indexOf(list) > -1" [value]="list">{{list}}</mat-list-option>
+        </mat-selection-list>
+
+    </div>
+  </div>
+<p></p>
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="usuario.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>
+

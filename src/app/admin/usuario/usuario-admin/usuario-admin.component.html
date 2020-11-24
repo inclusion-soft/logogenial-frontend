@@ -1,0 +1,81 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title> {{titulo}}
+      <div fxLayoutAlign="end">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}" *userHassPermission="constants.rol_administrador">
+          <mat-icon class="m-1">note_add</mat-icon>
+        </button>
+    </div>
+
+    </mat-card-title>
+    <mat-card-subtitle>{{ titulo}}</mat-card-subtitle>
+
+
+    <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+    </div>
+    <div class="">
+
+    </div>
+    <div class="center">
+      <div [hidden]="loading">
+          <mat-table #table [dataSource]="usuarioDatasource"
+                     matSort
+                     matSortActive="apellido"
+                     matSortDirection="asc">
+
+              <ng-container matColumnDef="nombre">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let usuario">
+                     {{usuario.nombre}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="apellido">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.apellido}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                   {{usuario.apellido}}
+                </mat-cell>
+            </ng-container>
+
+              <ng-container matColumnDef="roles">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b> Roles</b> </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                  <pre>{{ usuario.roles | arrayListPipe:"nombre"  }}</pre>
+                  <!-- <pre *ngFor="let obj of usuario.roles">{{obj.nombre | json}}</pre> -->
+                </mat-cell>
+            </ng-container>
+
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let usuario" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="usuario.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!usuario.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let usuario" [attr.data-label]="constants.acciones">
+                  <button mat-raised-button  (click)="edit(usuario)" [disabled]="disabledButton" color="primary" class="m-1"
+                  *userHassPermission="constants.rol_administrador">
+                    <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-paginator #paginator [length]="usuarioDatasource.counter$ | async"
+                         [pageIndex]="0"
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15]">
+          </mat-paginator>
+
+      </div>
+  </div>
+  </mat-card-content>
+</mat-card>
+

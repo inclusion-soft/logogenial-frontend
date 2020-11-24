@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{ constants.editar }} Nivel</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="grupoNivel.id">
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+
+    <div class="item" fxFlex>
+
+      <mat-form-field>
+        <mat-select formControlName="nivel">
+           <!-- <ngx-mat-select-search [(ngModel)]="grupoNivel.nivel" [placeholderLabel]="'Buscar...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search> -->
+          <mat-option *ngFor="let nivel of grupoNivelList" [value]="nivel">
+          {{nivel.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && f.nivel.errors">
+        <div *ngIf="f.nivel.errors.required">{{ constants.campoRequerido }}</div>
+      </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="grupoNivel.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+      <!-- <mat-error *ngIf="enviada && form.get('activo').hasError('required')"> {{ constantes.campoRequerido }}
+      </mat-error> -->
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Grupos
+      <div fxLayoutAlign="end">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
+          <mat-icon class="m-1">note_add</mat-icon>
+        </button>
+    </div>
+
+    </mat-card-title>
+    <mat-card-subtitle>Grupos registrados</mat-card-subtitle>
+    <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+    </div>
+    <div class="center">
+      <div [hidden]="loading">
+          <mat-table #table [dataSource]="grupoDatasource"
+                     matSort
+                     matSortActive="nombre"
+                     matSortDirection="asc">
+
+              <ng-container matColumnDef="nombre">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let grupo">
+                     {{grupo.nombre}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="anio">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.anio}}</b></mat-header-cell>
+                  <mat-cell *matCellDef="let grupo">
+                      {{grupo.anio}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="menu.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
+                  <button mat-raised-button  (click)="edit(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                    <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                  </button>
+                  <button mat-raised-button  (click)="delete(menu)" [disabled]="disabledButton" color="warn" class="m-1">
+                    <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                  </button>
+                  <button mat-raised-button  (click)="grupoNiveles(menu)" color="primary" class="m-1">
+                    <mat-icon matTooltip="Niveles" matTooltipPosition="above">line_style</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-paginator #paginator [length]="grupoDatasource.counter$ | async"
+                         [pageIndex]="0"
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15]">
+          </mat-paginator>
+
+      </div>
+  </div>
+  </mat-card-content>
+</mat-card>

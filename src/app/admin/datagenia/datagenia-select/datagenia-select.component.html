@@ -1,0 +1,103 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Datagenias
+      <div fxLayoutAlign="end">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}">
+          <mat-icon class="m-1">note_add</mat-icon>
+        </button>
+    </div>
+
+    </mat-card-title>
+    <mat-card-subtitle>Datagenias registrados</mat-card-subtitle>
+    <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+    </div>
+    <div class="center">
+      <div [hidden]="loading">
+          <mat-table #table [dataSource]="datageniaDatasource"
+                     matSort
+                     matSortActive="nombre"
+                     matSortDirection="asc">
+
+              <ng-container matColumnDef="nombre">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.nombre}}</b> </mat-header-cell>
+                  <mat-cell *matCellDef="let datagenia">
+                     {{datagenia.nombre}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="frase">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.frase}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                   {{datagenia.frase}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="compartido">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.compartido}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                   {{datagenia.compartido}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="dificultad">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.dificultad}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                   {{datagenia.dificultad}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="usuarioCreadorId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.usuarioCreadorId}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                   {{datagenia.usuarioCreadorId}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="archivoId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{constants.archivoId}}</b> </mat-header-cell>
+                <mat-cell *matCellDef="let datagenia">
+                  <img  *ngIf="datagenia?.archivoId" src="{{ archivoService.getUrlBase() }}/getById/{{datagenia.archivoId}}" class="img-thumbnail-md" alt="{{ datagenia.nombre }}">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><b>{{ constants.activo }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="menu.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!menu.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef><b>{{ constants.acciones }}</b></mat-header-cell>
+                <mat-cell *matCellDef="let menu" [attr.data-label]="constants.acciones">
+                  <!-- <button mat-raised-button  (click)="detail(menu)" color="primary" class="m-1">
+                    <mat-icon matTooltip="Detalles" matTooltipPosition="above">open_in_new</mat-icon>
+                  </button> -->
+                  <button mat-raised-button (click)="selected(menu)" [disabled]="disabledButton" color="primary" class="m-1">
+                    <mat-icon matTooltip="Seleccionar" matTooltipPosition="above">check_circle</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-paginator #paginator [length]="datageniaDatasource.counter$ | async"
+                         [pageIndex]="0"
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15]">
+          </mat-paginator>
+
+      </div>
+  </div>
+
+    <mat-dialog-actions fxLayoutAlign="end" fxLayout="row" fxLayout.lt-sm="column">
+      <button class="mb-10" fxFlex="25" fxFlex.lt-sm="100" mat-button color="warn" (click)="cancelar()">
+          <mat-icon class="m-1">clear</mat-icon> {{ constants.cancelar }}
+      </button>
+    </mat-dialog-actions>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ constants.editar }} Lección</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="leccion.id">
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.leyenda }}" formControlName="leyenda"
+          [(ngModel)]="leccion.leyenda" autocomplete="off" type="text" required pattern="^(?!\s*$).+"
+          [ngClass]="{ 'is-invalid': submitted && f.leyenda.errors }" >
+          <div *ngIf="submitted && f.leyenda.errors" class="invalid-feedback">
+            <div *ngIf="f.leyenda.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.leyenda.errors.maxlength">{{ constants.longitud_maxima }} 30 carácteres</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.enumeracion }}" formControlName="enumeracion"
+          [(ngModel)]="leccion.enumeracion" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.enumeracion.errors" class="invalid-feedback">
+            <div *ngIf="f.enumeracion.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.enumeracion.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.puntos }}" formControlName="puntos"
+          [(ngModel)]="leccion.puntos" autocomplete="off" type="number" required>
+          <div *ngIf="submitted && f.puntos.errors" class="invalid-feedback">
+            <div *ngIf="f.puntos.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.puntos.errors.max">{{ constants.valormaximo }} 9</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="leccion.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>
