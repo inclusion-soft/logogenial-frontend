@@ -14,6 +14,11 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { GrupoEstudianteEditComponent } from 'app/admin/grupo-estudiante/grupo-estudiante-edit/grupo-estudiante-edit.component';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
+import {ResultadosPreguntaService } from 'app/admin/dashboard/service/resultados-pregunta.service';
+
+import * as Chartist from 'chartist';
+import { ChartType, ChartEvent } from 'ng-chartist';
+declare var require: any;
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -37,11 +42,15 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort: MatSort = new MatSort;
 
+
   grupoEstudianteDatasource: GrupoEstudianteDatasource<GrupoEstudianteModel>;
   loading = true;
   constants = GRUPO_ESTUDIANTE_CONSTANTS;
   disabledButton = false;
   grupo: GrupoModel = new GrupoModel();
+
+  chart: any;
+  totalHits = 0;
 
   constructor(
     private grupoNivelService: GrupoEstudianteService,
@@ -50,6 +59,7 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
     private utilitiesService: UtilitiesService,
     private tempDataService: TempDataService,
     private nivelService: NivelService,
+    private resultadoPreguntaService: ResultadosPreguntaService,
     private router: Router
     ) {}
 
@@ -59,6 +69,48 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
       this.GrupoEstudianteCriteria.grupo = this.grupo;
       this.grupoEstudianteDatasource = new GrupoEstudianteDatasource(this.grupoNivelService);
       this.cargarGrupoEstudiante();
+      this.cargarHitsResultadosPorEstudiante();
+  }
+
+  cargarHitsResultadosPorEstudiante() {
+    this.resultadoPreguntaService.findAllByUsuarioId(6).subscribe(datos =>  {
+      debugger;
+      const datosPuntaje = [];
+      datosPuntaje.push(datos[0].cantidad);
+      if(datos.length > 1) {
+        datosPuntaje.push(datos[1].cantidad);
+      } else{
+        datosPuntaje.push(0);
+      }
+
+      this.totalHits = datosPuntaje[0] + datosPuntaje[1];
+      this.chart = new Chart('canvas', {
+        type: 'doughnut',
+        data: {
+          labels: ['Aciertos', 'Desaciertos'],
+          datasets: [
+            {
+              data: datosPuntaje,
+              backgroundColor: ['rgba(45, 211, 111, 1)', '#8e5ea2'],
+              fill: false
+            },
+          ]
+        },
+        options: {
+          legend: {
+            display: true
+          },
+          tooltips: {
+            enabled: true
+          },
+          animation: {
+            animateRotate: true
+          }
+        }
+      });
+    }, err => {
+      alert('error cargando datos');
+    });
   }
 
   cargarGrupoEstudiante() {

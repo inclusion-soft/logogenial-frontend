@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title>{{constants.tituloFormAdmin}}
+    <mat-card-title> Estudiantes por grupo
       <div fxLayoutAlign="end">
         <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}" *userHassPermission="constants.rol_administrador">
           <mat-icon class="m-1">note_add</mat-icon>
@@ -8,7 +8,7 @@
     </div>
 
     </mat-card-title>
-    <mat-card-subtitle>{{constants.tituloFormAdmin}}</mat-card-subtitle>
+    <mat-card-subtitle> Estudiantes por grupo</mat-card-subtitle>
 
 
     <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">

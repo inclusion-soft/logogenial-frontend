@@ -20,7 +20,7 @@ const MENUITEMS = [
   { state: 'tema', name: 'Temas', type: 'link', icon: 'batch_prediction', permission: 'TUTOR' },
   { state: 'datagenia', name: 'Datagenias', type: 'link', icon: 'image_search', permission: 'TUTOR' },
   // { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer', permission: 'TUTOR' },
-  { state: 'dashboard-admin', name: 'Dashboard', type: 'link', icon: 'av_timer', permission: 'TUTOR' },
+  { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer', permission: 'TUTOR' },
 ];
 
 @Injectable()
