@@ -67,7 +67,6 @@ export class UsuarioEditComponent implements OnInit{
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(50),
-      //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$')
     ]],
     'repetirPassword': [null, Validators.required],

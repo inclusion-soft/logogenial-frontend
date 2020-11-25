@@ -1,0 +1,84 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{constants.tituloFormAdmin}}
+      <div fxLayoutAlign="end">
+        <button mat-fab (click)="create()" color="primary" matTooltip="{{constants.crearNuevo}}" *userHassPermission="constants.rol_administrador">
+          <mat-icon class="m-1">note_add</mat-icon>
+        </button>
+    </div>
+
+    </mat-card-title>
+    <mat-card-subtitle>{{constants.tituloFormAdmin}}</mat-card-subtitle>
+
+
+    <div *ngIf="loading=== true" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner [diameter]="50" color="primary"></mat-spinner>
+    </div>
+    <div class="">
+
+    </div>
+    <div class="center">
+      <div [hidden]="loading">
+          <mat-table #table [dataSource]="grupoEstudianteDatasource"
+                     matSort
+                     matSortActive="grupo.nombre"
+                     matSortDirection="asc">
+
+              <ng-container matColumnDef="grupo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.grupo}}</strong> </mat-header-cell>
+                  <mat-cell *matCellDef="let grupoEstudiante">
+                     {{grupoEstudiante.grupo.nombre}}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="docente">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.docente}}</strong> </mat-header-cell>
+                <mat-cell *matCellDef="let grupoEstudiante">
+                   {{grupoEstudiante.grupo.usuario.nombre}} {{grupoEstudiante.grupo.usuario.apellido}}
+                </mat-cell>
+            </ng-container>
+
+              <ng-container matColumnDef="estudiante">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{constants.estudiante}}</strong> </mat-header-cell>
+                <mat-cell *matCellDef="let grupoEstudiante">
+                   {{grupoEstudiante.usuarioestudiante.nombre}} {{grupoEstudiante.usuarioestudiante.apellido}}
+                </mat-cell>
+            </ng-container>
+
+              <ng-container matColumnDef="activo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><strong>{{ constants.activo }}</strong></mat-header-cell>
+                <mat-cell *matCellDef="let grupoEstudiante" [attr.data-label]="constants.activo">
+                    <span class="alert alert-danger" [hidden]="grupoEstudiante.activo">{{ constants.no }}</span>
+                    <span class="alert alert-success" [hidden]="!grupoEstudiante.activo">{{ constants.si }}</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef><strong>{{ constants.acciones }}</strong></mat-header-cell>
+                <mat-cell *matCellDef="let grupoEstudiante" [attr.data-label]="constants.acciones">
+                  <button mat-raised-button  (click)="edit(grupoEstudiante)" [disabled]="disabledButton" color="primary" class="m-1"
+                  *userHassPermission="constants.rol_administrador">
+                    <mat-icon matTooltip="Editar" matTooltipPosition="above">edit</mat-icon>
+                  </button>
+                  <button mat-raised-button  (click)="delete(grupoEstudiante)" [disabled]="disabledButton" color="warn" class="m-1"
+                  *userHassPermission="constants.rol_administrador">
+                    <mat-icon matTooltip="Eliminar" matTooltipPosition="above">delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-paginator #paginator [length]="grupoEstudianteDatasource.counter$ | async"
+                         [pageIndex]="0"
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15]">
+          </mat-paginator>
+
+      </div>
+  </div>
+  </mat-card-content>
+</mat-card>
+
