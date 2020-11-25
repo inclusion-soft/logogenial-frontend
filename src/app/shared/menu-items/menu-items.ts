@@ -29,11 +29,13 @@ export class MenuItems {
   getMenuitem(){
     const roles = this.tokenStorage.getRolesUsuario() as string[];
     let itemsMenuConfirmados: ({ state: string; name: string; type: string; icon: string; permission: string; } | { state: string; name: string; type: string; icon: string; permission?: undefined; })[] = [];
-    MENUITEMS.forEach(element => {
-      if( roles.includes(element.permission + '')) {
-        itemsMenuConfirmados.push(element);
-      }
-    });
+    if(roles !== null) {
+      MENUITEMS.forEach(element => {
+        if( roles.includes(element.permission + '')) {
+          itemsMenuConfirmados.push(element);
+        }
+      });
+    }
     return itemsMenuConfirmados;
   }
 }

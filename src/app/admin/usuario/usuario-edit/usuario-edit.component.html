@@ -34,8 +34,9 @@
         <input matInput placeholder="{{ constants.correo }}" formControlName="email"
           [(ngModel)]="usuario.email" autocomplete="off" required>
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">{{ constants.campoRequerido }}</div>
-            <div *ngIf="f.email.errors.max">{{ constants.valormaximo }} 25</div>
+            <div *ngIf="f.password.errors.required">{{ constants.campoRequerido }}</div>
+            <div *ngIf="f.password.errors.max">{{ constants.valormaximo }} 25</div>
+            <div *ngIf="f.password.errors.pattern">{{ constants.formato_correo }}</div>
           </div>
       </mat-form-field>
     </div>
@@ -48,7 +49,8 @@
           [(ngModel)]="usuario.password" autocomplete="off" required>
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">{{ constants.campoRequerido }}</div>
-            <div *ngIf="f.password.errors.max">{{ constants.valormaximo }} 25</div>
+            <div *ngIf="f.password.errors.minlength">{{ constants.valorMinimo }} 8 dígitos</div>
+            <div *ngIf="f.password.errors.pattern">{{ constants.formatoIncorrectoContrasena }}</div>
           </div>
       </mat-form-field>
     </div>
