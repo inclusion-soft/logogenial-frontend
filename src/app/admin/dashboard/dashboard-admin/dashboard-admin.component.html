@@ -1,3 +1,54 @@
+<div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+      <mat-card-content>
+          <div class="d-flex flex-wrap">
+              <div>
+                  <mat-card-title>Actividad reciente</mat-card-title>
+                   <mat-card-subtitle></mat-card-subtitle>
+               </div>
+              <div class="ml-auto">
+                  <ul class="list-inline">
+                      <li>
+                          <h6 class="text-success m-0"><i class="mdi mdi-checkbox-blank-circle font-10 m-r-10 "></i>Correctas</h6> </li>
+                      <li>
+                          <h6 class=" text-info m-0"><i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Incorrectas</h6> </li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="barchrt" style="height:360px;">
+              <x-chartist class="" [data]="barChart1.data" [type]="barChart1.type" [options]="barChart1.options" [responsiveOptions]="barChart1.responsiveOptions"
+                  [events]="barChart1.events"> </x-chartist>
+          </div>
+      </mat-card-content>
+  </mat-card>
+</div>
+<div fxFlex.gt-lg="50" fxFlex.gt-md="50"  fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+      <mat-card-content>
+          <mat-card-title>Hits</mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+          <div class="piechart">
+              <x-chartist class="" [data]="donuteChart1.data" [type]="donuteChart1.type" [options]="donuteChart1.options" [responsiveOptions]="donuteChart1.responsiveOptions"
+                  [events]="donuteChart1.events"> </x-chartist>
+          </div>
+      </mat-card-content>
+      <hr>
+      <mat-card-content>
+          <ul class="list-inline text-center">
+              <li>
+                  <h6 class="text-success m-0">
+                      <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10 "></i>Aciertos</h6>
+              </li>
+              <li>
+                  <h6 class=" text-info  m-0">
+                      <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Desaciertos</h6>
+              </li>
+          </ul>
+      </mat-card-content>
+  </mat-card>
+</div>
+
 <mat-card>
   <mat-card-content>
     <mat-card-title> Estudiantes por grupo

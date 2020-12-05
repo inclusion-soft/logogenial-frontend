@@ -11,7 +11,7 @@ export class ResultadosPreguntaService {
 
   urlService = 'v1/resultado-pregunta-api';
   constructor(private http: HttpClient) {
-    this.urlService = environment.url + this.urlService;
+    //this.urlService = environment.url + this.urlService;
   }
 
   findAllByUsuarioId(usuarioId: number): Observable<any> {

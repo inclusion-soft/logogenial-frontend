@@ -20,6 +20,17 @@ import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 declare var require: any;
 
+const data = require('./data.json');
+
+export interface Chartx {
+	type: ChartType;
+	data: Chartist.IChartistData;
+	options?: any;
+	responsiveOptions?: any;
+	events?: ChartEvent;
+}
+
+
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
@@ -52,6 +63,52 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
   chart: any;
   totalHits = 0;
 
+
+  	// Barchart
+	barChart1: Chartx = {
+		type: 'Bar',
+		data: data['Bar'],
+		options: {
+			seriesBarDistance: 15,
+			high: 12,
+
+			axisX: {
+				showGrid: false,
+				offset: 20
+			},
+			axisY: {
+				showGrid: true,
+				offset: 40
+			},
+			height: 360
+		},
+
+		responsiveOptions: [
+			[
+				'screen and (min-width: 640px)',
+				{
+					axisX: {
+						labelInterpolationFnc: function(value: number,index: number): string {
+							return index % 1 === 0 ? `${value}` : '';
+						}
+					}
+				}
+			]
+		]
+	};
+
+	// This is for the donute chart
+	donuteChart1: Chartx = {
+		type: 'Pie',
+		data: data['Pie'],
+		options: {
+			donut: true,
+			height: 260,
+			showLabel: false,
+			donutWidth: 20
+		}
+	};
+
   constructor(
     private grupoNivelService: GrupoEstudianteService,
     private dialog: MatDialog,
@@ -69,49 +126,49 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
       this.GrupoEstudianteCriteria.grupo = this.grupo;
       this.grupoEstudianteDatasource = new GrupoEstudianteDatasource(this.grupoNivelService);
       this.cargarGrupoEstudiante();
-      this.cargarHitsResultadosPorEstudiante();
+      //this.cargarHitsResultadosPorEstudiante();
   }
 
-  cargarHitsResultadosPorEstudiante() {
-    this.resultadoPreguntaService.findAllByUsuarioId(6).subscribe(datos =>  {
-      debugger;
-      const datosPuntaje = [];
-      datosPuntaje.push(datos[0].cantidad);
-      if(datos.length > 1) {
-        datosPuntaje.push(datos[1].cantidad);
-      } else{
-        datosPuntaje.push(0);
-      }
+  // cargarHitsResultadosPorEstudiante() {
+  //   this.resultadoPreguntaService.findAllByUsuarioId(6).subscribe(datos =>  {
+  //     debugger;
+  //     const datosPuntaje = [];
+  //     datosPuntaje.push(datos[0].cantidad);
+  //     if(datos.length > 1) {
+  //       datosPuntaje.push(datos[1].cantidad);
+  //     } else{
+  //       datosPuntaje.push(0);
+  //     }
 
-      this.totalHits = datosPuntaje[0] + datosPuntaje[1];
-      this.chart = new Chart('canvas', {
-        type: 'doughnut',
-        data: {
-          labels: ['Aciertos', 'Desaciertos'],
-          datasets: [
-            {
-              data: datosPuntaje,
-              backgroundColor: ['rgba(45, 211, 111, 1)', '#8e5ea2'],
-              fill: false
-            },
-          ]
-        },
-        options: {
-          legend: {
-            display: true
-          },
-          tooltips: {
-            enabled: true
-          },
-          animation: {
-            animateRotate: true
-          }
-        }
-      });
-    }, err => {
-      alert('error cargando datos');
-    });
-  }
+  //     this.totalHits = datosPuntaje[0] + datosPuntaje[1];
+  //     this.chart = new Chartx('canvas', {
+  //       type: 'doughnut',
+  //       data: {
+  //         labels: ['Aciertos', 'Desaciertos'],
+  //         datasets: [
+  //           {
+  //             data: datosPuntaje,
+  //             backgroundColor: ['rgba(45, 211, 111, 1)', '#8e5ea2'],
+  //             fill: false
+  //           },
+  //         ]
+  //       },
+  //       options: {
+  //         legend: {
+  //           display: true
+  //         },
+  //         tooltips: {
+  //           enabled: true
+  //         },
+  //         animation: {
+  //           animateRotate: true
+  //         }
+  //       }
+  //     });
+  //   }, err => {
+  //     alert('error cargando datos');
+  //   });
+  // }
 
   cargarGrupoEstudiante() {
     this.nivelService.findAll().subscribe( (data: NivelModel[]) => {

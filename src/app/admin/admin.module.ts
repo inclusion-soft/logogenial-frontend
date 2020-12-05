@@ -35,6 +35,7 @@ import { UsuarioAdminComponent } from './usuario/usuario-admin/usuario-admin.com
 import { UsuarioEditComponent } from './usuario/usuario-edit/usuario-edit.component';
 import { ArrayListPipe } from './pipe/array-list.pipe';
 import { DashboardAdminComponent } from './dashboard/dashboard-admin/dashboard-admin.component';
+import { ChartistModule } from 'ng-chartist';
 
 export const AdminRoutes: Routes = [
   {
@@ -108,6 +109,7 @@ export const AdminRoutes: Routes = [
     FormsModule,
     MatSelectFilterModule,
     NgxMatSelectSearchModule,
+    ChartistModule,
     RouterModule.forChild(AdminRoutes)
   ]
 })
