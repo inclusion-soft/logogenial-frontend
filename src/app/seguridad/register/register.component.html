@@ -68,7 +68,7 @@
         <mat-form-field class="example-full-width">
           <mat-label>Quiero ser...</mat-label>
           <mat-select [(value)]="selected" formControlName="rol" [(ngModel)]="userLogin.rol">
-            <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
+            <mat-option [value]="roles" *ngFor="let roles of ListaRoles">{{roles}}
             </mat-option>
           </mat-select>
           <mat-error  *ngIf="submitted && registerForm.controls['roles'].invalid">

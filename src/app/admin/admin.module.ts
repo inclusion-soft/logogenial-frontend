@@ -34,6 +34,8 @@ import { HassPermissionDirective } from 'app/administracion/directivas/hass-perm
 import { UsuarioAdminComponent } from './usuario/usuario-admin/usuario-admin.component';
 import { UsuarioEditComponent } from './usuario/usuario-edit/usuario-edit.component';
 import { ArrayListPipe } from './pipe/array-list.pipe';
+import { DashboardAdminComponent } from './dashboard/dashboard-admin/dashboard-admin.component';
+import { ChartistModule } from 'ng-chartist';
 
 export const AdminRoutes: Routes = [
   {
@@ -80,6 +82,11 @@ export const AdminRoutes: Routes = [
     path: 'grupo-estudiante',
       component: GrupoEstudianteAdminComponent,
       canActivate: [AuthGuardService]
+  },
+  {
+    path: 'dashboard-admin',
+      component: DashboardAdminComponent,
+      canActivate: [AuthGuardService]
   }
 ];
 
@@ -92,7 +99,7 @@ export const AdminRoutes: Routes = [
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
     GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent,
     PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent,
-    GrupoEstudianteEditComponent, HassPermissionDirective, UsuarioAdminComponent, UsuarioEditComponent, ArrayListPipe
+    GrupoEstudianteEditComponent, HassPermissionDirective, UsuarioAdminComponent, UsuarioEditComponent, ArrayListPipe, DashboardAdminComponent
   ],
   imports: [
     CommonModule,
@@ -102,6 +109,7 @@ export const AdminRoutes: Routes = [
     FormsModule,
     MatSelectFilterModule,
     NgxMatSelectSearchModule,
+    ChartistModule,
     RouterModule.forChild(AdminRoutes)
   ]
 })
