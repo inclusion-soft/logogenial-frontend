@@ -15,6 +15,11 @@
     }
   ],
   "compilerOptions": {
+    "baseUrl": "./",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "experimentalDecorators": true,
     "allowJs": true,
     "declaration": false,
