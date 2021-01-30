@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { CollectionResponse } from '../../shared/collection-response';
-import { environment } from '../../../../environments/environment';
+import { environment } from 'environments/environment';
 import { GrupoEstudianteModel } from '../model/grupo-estudiante-model';
 import { GrupoEstudianteCriteria } from '../model/grupo-estudiante-criteria';
 
