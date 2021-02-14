@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
         nombre: this.selected
       };
       this.userLogin.roles.push(rol);
-      this.service.register(this.userLogin).subscribe(
+      this.service.registrarSinSeguridad(this.userLogin).subscribe(
         data => {
           this.status = 'finalizado';
           // Realiza login usuario

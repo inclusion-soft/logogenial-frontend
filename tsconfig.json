@@ -20,6 +20,7 @@
       "es2018",
       "dom"
     ],
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
     "declaration": false,
