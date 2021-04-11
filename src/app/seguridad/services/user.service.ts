@@ -19,7 +19,7 @@ export class UserService {
     return this.http.post<any>(endPoint, data);
   }
 
-  registerBasic(data: UsuarioModel): Observable<any> {
+  registrarSinSeguridad(data: UsuarioModel): Observable<any> {
     const endPoint = this.urlService + '/create';
     return this.http.post<any>(endPoint, data);
   }

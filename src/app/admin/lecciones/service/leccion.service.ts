@@ -1,7 +1,7 @@
+import { environment} from 'environments/environment'
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { LeccionModel } from '../model/leccion-model';
 
 const httpOptions = {

@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private service: UserService,
     private _authService: AuthService,
-    
+
     private _tokenStorageService: TokenStorageService,
     private _router: Router,
     private snackBar: MatSnackBar,
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
         nombre: this.selected
       };
       this.userLogin.roles.push(rol);
-      this.service.registerBasic(this.userLogin).subscribe(
+      this.service.registrarSinSeguridad(this.userLogin).subscribe(
         data => {
           this.status = 'finalizado';
           // Realiza login usuario
