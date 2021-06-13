@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+
+ constructor(){
+  console.log('Produccion = ' + environment.production);
+ }
+}
