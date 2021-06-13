@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { CollectionResponse } from '../../shared/collection-response';
-import { environment } from '../../../../environments/environment';
+import { environment } from 'environments/environment';
 import { GrupoNivelCriteria } from '../model/grupo-nivel-criteria';
 import { GrupoNivelModel } from '../model/grupo-nivel-model';
 

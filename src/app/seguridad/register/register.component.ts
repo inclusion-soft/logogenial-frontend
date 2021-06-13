@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private service: UserService,
     private _authService: AuthService,
+
     private _tokenStorageService: TokenStorageService,
     private _router: Router,
     private snackBar: MatSnackBar,
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   userLogin: UsuarioModel = new UsuarioModel();
+
   registerForm!: FormGroup;
   submitted = false;
   url = 'https://www.positronx.io';
@@ -55,11 +57,10 @@ export class RegisterComponent implements OnInit {
       //this.submitted = true;
       this.userLogin.roles = [];
       const rol =  {
-        id: 0,
         nombre: this.selected
       };
       this.userLogin.roles.push(rol);
-      this.service.register(this.userLogin).subscribe(
+      this.service.registrarSinSeguridad(this.userLogin).subscribe(
         data => {
           this.status = 'finalizado';
           // Realiza login usuario
