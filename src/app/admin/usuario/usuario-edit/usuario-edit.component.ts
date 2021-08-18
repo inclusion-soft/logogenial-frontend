@@ -1,3 +1,4 @@
+import { RolModel } from './../../../seguridad/models/rol-model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioModel } from 'app/seguridad/models/usuario-model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -35,12 +36,16 @@ export class UsuarioEditComponent implements OnInit{
     private grupoService: GrupoService,
     @Inject(MAT_DIALOG_DATA) data: any) {
       this.usuario = data.itemData;
+      this.usuario.listaRoles = [];
     }
 
   ngOnInit(): void {
     this.initForm();
     if (this.usuario.id > 0) {
       this.clone = JSON.parse(JSON.stringify(this.usuario));
+      this.usuario.roles.forEach( (rol: RolModel) => {
+        this.usuario.listaRoles.push(rol.nombre);
+      }, this.usuario);
     }else {
       this.usuario.id = 0;
       this.usuario.avatar = 'av-1.png';
@@ -70,11 +75,17 @@ export class UsuarioEditComponent implements OnInit{
       Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$')
     ]],
     'repetirPassword': [null, Validators.required],
-    'roles': [null, Validators.required]
+    'roles': [null, null],
+    'listaRoles': [null, Validators.required]
    });
-   this.form.get('activo')!.setValue(this.usuario.activo);
-   this.form.get('avatar')!.setValue(this.usuario.avatar);
+   this.copiarDatosFOrmulario();
 
+  }
+
+  copiarDatosFOrmulario(){
+    this.form.get('activo')!.setValue(this.usuario.activo);
+   this.form.get('avatar')!.setValue(this.usuario.avatar);
+   this.form.get('listaRoles')!.setValue(this.usuario.listaRoles);
   }
 
 
@@ -101,10 +112,12 @@ export class UsuarioEditComponent implements OnInit{
     this.markFormGroupTouched(this.form);
     // se actualizan las listas con el model
     this.usuario = this.form.value;
-    // if (this.form.value.listatipopregunta !== undefined) {
-    //   this.form.get('tipopregunta')!.setValue(this.form.value.listatipopregunta.id);
-    // }
     if (this.form.valid === true) {
+      this.usuario.roles = []
+      this.usuario.username = this.usuario.email;
+      this.usuario.listaRoles.forEach(element  => {
+        this.usuario.roles.push( { id: 0, nombre: element });
+      }, this.usuario);
       // this.enviada = true;
       // this.disabledBtn_Login = true;
       this.save();
