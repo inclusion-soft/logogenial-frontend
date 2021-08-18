@@ -71,7 +71,7 @@
     <div class="item" fxFlex>
       <mat-label> Roles * </mat-label>
 
-        <mat-selection-list formControlName="roles">
+        <mat-selection-list formControlName="listaRoles">
           <mat-list-option *ngFor="let list of listaRoles" [selected]="roles.indexOf(list) > -1" [value]="list">{{list}}</mat-list-option>
         </mat-selection-list>
 

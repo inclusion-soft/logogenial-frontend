@@ -1,3 +1,4 @@
+import { RolModel } from './rol-model';
 export class UsuarioModel {
   id!: number;
   nombre!: string;
@@ -9,5 +10,10 @@ export class UsuarioModel {
   rol: string;
   avatar: string;
   activo: boolean;
-  roles: any[];
+  roles: RolModel[];
+  listaRoles: any[];
+  constructor(){
+    this.listaRoles = [];
+    this.roles = []
+  }
 }
