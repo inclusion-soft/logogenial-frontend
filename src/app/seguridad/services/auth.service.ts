@@ -12,7 +12,7 @@ import { UserLogin } from '../models/user-login';
 export class AuthService {
   urlService = 'api/auth/login';
   constructor(private http: HttpClient) {
-    this.urlService = environment.apiUrl + this.urlService;
+    this.urlService = environment.apiAutenticadorUrl + this.urlService;
   }
   attemptAuth(credentials: UserLogin): Observable<any> {
     const endPoint = this.urlService;

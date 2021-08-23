@@ -93,7 +93,7 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon-puzle.ico"
             ]
           }
         },

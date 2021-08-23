@@ -12,7 +12,7 @@ import { CollectionResponse } from 'app/admin/shared/collection-response';
 export class UserService {
     urlService = 'v1/usuario-api';
     constructor(private http: HttpClient) {
-    this.urlService = environment.apiUrl + this.urlService;
+    this.urlService = environment.apiAutenticadorUrl + this.urlService;
   }
   register(data: UsuarioModel): Observable<any> {
     const endPoint = this.urlService + '/createSecure';

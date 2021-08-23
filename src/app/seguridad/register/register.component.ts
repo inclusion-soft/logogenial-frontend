@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
       //this.submitted = true;
       this.userLogin.roles = [];
       const rol =  {
+        id: 0,
         nombre: this.selected
       };
       this.userLogin.roles.push(rol);
