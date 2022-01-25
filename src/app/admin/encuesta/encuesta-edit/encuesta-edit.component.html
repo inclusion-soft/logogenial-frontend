@@ -1,1 +1,82 @@
-<p>encuesta-edit works!</p>
+<h2 mat-dialog-title>{{ constants.editar }} Encuesta</h2>
+<p></p>
+
+<mat-dialog-content [formGroup]="form">
+  <input type="hidden" formControlName="id" [(ngModel)]="encuesta.id">
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.numeroDocumento }}" formControlName="numeroDocumento"
+          [(ngModel)]="encuesta.numeroDocumento" autocomplete="off" required>
+          <div *ngIf="submitted && f.numeroDocumento.errors" class="invalid-feedback">
+            <div *ngIf="f.numeroDocumento.errors.required">{{ constants.campoRequerido }}</div>
+            <!-- <div *ngIf="f.numeroDocumento.errors.max">{{ constants.valormaximo }} 25</div> -->
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.correo }}" formControlName="email"
+          [(ngModel)]="encuesta.email" autocomplete="off" required>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">{{ constants.campoRequerido }}</div>
+            <!-- <div *ngIf="f.password.errors.max">{{ constants.valormaximo }} 25</div> -->
+            <div *ngIf="f.password.errors.pattern">{{ constants.formato_correo }}</div>
+          </div>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0">
+
+    <div class="item" fxFlex>
+      <mat-form-field class="w-50">
+        <input matInput placeholder="{{ constants.comentarios }}" formControlName="comentarios"
+          [(ngModel)]="encuesta.comentarios" autocomplete="off" required>
+          <div *ngIf="submitted && f.comentarios.errors" class="invalid-feedback">
+            <div *ngIf="f.comentarios.errors.required">{{ constants.campoRequerido }}</div>
+            <!-- <div *ngIf="f.comentarios.errors.max">{{ constants.valormaximo }} 25</div> -->
+          </div>
+      </mat-form-field>
+    </div>
+
+    <div class="item" fxFlex>
+        <mat-form-field>
+          <mat-select formControlName="marca">
+            <mat-option *ngFor="let marca of marcaList" [value]="marca">
+            {{marca.nombre}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && f.marca.errors">
+          <div *ngIf="f.marca.errors.required">{{ constants.campoRequerido }}</div>
+        </mat-error>
+        </mat-form-field>
+    </div>
+
+  </div>
+
+<p></p>
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+    <div class="item" fxFlex="50%">
+      <mat-checkbox formControlName="activo" name="activo" [(value)]="encuesta.activo" id="activo">{{ constants.activo }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-divider class="mat-divider mat-divider-horizontal"></mat-divider>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="close()">
+    <mat-icon class="m-1">close</mat-icon>{{ constants.cancelar }}
+  </button>
+  <button mat-raised-button [disabled]="disableSubmit" color="primary" (click)="onSubmit()">
+    <mat-icon class="m-1">save</mat-icon>{{ constants.guardar }}
+  </button>
+</mat-dialog-actions>
+

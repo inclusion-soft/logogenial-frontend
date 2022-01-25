@@ -9,11 +9,12 @@ import { tap } from 'rxjs/operators';
 import { EncuestaEditComponent } from '../encuesta-edit/encuesta-edit.component';
 // import { EncuestaService } from 'app/seguridad/services/user.service';
 import { EncuestaDatasource } from '../service/encuesta-datasource';
-import { ArrayListPipe } from 'app/admin/pipe/array-list.pipe';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EncuestaModel } from '../model/encuesta-model';
 import { EncuestaService } from '../service/encuesta.service';
 import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
+import { MarcaModel } from '../model/marca-model';
+import {MarcaService} from '../../../marca/service/marca.service';
 
 @Component({
   selector: 'app-encuesta-list',
@@ -25,6 +26,7 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
   MyDataSource: any;
   EncuestaCriteria: EncuestaCriteria = new EncuestaCriteria();
   Encuesta: EncuestaModel = new EncuestaModel();
+  marcaList: MarcaModel[] = [];
   displayedColumns = [
       //'nombreencuesta',
       'numeroDocumento',
@@ -48,6 +50,7 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private encuestaService: EncuestaService,
+    private marcaService: MarcaService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private utilitiesService: UtilitiesService,
@@ -60,6 +63,13 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
       const grupoSerializado =  this.tempDataService.getDataNivel1();
       this.encuestaDatasource = new EncuestaDatasource(this.encuestaService);
       this.initForm();
+      this.cargarTemas();
+  }
+
+  cargarTemas() {
+    this.marcaService.findAll().subscribe( (data: MarcaModel[]) => {
+      this.marcaList = data;
+    });
   }
 
   initForm() {
@@ -100,21 +110,6 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
       this.encuestaDatasource.search(this.EncuestaCriteria);
   }
 
-  // asignarFiltrosACriterios(): void {
-  //   if(this.filterForm.get('nombreencuesta')?.value != null){
-  //     this.EncuestaCriteria.nombreencuesta = this.filterForm.get('nombreencuesta')?.value;
-  //   }
-  //   if(this.filterForm.get('correo')?.value != null){
-  //     this.EncuestaCriteria.correo = this.filterForm.get('correo')?.value;
-  //   }
-  //   if(this.filterForm.get('nombre')?.value != null){
-  //     this.EncuestaCriteria.nombre = this.filterForm.get('nombre')?.value;
-  //   }
-  //   if(this.filterForm.get('apellido')?.value != null){
-  //     this.EncuestaCriteria.apellido = this.filterForm.get('apellido')?.value;
-  //   }
-  // }
-
   create(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'edit-modalbox';
@@ -123,7 +118,8 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
     const newEncuesta = new EncuestaModel();
     const dataParam = {
-      itemData: newEncuesta
+      itemData: newEncuesta,
+      marcaList: this.marcaList
     };
     dialogConfig.data = dataParam;
 
