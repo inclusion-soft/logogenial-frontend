@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Pipe, PipeTransform } from '@angular/core';
 import { EncuestaCriteria } from '../model/encuesta-criteria';
-import { MatPaginator, MatSort, MatDialog, MatSnackBar, MatDialogConfig } from '@angular/material';
+import { MatPaginator, MatSort, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { CONSTANTS_SHARED } from 'app/admin/shared/constants-shared';
 import { UtilitiesService } from 'app/admin/shared/services/utilities.service';
 import { TempDataService } from 'app/admin/shared/services/temp-data.service';
@@ -13,12 +13,12 @@ import { ArrayListPipe } from 'app/admin/pipe/array-list.pipe';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EncuestaModel } from '../model/encuesta-model';
 import { EncuestaService } from '../service/encuesta.service';
+import { GeneralConfirmComponent } from 'app/admin/shared/components/general-confirm/general-confirm.component';
 
 @Component({
   selector: 'app-encuesta-list',
   templateUrl: './encuesta-list.component.html',
-  styleUrls: ['./encuesta-list.component.css'],
-  providers: [ ArrayListPipe ]
+  styleUrls: ['./encuesta-list.component.css']
 })
 export class EncuestaListComponent implements OnInit, AfterViewInit {
   titulo = 'Gestión de encuestas';
@@ -139,24 +139,29 @@ export class EncuestaListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  edit(encuesta: EncuestaModel): void {
+  delete(menu: EncuestaModel): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.panelClass = 'edit-modalbox';
-    dialogConfig.width = '70%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    const dataParam = {
-      itemData: encuesta
-    };
-    dialogConfig.data = dataParam;
+    dialogConfig.data = menu;
 
-    const dialogRef = this.dialog.open(EncuestaEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(
+    const dialogRef = this.dialog.open(GeneralConfirmComponent, dialogConfig);
+    // const _this = this;
+    dialogRef.beforeClosed().subscribe(
       (val: any) => {
         if (val) {
-          this.utilitiesService.formSuccessUpdateMessage(this.snackBar);
-          this.searchData();
+          this.disabledButton = true;
+          this.encuestaService.delete(val).subscribe(
+            () => {
+              this.disabledButton = false;
+              this.utilitiesService.actionSuccessDeleteMessage(this.snackBar);
+              this.searchData();
+            },
+            error => {
+              this.disabledButton = false;
+              this.utilitiesService.actionErrorMessages(error, this.snackBar);
+            }
+          );
         }
       }
     );

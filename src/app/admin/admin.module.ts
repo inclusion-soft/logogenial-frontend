@@ -38,6 +38,7 @@ import { DashboardAdminComponent } from './dashboard/dashboard-admin/dashboard-a
 import { ChartistModule } from 'ng-chartist';
 import { EncuestaListComponent } from './encuesta/encuesta-list/encuesta-list.component';
 import { EncuestaEditComponent } from './encuesta/encuesta-edit/encuesta-edit.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export const AdminRoutes: Routes = [
   {
@@ -119,6 +120,10 @@ export const AdminRoutes: Routes = [
     NgxMatSelectSearchModule,
     ChartistModule,
     RouterModule.forChild(AdminRoutes)
+  ],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class AdminModule { }
