@@ -11,6 +11,7 @@ export interface Menu {
 
 const MENUITEMS = [
   { state: 'usuarios', name: 'Gestión usuarios', type: 'link', icon: 'supervisor_account', permission: 'ADMINISTRADOR' },
+  { state: 'encuesta', name: 'Encuestas', type: 'link', icon: 'image_search', permission: 'ADMINISTRADOR' },
   { state: 'grupo-estudiante', name: 'Asignación estudiantes', type: 'link', icon: 'face', permission: 'TUTOR' },
   { state: 'lecciones', name: 'Lecciones', type: 'link', icon: 'account_tree', permission: 'TUTOR' },
   { state: 'grupo-nivel-tema', name: 'Temas por nivel', type: 'link', icon: 'alt_route', permission: 'TUTOR' },

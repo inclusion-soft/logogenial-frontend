@@ -24,7 +24,7 @@
     "experimentalDecorators": true,
     "allowJs": true,
     "declaration": false,
-    "emitDecoratorMetadata": true,
+    //"emitDecoratorMetadata": true,
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
   }

@@ -36,8 +36,15 @@ import { UsuarioEditComponent } from './usuario/usuario-edit/usuario-edit.compon
 import { ArrayListPipe } from './pipe/array-list.pipe';
 import { DashboardAdminComponent } from './dashboard/dashboard-admin/dashboard-admin.component';
 import { ChartistModule } from 'ng-chartist';
+import { EncuestaListComponent } from './encuesta/encuesta-list/encuesta-list.component';
+import { EncuestaEditComponent } from './encuesta/encuesta-edit/encuesta-edit.component';
 
 export const AdminRoutes: Routes = [
+  {
+    path: 'encuesta',
+      component: EncuestaListComponent,
+      canActivate: [AuthGuardService]
+  },
   {
     path: 'usuarios',
       component: UsuarioAdminComponent,
@@ -99,7 +106,8 @@ export const AdminRoutes: Routes = [
     GrupoAdminComponent, GrupoEditComponent, GrupoNivelTemaAdminComponent, GrupoNivelTemaEditComponent,
     GrupoNivelEditComponent, GrupoNivelAdminComponent, LeccionAdminComponent, LeccionEditComponent,
     PreguntaEditComponent, DatageniaSelectComponent, OpcionRespuestaEditComponent, GrupoEstudianteAdminComponent,
-    GrupoEstudianteEditComponent, HassPermissionDirective, UsuarioAdminComponent, UsuarioEditComponent, ArrayListPipe, DashboardAdminComponent
+    GrupoEstudianteEditComponent, HassPermissionDirective, UsuarioAdminComponent, UsuarioEditComponent, ArrayListPipe, DashboardAdminComponent,
+    EncuestaListComponent, EncuestaEditComponent
   ],
   imports: [
     CommonModule,
