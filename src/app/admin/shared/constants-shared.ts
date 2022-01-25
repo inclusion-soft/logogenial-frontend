@@ -114,6 +114,8 @@ export const CONSTANTS_SHARED = {
   noRadicado: 'El radicado no fue encontrado',
   noResultados: 'No se encuentran resultados.',
   noResultadosEstado: 'No se encuentran resultados para este estado.',
+  numeroDocumento: 'Número de documento',
+  comentarios: 'Comentarios',
   nombre: 'Nombre',
   apellido: 'Apellido',
   correo: 'Correo electrónico',

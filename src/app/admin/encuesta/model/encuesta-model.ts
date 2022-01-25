@@ -2,10 +2,11 @@ import { MarcaModel } from "./marca-model";
 
 export class EncuestaModel {
     id = 0;
-    nombre!: string;
-    anio!: number;
+    numeroDocumento!: string;
+    comentarios!: string;
+    email!: string;
     activo!: boolean;
-    usuario!: MarcaModel;
+    marca!: MarcaModel;
     public constructor() {
       this.activo = true;
     }

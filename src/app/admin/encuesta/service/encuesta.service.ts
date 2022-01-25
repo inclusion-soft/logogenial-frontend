@@ -41,10 +41,5 @@ export class EncuestaService  {
     delete (encuestaId: number): Observable<EncuestaModel> {
       return this.http.delete<EncuestaModel>(this.urlService + '/' + encuestaId);
     }
-
-    findAllByDocenteId(id: number): Observable<EncuestaModel[]> {
-      const endpoint = this.urlService +  '/findAllByDocenteId/'+ id;
-      return this.http.get<EncuestaModel[]>(endpoint);
-    }
 }
 

@@ -17,7 +17,7 @@ export class EncuestaCriteria extends EncuestaModel {
   /** Filtro de cantidad de registros por página */
   public size = 10;
   /** nombre de la columna por la cual se realizará el ordenamiento */
-  public sortBy = 'nombre';
+  public sortBy = 'numeroDocumento';
   /** tipo de ordenamiento de la grilla */
   public sortOrder = 'asc';
 
@@ -26,12 +26,14 @@ export class EncuestaCriteria extends EncuestaModel {
   /** Método encargado de crear uns instancia vacía del componente */
   constructor() {
       super();
-      this.nombre = '';
+      this.numeroDocumento = '';
+      this.comentarios = '';
+      this.email = '';
   }
 
   /** Método encargado de construir el json de consulta de información para el servicio */
   public getUrlParameters(): string {
-    return 'nombre=' + this.nombre +
+    return 'numeroDocumento=' + this.numeroDocumento +
       // '&activo=' + this.activo +
       '&page=' + (this.page) +
       '&size=' + this.size +
